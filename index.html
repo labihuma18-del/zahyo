@@ -1,0 +1,2583 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAHYO — Estudio de Arquitectura</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Inconsolata:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           ZAHYO — DESIGN SYSTEM — WARM EDITION
+        ============================================================ */
+        :root {
+            --terracotta: #B5451B;
+            --terracotta-bright: #D0551F;
+            --terracotta-dim: #7A2E10;
+            --terracotta-glow: rgba(181,69,27,0.18);
+            --ember: #E8763A;
+            --sand: #C4A882;
+            --sand-light: #D9C4A8;
+            --ink: #1A1208;
+            --dark: #120E07;
+            --dark2: #1E1710;
+            --dark3: #2A2118;
+            --warm-gray: #4A3F32;
+            --warm-mid: #7A6A58;
+            --warm-light: #B8A898;
+            --warm-white: #F5EFE6;
+            --parchment: rgba(196,168,130,0.08);
+            --parchment2: rgba(196,168,130,0.14);
+            --parchment3: rgba(196,168,130,0.22);
+            --glass-border: rgba(196,168,130,0.18);
+            --glass-blur: blur(20px);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --font-mono: 'Inconsolata', monospace;
+            --r-sm: 8px;
+            --r-md: 14px;
+            --r-lg: 22px;
+            --r-xl: 36px;
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--warm-white);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.75;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--terracotta);
+            border-radius: 2px;
+        }
+
+        ::selection {
+            background: var(--terracotta);
+            color: var(--warm-white);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 7vw, 6.5rem);
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 3.2rem);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+        }
+
+        p {
+            color: var(--warm-light);
+            max-width: 65ch;
+        }
+
+        .label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--ember);
+        }
+
+        .section-header {
+            margin-bottom: 3.5rem;
+        }
+
+            .section-header .label {
+                margin-bottom: 0.75rem;
+                display: block;
+            }
+
+            .section-header h2 {
+                margin-bottom: 1rem;
+            }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 3rem);
+        }
+
+        section {
+            padding: clamp(4rem, 8vw, 8rem) 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 2rem;
+            border-radius: var(--r-xl);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-bright));
+            color: var(--warm-white);
+            box-shadow: 0 4px 20px rgba(181,69,27,0.3);
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, var(--terracotta-bright), var(--ember));
+                transform: translateY(-2px);
+                box-shadow: 0 12px 32px rgba(181,69,27,0.45);
+            }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--warm-white);
+            border: 1px solid var(--glass-border);
+        }
+
+            .btn-ghost:hover {
+                background: var(--parchment2);
+                border-color: var(--sand);
+            }
+
+        .glass {
+            background: var(--parchment);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--r-lg);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--glass-border);
+        }
+
+        /* ── PARTICLE CANVAS ──────────────────────── */
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.55;
+        }
+
+        /* ============================================================
+           NAVIGATION
+        ============================================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 clamp(1.25rem, 4vw, 3rem);
+            background: rgba(26, 18, 8, 0.82);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--warm-white);
+            text-decoration: none;
+        }
+
+            .nav-logo span {
+                color: var(--ember);
+            }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+            .nav-links a {
+                color: var(--warm-light);
+                text-decoration: none;
+                font-size: 0.82rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                transition: var(--transition);
+                position: relative;
+            }
+
+                .nav-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -4px;
+                    left: 0;
+                    width: 0;
+                    height: 1px;
+                    background: var(--ember);
+                    transition: width 0.3s ease;
+                }
+
+                .nav-links a:hover {
+                    color: var(--warm-white);
+                }
+
+                    .nav-links a:hover::after {
+                        width: 100%;
+                    }
+
+        .nav-cta {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+            .hamburger span {
+                display: block;
+                width: 24px;
+                height: 1.5px;
+                background: var(--warm-white);
+                transition: var(--transition);
+            }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 68px 0 0 0;
+            background: rgba(18, 14, 7, 0.97);
+            backdrop-filter: blur(32px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            z-index: 999;
+        }
+
+            .mobile-nav.open {
+                display: flex;
+            }
+
+            .mobile-nav a {
+                font-family: var(--font-display);
+                font-size: 2rem;
+                color: var(--warm-white);
+                text-decoration: none;
+                transition: var(--transition);
+            }
+
+                .mobile-nav a:hover {
+                    color: var(--ember);
+                }
+
+        /* ============================================================
+           HERO
+        ============================================================ */
+        .hero {
+            min-height: 100dvh;
+            display: grid;
+            place-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 68px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 65% 55% at 72% 58%, rgba(181,69,27,0.16) 0%, transparent 65%), radial-gradient(ellipse 45% 65% at 18% 32%, rgba(232,118,58,0.08) 0%, transparent 60%), radial-gradient(ellipse 80% 40% at 50% 100%, rgba(181,69,27,0.1) 0%, transparent 50%);
+        }
+
+        /* warm fibrous texture overlay */
+        .hero-texture {
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient( 15deg, transparent, transparent 60px, rgba(196,168,130,0.015) 60px, rgba(196,168,130,0.015) 61px ), repeating-linear-gradient( -15deg, transparent, transparent 60px, rgba(196,168,130,0.015) 60px, rgba(196,168,130,0.015) 61px );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 920px;
+            padding: 0 1.5rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.45rem 1.4rem;
+            border-radius: 99px;
+            background: rgba(181,69,27,0.12);
+            border: 1px solid rgba(181,69,27,0.3);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--sand-light);
+            margin-bottom: 2.5rem;
+            animation: fadeUp 0.8s ease both;
+        }
+
+            .hero-badge::before {
+                content: '';
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: var(--ember);
+                animation: pulse 2s infinite;
+            }
+
+        .hero-title {
+            animation: fadeUp 0.8s 0.1s ease both;
+            margin-bottom: 0.4rem;
+        }
+
+            .hero-title em {
+                font-style: italic;
+                color: var(--ember);
+            }
+
+        .hero-sub {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2.5vw, 1.55rem);
+            font-weight: 400;
+            color: var(--warm-light);
+            font-style: italic;
+            margin-bottom: 2.5rem;
+            animation: fadeUp 0.8s 0.2s ease both;
+        }
+
+        .hero-tagline {
+            font-size: 0.9rem;
+            color: var(--warm-mid);
+            letter-spacing: 0.05em;
+            margin-bottom: 3rem;
+            animation: fadeUp 0.8s 0.3s ease both;
+        }
+
+            .hero-tagline strong {
+                color: var(--warm-white);
+                font-weight: 700;
+            }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s 0.4s ease both;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm-mid);
+            animation: fadeUp 0.8s 0.8s ease both;
+        }
+
+        .hero-scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(var(--terracotta), transparent);
+            animation: scrollLine 2s ease infinite;
+        }
+
+        /* ============================================================
+           ABOUT
+        ============================================================ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            padding: 1.5rem;
+            border-radius: var(--r-md);
+            border: 1px solid var(--glass-border);
+            background: var(--parchment);
+            transition: var(--transition);
+        }
+
+            .value-card:hover {
+                border-color: rgba(181,69,27,0.45);
+                background: rgba(181,69,27,0.07);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 32px rgba(181,69,27,0.12);
+            }
+
+        .value-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--r-sm);
+            background: rgba(181,69,27,0.18);
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .value-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .value-card p {
+            font-size: 0.8rem;
+            max-width: 100%;
+            color: var(--warm-mid);
+            line-height: 1.6;
+        }
+
+        .mission-block {
+            padding: 2rem 2.5rem;
+            border-radius: var(--r-lg);
+            border: 1px solid var(--glass-border);
+            background: var(--parchment);
+            margin-bottom: 1.5rem;
+        }
+
+            .mission-block .label {
+                margin-bottom: 1rem;
+                display: block;
+            }
+
+            .mission-block p {
+                font-family: var(--font-display);
+                font-size: 1.1rem;
+                font-weight: 400;
+                font-style: italic;
+                color: var(--warm-light);
+                max-width: 100%;
+                line-height: 1.9;
+            }
+
+        /* ============================================================
+           SERVICES
+        ============================================================ */
+        .services {
+            background: var(--dark2);
+        }
+
+        .services-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .tab-btn {
+            padding: 0.6rem 1.4rem;
+            border-radius: 99px;
+            border: 1px solid var(--glass-border);
+            background: transparent;
+            color: var(--warm-mid);
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 0.04em;
+        }
+
+            .tab-btn.active, .tab-btn:hover {
+                background: linear-gradient(135deg, var(--terracotta), var(--terracotta-bright));
+                border-color: var(--terracotta);
+                color: var(--warm-white);
+            }
+
+        .services-panel {
+            display: none;
+        }
+
+            .services-panel.active {
+                display: block;
+            }
+
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--r-md);
+            border: 1px solid var(--glass-border);
+            background: var(--parchment);
+            transition: var(--transition);
+        }
+
+            .service-item:hover {
+                border-color: rgba(181,69,27,0.4);
+                background: rgba(181,69,27,0.05);
+                transform: translateX(4px);
+            }
+
+        .service-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--ember);
+            margin-top: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        .service-item span {
+            font-size: 0.88rem;
+            color: var(--warm-light);
+            line-height: 1.5;
+        }
+
+        .special-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .special-card {
+            padding: 2rem;
+            border-radius: var(--r-lg);
+            border: 1px solid rgba(181,69,27,0.3);
+            background: rgba(181,69,27,0.05);
+            transition: var(--transition);
+        }
+
+            .special-card:hover {
+                background: rgba(181,69,27,0.1);
+                transform: translateY(-4px);
+                box-shadow: 0 16px 40px rgba(181,69,27,0.18);
+            }
+
+            .special-card h3 {
+                margin-bottom: 0.75rem;
+            }
+
+            .special-card p {
+                font-size: 0.85rem;
+                max-width: 100%;
+            }
+
+        /* ============================================================
+           PORTFOLIO
+        ============================================================ */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 200px;
+            gap: 1rem;
+        }
+
+        .portfolio-item {
+            border-radius: var(--r-md);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            background: var(--dark3);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+            .portfolio-item:nth-child(1) {
+                grid-column: span 8;
+                grid-row: span 2;
+            }
+
+            .portfolio-item:nth-child(2) {
+                grid-column: span 4;
+            }
+
+            .portfolio-item:nth-child(3) {
+                grid-column: span 4;
+            }
+
+            .portfolio-item:nth-child(4) {
+                grid-column: span 4;
+            }
+
+            .portfolio-item:nth-child(5) {
+                grid-column: span 4;
+            }
+
+            .portfolio-item:nth-child(6) {
+                grid-column: span 4;
+            }
+
+            .portfolio-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.6s ease;
+            }
+
+            .portfolio-item:hover img {
+                transform: scale(1.05);
+            }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(18,10,4,0.8) 0%, transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay span {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--warm-white);
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--warm-gray);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+            .img-placeholder::before {
+                content: '+';
+                font-size: 1.5rem;
+                color: var(--warm-gray);
+                font-family: var(--font-body);
+                font-weight: 300;
+            }
+
+        /* ============================================================
+           ACADEMY
+        ============================================================ */
+        .academy {
+            background: var(--dark2);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .course-card {
+            padding: 1.75rem;
+            border-radius: var(--r-md);
+            border: 1px solid var(--glass-border);
+            background: var(--parchment);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--warm-white);
+            display: block;
+        }
+
+            .course-card::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--terracotta), var(--ember));
+                transform: scaleX(0);
+                transition: transform 0.35s ease;
+            }
+
+            .course-card:hover::before {
+                transform: scaleX(1);
+            }
+
+            .course-card:hover {
+                border-color: rgba(181,69,27,0.4);
+                transform: translateY(-4px);
+                box-shadow: 0 12px 28px rgba(181,69,27,0.15);
+            }
+
+        .course-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--r-md);
+            background: rgba(181,69,27,0.15);
+            display: grid;
+            place-items: center;
+            margin: 0 auto 1rem;
+            font-size: 1.4rem;
+        }
+
+        .course-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .course-card .course-level {
+            font-size: 0.7rem;
+            color: var(--warm-mid);
+            letter-spacing: 0.1em;
+        }
+
+        .paquetes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .paquete-card {
+            padding: 2rem;
+            border-radius: var(--r-lg);
+            border: 1px solid rgba(181,69,27,0.3);
+            background: rgba(181,69,27,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .paquete-card::after {
+                content: 'COMBO';
+                position: absolute;
+                top: 1rem;
+                right: -0.75rem;
+                background: var(--terracotta);
+                color: var(--warm-white);
+                font-family: var(--font-mono);
+                font-size: 0.55rem;
+                letter-spacing: 0.2em;
+                padding: 0.25rem 1rem;
+                border-radius: 4px;
+            }
+
+            .paquete-card h4 {
+                font-family: var(--font-display);
+                font-size: 1.3rem;
+                font-weight: 400;
+                margin-bottom: 0.75rem;
+            }
+
+            .paquete-card ul {
+                list-style: none;
+            }
+
+            .paquete-card li {
+                font-size: 0.85rem;
+                color: var(--warm-light);
+                padding: 0.35rem 0;
+                border-bottom: 1px solid rgba(196,168,130,0.1);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+                .paquete-card li::before {
+                    content: '→';
+                    color: var(--ember);
+                }
+
+        .asesoramiento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .asesoria-block {
+            padding: 2rem;
+            border-radius: var(--r-lg);
+            border: 1px solid var(--glass-border);
+            background: var(--parchment);
+        }
+
+            .asesoria-block h4 {
+                font-family: var(--font-display);
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .asesoria-block ul {
+                list-style: none;
+            }
+
+            .asesoria-block li {
+                font-size: 0.85rem;
+                color: var(--warm-light);
+                padding: 0.4rem 0;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+
+                .asesoria-block li::before {
+                    content: '◦';
+                    color: var(--ember);
+                }
+
+        /* ============================================================
+           SHOP
+        ============================================================ */
+        .shop-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .cart-bubble {
+            position: relative;
+            padding: 0.75rem 1.5rem;
+            border-radius: 99px;
+            border: 1px solid var(--terracotta);
+            background: rgba(181,69,27,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+            .cart-bubble:hover {
+                background: rgba(181,69,27,0.2);
+            }
+
+        .cart-count {
+            background: var(--terracotta);
+            color: var(--warm-white);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: grid;
+            place-items: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .shop-category-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            border-radius: var(--r-lg);
+            border: 1px solid var(--glass-border);
+            background: var(--parchment);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+            .product-card:hover {
+                border-color: rgba(181,69,27,0.4);
+                transform: translateY(-4px);
+                box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            }
+
+        .product-img {
+            width: 100%;
+            height: 180px;
+            background: var(--dark3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: var(--terracotta);
+            color: var(--warm-white);
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 99px;
+        }
+
+        .product-info {
+            padding: 1.25rem;
+        }
+
+            .product-info h4 {
+                font-family: var(--font-display);
+                font-size: 1.05rem;
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+            }
+
+            .product-info .product-desc {
+                font-size: 0.78rem;
+                color: var(--warm-mid);
+                max-width: 100%;
+                margin-bottom: 1rem;
+            }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-price {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--warm-white);
+        }
+
+        .add-to-cart-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--terracotta), var(--ember));
+            border: none;
+            color: var(--warm-white);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+            .add-to-cart-btn:hover {
+                transform: scale(1.12);
+                box-shadow: 0 4px 16px rgba(181,69,27,0.4);
+            }
+
+        /* Cart Drawer */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+            .cart-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: min(440px, 100vw);
+            height: 100vh;
+            background: var(--dark2);
+            border-left: 1px solid var(--glass-border);
+            z-index: 2001;
+            transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            flex-direction: column;
+        }
+
+            .cart-drawer.open {
+                right: 0;
+            }
+
+        .cart-drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: var(--warm-mid);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+            .cart-close:hover {
+                color: var(--warm-white);
+            }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem 2rem;
+        }
+
+        .cart-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 1rem;
+            color: var(--warm-mid);
+            font-size: 0.9rem;
+        }
+
+            .cart-empty span {
+                font-size: 3rem;
+            }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(196,168,130,0.08);
+        }
+
+        .cart-item-thumb {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--r-sm);
+            background: var(--dark3);
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            font-size: 1.2rem;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+            .cart-item-info h5 {
+                font-family: var(--font-display);
+                font-weight: 600;
+                font-size: 0.95rem;
+                margin-bottom: 0.1rem;
+            }
+
+            .cart-item-info p {
+                font-size: 0.75rem;
+                color: var(--warm-mid);
+            }
+
+        .cart-item-price {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--ember);
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--warm-mid);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            padding: 4px;
+        }
+
+            .remove-item:hover {
+                color: var(--terracotta);
+            }
+
+        .cart-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .cart-total-price {
+            font-family: var(--font-mono);
+            font-size: 1.3rem;
+            color: var(--warm-white);
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            border-radius: var(--r-xl);
+            background: #25D366;
+            color: #fff;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+            .whatsapp-btn:hover {
+                background: #1fba58;
+                transform: translateY(-2px);
+                box-shadow: 0 12px 32px rgba(37,211,102,0.3);
+            }
+
+            .whatsapp-btn svg {
+                width: 20px;
+                height: 20px;
+                fill: currentColor;
+            }
+
+        /* ============================================================
+           TRAMITES
+        ============================================================ */
+        .tramites {
+            background: var(--dark2);
+        }
+
+        .tramite-form-card {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            border-radius: var(--r-xl);
+            border: 1px solid var(--glass-border);
+            background: var(--parchment);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+            .form-group.full {
+                grid-column: span 2;
+            }
+
+            .form-group label {
+                font-size: 0.72rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--warm-mid);
+                font-family: var(--font-mono);
+            }
+
+            .form-group input, .form-group select, .form-group textarea {
+                background: rgba(196,168,130,0.07);
+                border: 1px solid var(--glass-border);
+                border-radius: var(--r-sm);
+                padding: 0.75rem 1rem;
+                color: var(--warm-white);
+                font-family: var(--font-body);
+                font-size: 0.9rem;
+                transition: var(--transition);
+                outline: none;
+                width: 100%;
+            }
+
+                .form-group input::placeholder, .form-group textarea::placeholder {
+                    color: var(--warm-gray);
+                }
+
+                .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+                    border-color: var(--terracotta);
+                    background: rgba(181,69,27,0.07);
+                }
+
+            .form-group select {
+                appearance: none;
+                cursor: pointer;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A6A58' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 1rem center;
+                padding-right: 2.5rem;
+            }
+
+                .form-group select option {
+                    background: var(--dark2);
+                    color: var(--warm-white);
+                }
+
+            .form-group textarea {
+                resize: vertical;
+                min-height: 100px;
+            }
+
+        .file-upload {
+            border: 1px dashed var(--glass-border);
+            border-radius: var(--r-md);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            color: var(--warm-mid);
+        }
+
+            .file-upload:hover {
+                border-color: var(--terracotta);
+                color: var(--warm-white);
+            }
+
+            .file-upload input[type="file"] {
+                display: none;
+            }
+
+        .file-upload-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .tracking-section {
+            margin-top: 4rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .tracking-input-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+            .tracking-input-row input {
+                flex: 1;
+                background: rgba(196,168,130,0.07);
+                border: 1px solid var(--glass-border);
+                border-radius: var(--r-xl);
+                padding: 0.85rem 1.5rem;
+                color: var(--warm-white);
+                font-family: var(--font-body);
+                font-size: 0.9rem;
+                outline: none;
+                transition: var(--transition);
+            }
+
+                .tracking-input-row input:focus {
+                    border-color: var(--terracotta);
+                }
+
+        .tracking-result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: var(--r-md);
+            border: 1px solid var(--glass-border);
+            background: var(--parchment);
+            display: none;
+            text-align: left;
+        }
+
+            .tracking-result.show {
+                display: block;
+            }
+
+        /* ============================================================
+           CONTACT
+        ============================================================ */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-detail {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(196,168,130,0.1);
+        }
+
+            .contact-detail:last-child {
+                border-bottom: none;
+            }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--r-sm);
+            background: rgba(181,69,27,0.15);
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        .contact-detail h5 {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ember);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-detail p, .contact-detail a {
+            color: var(--warm-light);
+            font-size: 0.88rem;
+            max-width: 100%;
+            text-decoration: none;
+        }
+
+            .contact-detail a:hover {
+                color: var(--warm-white);
+            }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            display: grid;
+            place-items: center;
+            color: var(--warm-mid);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+            .social-link:hover {
+                border-color: var(--terracotta);
+                color: var(--ember);
+                transform: translateY(-3px);
+            }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        footer {
+            background: var(--dark2);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+            .footer-logo span {
+                color: var(--ember);
+            }
+
+        .footer-tagline {
+            font-size: 0.82rem;
+            color: var(--warm-mid);
+            line-height: 1.7;
+            max-width: 28ch;
+        }
+
+        .footer-col h6 {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm-mid);
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col a {
+            color: var(--warm-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+            .footer-col a:hover {
+                color: var(--ember);
+            }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(196,168,130,0.08);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+            .footer-bottom p {
+                font-size: 0.75rem;
+                color: var(--warm-gray);
+                max-width: 100%;
+            }
+
+            .footer-bottom span {
+                font-family: var(--font-mono);
+                font-size: 0.6rem;
+                color: var(--warm-gray);
+                letter-spacing: 0.1em;
+            }
+
+        /* ============================================================
+           LIGHTBOX
+        ============================================================ */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            place-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+            .lightbox.open {
+                display: grid;
+            }
+
+            .lightbox img {
+                max-width: min(90vw, 1200px);
+                max-height: 90vh;
+                object-fit: contain;
+                border-radius: var(--r-md);
+            }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--warm-white);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+            .lightbox-close:hover {
+                color: var(--ember);
+                transform: rotate(90deg);
+            }
+
+        /* ============================================================
+           TOAST
+        ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--dark2);
+            border: 1px solid var(--glass-border);
+            border-left: 3px solid var(--terracotta);
+            padding: 0.85rem 1.75rem;
+            border-radius: var(--r-md);
+            font-size: 0.85rem;
+            color: var(--warm-white);
+            z-index: 4000;
+            transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+            backdrop-filter: blur(20px);
+            white-space: nowrap;
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+        /* ============================================================
+           ANIMATIONS
+        ============================================================ */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%,100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        @keyframes scrollLine {
+            0% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scaleY(0.4) translateY(20px);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+            .reveal.in-view {
+                opacity: 1;
+                transform: none;
+            }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 900px) {
+            .nav-links, .nav-cta {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .asesoramiento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 160px;
+            }
+
+            .portfolio-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
+            .portfolio-item:nth-child(n) {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-item:nth-child(n) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .tracking-input-row {
+                flex-direction: column;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .shop-header-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Warm particle canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="nav" id="navbar">
+        <div class="nav-inner">
+            <a href="#inicio" class="nav-logo">ZAH<span>Y</span>O</a>
+            <ul class="nav-links">
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#portafolio">Portafolio</a></li>
+                <li><a href="#academia">Academia</a></li>
+                <li><a href="#tienda">Tienda</a></li>
+                <li><a href="#tramites">Trámites</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="#contacto" class="btn btn-primary" style="padding:0.6rem 1.4rem;">Cotizar</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#nosotros" class="mobile-link">Nosotros</a>
+        <a href="#servicios" class="mobile-link">Servicios</a>
+        <a href="#portafolio" class="mobile-link">Portafolio</a>
+        <a href="#academia" class="mobile-link">Academia</a>
+        <a href="#tienda" class="mobile-link">Tienda</a>
+        <a href="#tramites" class="mobile-link">Trámites</a>
+        <a href="#contacto" class="mobile-link">Contacto</a>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg"></div>
+        <div class="hero-texture"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>Sucre, Bolivia — Estudio de Arquitectura</span>
+            </div>
+            <h1 class="hero-title">
+                Donde las ideas<br>se <em>construyen</em> juntos
+            </h1>
+            <p class="hero-sub">Date el lujo de vivir tu espacio</p>
+            <p class="hero-tagline">
+                <strong>Diseño · Proyección · Innovación</strong><br>
+                La coordenada donde convergen dos direcciones
+            </p>
+            <div class="hero-actions">
+                <a href="#servicios" class="btn btn-primary">Ver Servicios</a>
+                <a href="#portafolio" class="btn btn-ghost">Nuestro Trabajo</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            <span>Explorar</span>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="nosotros">
+        <div class="container">
+            <div class="about-grid">
+                <div class="reveal">
+                    <div class="section-header">
+                        <span class="label">Quiénes somos</span>
+                        <h2>ZAHYO<br>estudio de arquitectura</h2>
+                    </div>
+                    <div class="mission-block">
+                        <span class="label">Misión</span>
+                        <p>"Diseñar, proyectar e imaginar el mundo que nos rodea llevando las ideas a su máximo potencial, promoviendo la arquitectura innovadora y una visión diferente para todas las personas que decidan confiar en nosotros."</p>
+                    </div>
+                    <div class="mission-block">
+                        <span class="label">Visión</span>
+                        <p>"Proponer y llevar al mundo arquitectura que nazca de la unión y el compromiso de las personas para las personas."</p>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="section-header">
+                        <span class="label">Valores</span>
+                        <h3>Lo que nos define</h3>
+                    </div>
+                    <div class="values-grid">
+                        <div class="value-card"><div class="value-icon">🤝</div><h4>Unión</h4><p>Trabajo colaborativo como base de cada proyecto. Arquitectura que nace del diálogo.</p></div>
+                        <div class="value-card"><div class="value-icon">⭐</div><h4>Compromiso</h4><p>Cada proyecto asumido con responsabilidad, dedicación y profesionalismo total.</p></div>
+                        <div class="value-card"><div class="value-icon">💎</div><h4>Calidad</h4><p>Máximo potencial técnico y conceptual en cada trabajo que entregamos.</p></div>
+                        <div class="value-card"><div class="value-icon">✦</div><h4>Innovación</h4><p>Nuevas formas de imaginar, proyectar y construir una arquitectura en evolución.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label">Lo que hacemos</span>
+                <h2>Servicios Profesionales</h2>
+                <p>Soluciones arquitectónicas integrales para proyectos de cualquier escala</p>
+            </div>
+            <div class="services-tabs reveal">
+                <button class="tab-btn active" data-tab="planos">Planos Técnicos</button>
+                <button class="tab-btn" data-tab="visualizacion">Visualización</button>
+                <button class="tab-btn" data-tab="modelado">Modelado 3D</button>
+                <button class="tab-btn" data-tab="maqueteria">Maquetería</button>
+                <button class="tab-btn" data-tab="documentacion">Documentación</button>
+            </div>
+            <div class="services-panel active reveal" id="tab-planos">
+                <div class="services-list">
+                    <div class="service-item"><div class="service-dot"></div><span>Plantas arquitectónicas</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Elevaciones</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Secciones y cortes</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Planimetría</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Planos estructurales</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Planos urbanos</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Detalles constructivos</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Instalaciones sanitarias</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Instalaciones eléctricas y especiales</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Cortes de borde y cortes fugados</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Detalle de plafonería</span></div>
+                </div>
+            </div>
+            <div class="services-panel" id="tab-visualizacion">
+                <div class="services-list">
+                    <div class="service-item"><div class="service-dot"></div><span>Perspectivas interiores y exteriores</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Axonometrías</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Perspectivas 360°</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Recorridos virtuales</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Postproducción en Photoshop</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Láminas descriptivas</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Láminas urbanas</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Láminas Arquisur</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Presentaciones y diapositivas</span></div>
+                </div>
+            </div>
+            <div class="services-panel" id="tab-modelado">
+                <div class="services-list">
+                    <div class="service-item"><div class="service-dot"></div><span>Modelado general (Revit, SketchUp)</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Formas irregulares y orgánicas</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Detalle constructivo (Obra gruesa/fina)</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Archivos para impresión 3D</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Ambientación 3D</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Diseño de mobiliario</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Modelado de familias en Revit</span></div>
+                </div>
+            </div>
+            <div class="services-panel" id="tab-maqueteria">
+                <div class="services-list">
+                    <div class="service-item"><div class="service-dot"></div><span>Maqueta a detalle desmontable</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Corte longitudinal y transversal</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Interiores</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Maquetas urbanas</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Maquetas estructurales</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Detalles constructivos</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Ambientación maqueta</span></div>
+                </div>
+            </div>
+            <div class="services-panel" id="tab-documentacion">
+                <div class="services-list">
+                    <div class="service-item"><div class="service-dot"></div><span>Cómputos métricos</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Precios unitarios</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Presupuesto de obra</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Cómputo de materiales</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Tabla de tiempos / Diagrama de barras</span></div>
+                    <div class="service-item"><div class="service-dot"></div><span>Documentos teóricos</span></div>
+                </div>
+            </div>
+            <div class="reveal" style="margin-top:4rem;">
+                <span class="label" style="margin-bottom:1rem;display:block;">Servicios Especiales</span>
+                <div class="special-services">
+                    <div class="special-card">
+                        <h3>Avalúos de Bienes Inmuebles</h3>
+                        <p>Valuación profesional de propiedades con toda la documentación técnica y legal requerida.</p>
+                        <a href="#tramites" class="btn btn-primary" style="margin-top:1.25rem;">Iniciar trámite</a>
+                    </div>
+                    <div class="special-card">
+                        <h3>Inmobiliaria ZAHYO</h3>
+                        <p>Promoción y gestión de anticréticos, alquileres y venta de inmuebles en Sucre y Bolivia.</p>
+                        <a href="#contacto" class="btn btn-ghost" style="margin-top:1.25rem;">Consultar</a>
+                    </div>
+                    <div class="special-card">
+                        <h3>Trámites & Línea Municipal</h3>
+                        <p>Apoyo completo con trámites municipales. Rastrea el estado de tu gestión con tu código único.</p>
+                        <a href="#tramites" class="btn btn-primary" style="margin-top:1.25rem;">Iniciar / Rastrear</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section id="portafolio">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label">Nuestros proyectos</span>
+                <h2>Portafolio</h2>
+                <p>Una selección de proyectos que reflejan nuestra filosofía: arquitectura que nace del compromiso y la innovación.</p>
+            </div>
+            <div class="portfolio-grid reveal">
+                <div class="portfolio-item" data-caption="Proyecto Residencial — Sucre"><div class="img-placeholder">Imagen del proyecto<br>1200 × 800 px</div><div class="portfolio-overlay"><span>Proyecto Residencial</span></div></div>
+                <div class="portfolio-item" data-caption="Perspectiva Interior"><div class="img-placeholder">Render interior<br>600 × 400 px</div><div class="portfolio-overlay"><span>Perspectiva Interior</span></div></div>
+                <div class="portfolio-item" data-caption="Lámina Urbana"><div class="img-placeholder">Lámina urbana<br>600 × 400 px</div><div class="portfolio-overlay"><span>Lámina Urbana</span></div></div>
+                <div class="portfolio-item" data-caption="Modelado 3D"><div class="img-placeholder">Modelado 3D<br>600 × 400 px</div><div class="portfolio-overlay"><span>Modelado 3D</span></div></div>
+                <div class="portfolio-item" data-caption="Maqueta Física"><div class="img-placeholder">Maqueta física<br>600 × 400 px</div><div class="portfolio-overlay"><span>Maqueta Física</span></div></div>
+                <div class="portfolio-item" data-caption="Planos Técnicos"><div class="img-placeholder">Planos técnicos<br>600 × 400 px</div><div class="portfolio-overlay"><span>Planos Técnicos</span></div></div>
+            </div>
+            <div style="text-align:center;margin-top:2.5rem;" class="reveal">
+                <a href="#contacto" class="btn btn-ghost">Ver portafolio completo →</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== ACADEMY ===== -->
+    <section id="academia" class="academy">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label">Zahyo Academy</span>
+                <h2>Formación Arquitectónica</h2>
+                <p>Cursos, talleres y asesoramiento académico para estudiantes y profesionales de la arquitectura.</p>
+            </div>
+
+            <span class="label reveal" style="margin-bottom:1.25rem;display:block;">Cursos de 0 a Intermedio</span>
+            <!-- FIX #3: cada tarjeta es un <a> que enlaza a su página de curso -->
+            <div class="courses-grid reveal">
+                <a href="cursos/autocad.html" class="course-card">
+                    <div class="course-icon">📐</div>
+                    <h4>AutoCAD</h4>
+                    <p class="course-level">Principiante → Intermedio</p>
+                </a>
+                <a href="cursos/sketchup.html" class="course-card">
+                    <div class="course-icon">🏠</div>
+                    <h4>SketchUp</h4>
+                    <p class="course-level">Principiante → Intermedio</p>
+                </a>
+                <a href="cursos/revit.html" class="course-card">
+                    <div class="course-icon">🏗️</div>
+                    <h4>Revit</h4>
+                    <p class="course-level">Principiante → Intermedio</p>
+                </a>
+                <a href="cursos/lumion.html" class="course-card">
+                    <div class="course-icon">🌿</div>
+                    <h4>Lumion</h4>
+                    <p class="course-level">Principiante → Intermedio</p>
+                </a>
+                <a href="cursos/photoshop.html" class="course-card">
+                    <div class="course-icon">🎨</div>
+                    <h4>Photoshop</h4>
+                    <p class="course-level">Principiante → Intermedio</p>
+                </a>
+                <a href="cursos/d5render.html" class="course-card">
+                    <div class="course-icon">✨</div>
+                    <h4>D5 Render</h4>
+                    <p class="course-level">Principiante → Intermedio</p>
+                </a>
+            </div>
+
+            <span class="label reveal" style="margin:2.5rem 0 1.25rem;display:block;">Paquetes Workflow</span>
+            <div class="paquetes-grid reveal">
+                <div class="paquete-card">
+                    <h4>Workflow Clásico</h4>
+                    <ul><li>AutoCAD</li><li>SketchUp</li><li>Lumion</li></ul>
+                    <a href="#contacto" class="btn btn-primary" style="margin-top:1.5rem;width:100%;justify-content:center;">Consultar precio</a>
+                </div>
+                <div class="paquete-card">
+                    <h4>Workflow BIM</h4>
+                    <ul><li>Revit</li><li>Lumion</li></ul>
+                    <a href="#contacto" class="btn btn-primary" style="margin-top:1.5rem;width:100%;justify-content:center;">Consultar precio</a>
+                </div>
+            </div>
+
+            <span class="label reveal" style="margin:2.5rem 0 1.25rem;display:block;">Talleres Prácticos</span>
+            <div class="services-list reveal" style="margin-bottom:2.5rem;">
+                <div class="service-item"><div class="service-dot"></div><span>Taller de maquetería básica</span></div>
+                <div class="service-item"><div class="service-dot"></div><span>Taller de maquetería semiprofesional</span></div>
+                <div class="service-item"><div class="service-dot"></div><span>Relevamiento y digitalización</span></div>
+                <div class="service-item"><div class="service-dot"></div><span>Excel y Canva para arquitectos</span></div>
+            </div>
+
+            <span class="label reveal" style="margin:0 0 1.25rem;display:block;">Asesoramiento Académico</span>
+            <div class="asesoramiento-grid reveal">
+                <div class="asesoria-block">
+                    <h4>Asesoramiento en Proyectos de Taller</h4>
+                    <ul><li>Taller I</li><li>Taller II</li><li>Taller IV</li><li>Taller V</li><li>Taller VI</li><li>Taller VII</li><li>Taller VIII</li></ul>
+                </div>
+                <div class="asesoria-block">
+                    <h4>Asesoramiento Técnico</h4>
+                    <ul><li>Construcciones</li><li>Estructuras</li><li>Instalaciones</li><li>Topografía</li></ul>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:2.5rem;" class="reveal">
+                <a href="#contacto" class="btn btn-primary">Reservar Asesoramiento</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== SHOP ===== -->
+    <section id="tienda">
+        <div class="container">
+            <div class="shop-header-row reveal">
+                <div class="section-header" style="margin-bottom:0">
+                    <span class="label">Zahyo Shop</span>
+                    <h2>Tienda</h2>
+                </div>
+                <div class="cart-bubble" id="cartBtn">🛒 Mi carrito<div class="cart-count" id="cartCount">0</div></div>
+            </div>
+            <div class="shop-category-tabs reveal">
+                <button class="tab-btn active" data-shop="virtual">Recursos Virtuales</button>
+                <button class="tab-btn" data-shop="fisicos">Recursos Físicos</button>
+            </div>
+            <div class="shop-panel active reveal" id="shop-virtual">
+                <div class="products-grid">
+                    <div class="product-card"><div class="product-img"><div class="img-placeholder">Imagen producto</div><div class="product-badge">DIGITAL</div></div><div class="product-info"><h4>Plantilla Revit Completa</h4><p class="product-desc">Plantilla profesional con familias, vistas y hojas preconfiguradas.</p><div class="product-footer"><span class="product-price">Bs. —</span><button class="add-to-cart-btn" data-name="Plantilla Revit Completa" data-price="0" data-emoji="📦">+</button></div></div></div>
+                    <div class="product-card"><div class="product-img"><div class="img-placeholder">Imagen producto</div><div class="product-badge">DIGITAL</div></div><div class="product-info"><h4>Paquete Familias — Cocina</h4><p class="product-desc">Mobiliario de cocina completo para proyectos residenciales en Revit.</p><div class="product-footer"><span class="product-price">Bs. —</span><button class="add-to-cart-btn" data-name="Paquete Familias Cocina" data-price="0" data-emoji="🍳">+</button></div></div></div>
+                    <div class="product-card"><div class="product-img"><div class="img-placeholder">Imagen producto</div><div class="product-badge">DIGITAL</div></div><div class="product-info"><h4>Paquete Familias — Vegetación</h4><p class="product-desc">Árboles, arbustos y plantas para ambientación de proyectos Revit.</p><div class="product-footer"><span class="product-price">Bs. —</span><button class="add-to-cart-btn" data-name="Paquete Familias Vegetación" data-price="0" data-emoji="🌿">+</button></div></div></div>
+                    <div class="product-card"><div class="product-img"><div class="img-placeholder">Imagen producto</div><div class="product-badge">DIGITAL</div></div><div class="product-info"><h4>Familias Individuales Revit</h4><p class="product-desc">Elementos individuales de alta calidad para personalizar tu proyecto.</p><div class="product-footer"><span class="product-price">Bs. —</span><button class="add-to-cart-btn" data-name="Familia Individual Revit" data-price="0" data-emoji="🔩">+</button></div></div></div>
+                </div>
+            </div>
+            <div class="shop-panel reveal" id="shop-fisicos" style="display:none;">
+                <div class="products-grid">
+                    <div class="product-card"><div class="product-img"><div class="img-placeholder">Imagen producto</div><div class="product-badge">FÍSICO</div></div><div class="product-info"><h4>Faroles a Escala</h4><p class="product-desc">Faroles decorativos a escala para maquetas arquitectónicas y urbanas.</p><div class="product-footer"><span class="product-price">Bs. —</span><button class="add-to-cart-btn" data-name="Faroles a Escala" data-price="0" data-emoji="🏮">+</button></div></div></div>
+                    <div class="product-card"><div class="product-img"><div class="img-placeholder">Imagen producto</div><div class="product-badge">FÍSICO</div></div><div class="product-info"><h4>Arbolitos a Escala</h4><p class="product-desc">Vegetación miniatura artesanal para ambientar maquetas con realismo.</p><div class="product-footer"><span class="product-price">Bs. —</span><button class="add-to-cart-btn" data-name="Arbolitos a Escala" data-price="0" data-emoji="🌲">+</button></div></div></div>
+                    <div class="product-card"><div class="product-img"><div class="img-placeholder">Imagen producto</div><div class="product-badge">FÍSICO</div></div><div class="product-info"><h4>Mobiliario a Escala</h4><p class="product-desc">Set de muebles en miniatura para interiores de maquetas residenciales.</p><div class="product-footer"><span class="product-price">Bs. —</span><button class="add-to-cart-btn" data-name="Mobiliario a Escala" data-price="0" data-emoji="🪑">+</button></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Overlay & Drawer -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header"><h3>Mi Carrito</h3><button class="cart-close" id="cartClose">✕</button></div>
+        <div class="cart-items" id="cartItems"><div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío</p></div></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total estimado</span><span class="cart-total-price" id="cartTotal">Bs. 0</span></div>
+            <button class="whatsapp-btn" id="whatsappCheckout">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
+                Pedir por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===== TRAMITES ===== -->
+    <section id="tramites" class="tramites">
+        <div class="container">
+            <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 3.5rem;">
+                <span class="label">Servicios Especiales</span>
+                <h2>Trámites & Avalúos</h2>
+                <p>Envía tu solicitud de forma digital. Nos pondremos en contacto en menos de 24 horas.</p>
+            </div>
+            <div class="tramite-form-card reveal">
+                <h3 style="margin-bottom:2rem;">Nueva Solicitud</h3>
+                <form id="tramiteForm">
+                    <div class="form-grid">
+                        <div class="form-group"><label for="t-nombre">Nombre completo *</label><input type="text" id="t-nombre" placeholder="Ej. Juan Pérez" required></div>
+                        <div class="form-group"><label for="t-ci">Carnet de Identidad *</label><input type="text" id="t-ci" placeholder="Número de CI" required></div>
+                        <div class="form-group"><label for="t-tel">Teléfono / WhatsApp *</label><input type="tel" id="t-tel" placeholder="+591 7XXXXXXX" required></div>
+                        <div class="form-group"><label for="t-email">Correo electrónico</label><input type="email" id="t-email" placeholder="correo@ejemplo.com"></div>
+                        <div class="form-group full">
+                            <label for="t-tipo">Tipo de trámite *</label>
+                            <select id="t-tipo" required>
+                                <option value="" disabled selected>Selecciona el servicio</option>
+                                <option value="avaluo">Avalúo de bien inmueble</option>
+                                <option value="inmobiliaria">Inmobiliaria (anticrético/alquiler/venta)</option>
+                                <option value="linea-municipal">Línea Municipal</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group full"><label for="t-desc">Descripción del trámite *</label><textarea id="t-desc" placeholder="Describe brevemente tu solicitud, ubicación del inmueble, etc." required></textarea></div>
+                        <div class="form-group full">
+                            <label>Adjuntar documentos (C.I., plano de lote, comprobante)</label>
+                            <label class="file-upload" for="t-files">
+                                <span class="file-upload-icon">📎</span>
+                                Haz clic para adjuntar archivos (PDF, JPG, PNG)
+                                <input type="file" id="t-files" multiple accept=".pdf,.jpg,.jpeg,.png">
+                            </label>
+                            <span id="file-names" style="font-size:0.75rem;color:var(--warm-mid);margin-top:0.5rem;display:block;"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="btn-tramite">Enviar solicitud →</button>
+                </form>
+            </div>
+            <div class="tracking-section reveal">
+                <span class="label" style="display:block;margin-bottom:0.5rem;">Rastreo de Trámites</span>
+                <h3>¿Ya tienes un código?</h3>
+                <p style="margin:0.75rem auto;font-size:0.88rem;">Ingresa tu código de seguimiento para ver el estado actual de tu gestión.</p>
+                <div class="tracking-input-row">
+                    <input type="text" id="trackingCode" placeholder="Ej: ZAH-2025-001" maxlength="20">
+                    <button class="btn btn-primary" onclick="trackTramite()">Consultar</button>
+                </div>
+                <div class="tracking-result" id="trackingResult">
+                    <span class="label" style="display:block;margin-bottom:0.5rem;">Estado del Trámite</span>
+                    <p id="trackingInfo" style="font-size:0.9rem;color:var(--warm-light);max-width:100%;"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contacto">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="reveal">
+                    <div class="section-header"><span class="label">Hablemos</span><h2>Contacto</h2></div>
+                    <div class="contact-detail"><div class="contact-icon">📍</div><div><h5>Ubicación</h5><p>Sucre, Bolivia<br>Calle Calama 101 / Av. Juana Azurduy (altura piscina olímpica)</p></div></div>
+                    <div class="contact-detail"><div class="contact-icon">✉️</div><div><h5>Correo corporativo</h5><a href="mailto:axis.estudiodesign@gmail.com">axis.estudiodesign@gmail.com</a></div></div>
+                    <div class="contact-detail"><div class="contact-icon">📱</div><div><h5>WhatsApp Principal</h5><a href="https://wa.me/59173443086" target="_blank">+591 73443086</a></div></div>
+                    <div class="contact-detail"><div class="contact-icon">👤</div><div><h5>Arq. Franz</h5><a href="https://wa.me/59173450072" target="_blank">+591 73450072</a><br><a href="mailto:franzcaballerot@gmail.com">franzcaballerot@gmail.com</a></div></div>
+                    <div class="contact-detail"><div class="contact-icon">👤</div><div><h5>Arq. Laura</h5><a href="https://wa.me/59175769551" target="_blank">+591 75769551</a><br><a href="mailto:labihuma@gmail.com">labihuma@gmail.com</a></div></div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Instagram" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg></a>
+                        <a href="#" class="social-link" title="TikTok" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.3a8.16 8.16 0 004.77 1.52V7.37a4.85 4.85 0 01-1-.68z" /></svg></a>
+                        <a href="#" class="social-link" title="Facebook" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg></a>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="tramite-form-card" style="max-width:100%;">
+                        <h3 style="margin-bottom:2rem;">Envíanos un mensaje</h3>
+                        <form id="contactForm">
+                            <div class="form-grid">
+                                <div class="form-group"><label>Nombre *</label><input type="text" id="c-nombre" placeholder="Tu nombre" required></div>
+                                <div class="form-group"><label>Teléfono</label><input type="tel" id="c-tel" placeholder="+591 7XXXXXXX"></div>
+                                <div class="form-group full"><label>Correo *</label><input type="email" id="c-email" placeholder="tu@correo.com" required></div>
+                                <div class="form-group full">
+                                    <label>Servicio de interés</label>
+                                    <select id="c-servicio">
+                                        <option value="" disabled selected>¿En qué podemos ayudarte?</option>
+                                        <option>Planos técnicos</option>
+                                        <option>Visualización arquitectónica</option>
+                                        <option>Modelado 3D</option>
+                                        <option>Maquetería</option>
+                                        <option>Documentación técnica</option>
+                                        <option>Cursos / Academia</option>
+                                        <option>Tienda / Recursos</option>
+                                        <option>Trámites</option>
+                                        <option>Otro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full"><label>Mensaje *</label><textarea id="c-mensaje" placeholder="Cuéntanos sobre tu proyecto..." required></textarea></div>
+                            </div>
+                            <button type="submit" id="btn-contacto" class="btn btn-primary" style="width:100%;justify-content:center;">Enviar mensaje →</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">ZAH<span>Y</span>O</div>
+                    <p class="footer-tagline">La coordenada donde convergen dos direcciones. Diseñamos el mundo que nos rodea llevando las ideas a su máximo potencial.</p>
+                    <p style="font-size:0.78rem;color:var(--warm-gray);margin-top:1rem;max-width:100%;">Estudio remoto · Sucre, Bolivia</p>
+                </div>
+                <div class="footer-col">
+                    <h6>Navegación</h6>
+                    <ul>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#portafolio">Portafolio</a></li>
+                        <li><a href="#academia">Academia</a></li>
+                        <li><a href="#tienda">Tienda</a></li>
+                        <li><a href="#tramites">Trámites</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h6>Contacto</h6>
+                    <ul>
+                        <li><a href="mailto:axis.estudiodesign@gmail.com">axis.estudiodesign@gmail.com</a></li>
+                        <li><a href="https://wa.me/59173443086" target="_blank">+591 73443086</a></li>
+                        <li><a href="https://wa.me/59173450072" target="_blank">Arq. Franz: +591 73450072</a></li>
+                        <li><a href="https://wa.me/59175769551" target="_blank">Arq. Laura: +591 75769551</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
+                <span>SUCRE, BOLIVIA</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox"><button class="lightbox-close" id="lightboxClose">✕</button><img id="lightboxImg" src="" alt=""></div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ── CONFIG ──────────────────────────────────────────────────
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzOLfSd2WJBcLCHNakiU7hiJfPAQ6W608zAoyZYNuQA-MMTT7Q4Z7bBLeHGLl8fawXp/exec';
+        const WA_NUMBER = '59173443086';
+
+        // ============================================================
+        // WARM PARTICLE SYSTEM
+        // ============================================================
+        (function () {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles = [];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Ember / dust particles
+            const COLORS = [
+                'rgba(181,69,27,',
+                'rgba(232,118,58,',
+                'rgba(196,168,130,',
+                'rgba(232,160,80,',
+            ];
+
+            function mkParticle() {
+                return {
+                    x: Math.random() * W,
+                    y: H + 10,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: -(Math.random() * 0.8 + 0.3),
+                    life: 0,
+                    maxLife: Math.random() * 280 + 120,
+                    r: Math.random() * 2.5 + 0.5,
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    wobble: Math.random() * Math.PI * 2,
+                    wobbleSpeed: (Math.random() - 0.5) * 0.04,
+                };
+            }
+
+            for (let i = 0; i < 80; i++) {
+                const p = mkParticle();
+                p.y = Math.random() * H;  // scatter on start
+                p.life = Math.random() * p.maxLife;
+                particles.push(p);
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.life++;
+                    p.wobble += p.wobbleSpeed;
+                    p.x += p.vx + Math.sin(p.wobble) * 0.3;
+                    p.y += p.vy;
+                    const progress = p.life / p.maxLife;
+                    const alpha = progress < 0.2
+                        ? progress / 0.2 * 0.7
+                        : (1 - progress) * 0.7;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color + alpha + ')';
+                    ctx.fill();
+                    if (p.life >= p.maxLife || p.y < -10) {
+                        particles[i] = mkParticle();
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        // ── Navigation ───────────────────────────────────────────────
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        hamburger.addEventListener('click', () => {
+            mobileNav.classList.toggle('open');
+            hamburger.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+            mobileNav.classList.remove('open'); hamburger.classList.remove('open');
+        }));
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').style.background =
+                window.scrollY > 40 ? 'rgba(18,14,7,0.97)' : 'rgba(26,18,8,0.82)';
+        });
+
+        // ── Service Tabs ─────────────────────────────────────────────
+        document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn[data-tab]').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.services-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // ── Shop Tabs ─────────────────────────────────────────────────
+        document.querySelectorAll('.tab-btn[data-shop]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn[data-shop]').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.shop-panel').forEach(p => p.style.display = 'none');
+                btn.classList.add('active');
+                document.getElementById('shop-' + btn.dataset.shop).style.display = 'block';
+            });
+        });
+
+        // ── Cart ──────────────────────────────────────────────────────
+        let cart = [];
+        function updateCartUI() {
+            const count = document.getElementById('cartCount');
+            const items = document.getElementById('cartItems');
+            const total = document.getElementById('cartTotal');
+            count.textContent = cart.length;
+            if (!cart.length) {
+                items.innerHTML = '<div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío</p></div>';
+                total.textContent = 'Bs. 0'; return;
+            }
+            let sum = 0;
+            items.innerHTML = cart.map((item, i) => {
+                sum += item.price;
+                return `<div class="cart-item">
+                <div class="cart-item-thumb">${item.emoji}</div>
+                <div class="cart-item-info"><h5>${item.name}</h5><p>Precio a consultar</p></div>
+                <span class="cart-item-price">A consultar</span>
+                <button class="remove-item" onclick="removeFromCart(${i})">✕</button>
+            </div>`;
+            }).join('');
+            total.textContent = sum > 0 ? `Bs. ${sum}` : 'A consultar';
+        }
+        function removeFromCart(i) { cart.splice(i, 1); updateCartUI(); showToast('Producto eliminado'); }
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                cart.push({ name: btn.dataset.name, price: parseFloat(btn.dataset.price) || 0, emoji: btn.dataset.emoji });
+                updateCartUI();
+                showToast('✓ Agregado: ' + btn.dataset.name);
+                btn.style.transform = 'scale(1.3)';
+                setTimeout(() => btn.style.transform = '', 300);
+            });
+        });
+        const cartDrawer = document.getElementById('cartDrawer');
+        const cartOverlay = document.getElementById('cartOverlay');
+        function openCart() { cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); }
+        function closeCart() { cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); }
+        document.getElementById('cartBtn').addEventListener('click', openCart);
+        document.getElementById('cartClose').addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        document.getElementById('whatsappCheckout').addEventListener('click', () => {
+            if (!cart.length) { showToast('⚠ Agrega productos primero'); return; }
+            const items = cart.map((p, i) => `${i + 1}. ${p.name}`).join('%0A');
+            const msg = `*Pedido ZAHYO Shop*%0A%0A${items}%0A%0APor favor confirmen precios. ¡Gracias!`;
+            window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+        });
+
+        // ── FIX #1: Formulario de Contacto — envía a Google Sheets ───
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-contacto');
+            btn.textContent = 'Enviando...'; btn.disabled = true;
+
+            const payload = {
+                tipo: 'contacto',
+                nombre: document.getElementById('c-nombre').value,
+                telefono: document.getElementById('c-tel').value,
+                email: document.getElementById('c-email').value,
+                servicio: document.getElementById('c-servicio').value,
+                mensaje: document.getElementById('c-mensaje').value,
+            };
+
+            try {
+                await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // ✅ ESTO LO SOLUCIONA
+                    body: JSON.stringify(payload),
+                });
+                showToast('✓ Mensaje enviado. ¡Te responderemos pronto!');
+                this.reset();
+            } catch (err) {
+                // Fallback a WhatsApp si falla la red
+                const msg = encodeURIComponent(
+                    `Hola ZAHYO!\nNombre: ${payload.nombre}\nTel: ${payload.telefono}\nServicio: ${payload.servicio}\n\n${payload.mensaje}`
+                );
+                window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+                showToast('✓ Redirigiendo a WhatsApp...');
+                this.reset();
+            }
+            btn.textContent = 'Enviar mensaje →'; btn.disabled = false;
+        });
+
+        // ── FIX #1: Formulario de Trámites — envía a Google Sheets ───
+        document.getElementById('tramiteForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-tramite');
+            btn.textContent = 'Enviando...'; btn.disabled = true;
+
+            const payload = {
+                tipo: 'tramite',
+                nombre: document.getElementById('t-nombre').value,
+                ci: document.getElementById('t-ci').value,
+                telefono: document.getElementById('t-tel').value,
+                email: document.getElementById('t-email').value,
+                tipo_tramite: document.getElementById('t-tipo').value,
+                descripcion: document.getElementById('t-desc').value,
+            };
+
+            // Leer archivos adjuntos en base64
+            const filesInput = document.getElementById('t-files');
+            if (filesInput.files.length > 0) {
+                const file = filesInput.files[0];
+                const b64 = await fileToBase64(file);
+                payload.archivo_base64 = b64;
+                payload.archivo_nombre = file.name;
+                payload.archivo_tipo = file.type;
+            }
+
+            try {
+                await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    // Puedes mantener no-cors, pero debes cambiar el Content-Type
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8' // 👈 CAMBIO CLAVE
+                    },
+                    body: JSON.stringify(payload),
+                });
+                // Generar código local (el real viene del backend, pero con no-cors no podemos leerlo)
+                const code = 'ZAH-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 9000) + 1000);
+                document.getElementById('trackingCode').value = code;
+                showToast(`✓ Solicitud enviada. Código provisional: ${code}`);
+                this.reset();
+                document.getElementById('file-names').textContent = '';
+            } catch (err) {
+                showToast('❌ Error al enviar. Contáctanos por WhatsApp.');
+            }
+            btn.textContent = 'Enviar solicitud →'; btn.disabled = false;
+        });
+
+        function fileToBase64(file) {
+            return new Promise((res, rej) => {
+                const r = new FileReader();
+                r.onload = () => res(r.result.split(',')[1]);
+                r.onerror = () => rej(new Error('Error leyendo archivo'));
+                r.readAsDataURL(file);
+            });
+        }
+
+        document.getElementById('t-files').addEventListener('change', function () {
+            document.getElementById('file-names').textContent =
+                Array.from(this.files).map(f => f.name).join(', ');
+        });
+
+        // ── Tracking ──────────────────────────────────────────────────
+        async function trackTramite() {
+            const code = document.getElementById('trackingCode').value.trim();
+            if (!code) { showToast('Ingresa un código de seguimiento'); return; }
+
+            const result = document.getElementById('trackingResult');
+            const info = document.getElementById('trackingInfo');
+            result.classList.add('show');
+
+            try {
+                const res = await fetch(SHEETS_URL + '?codigo=' + encodeURIComponent(code));
+                const data = await res.json();
+                if (data.ok && data.resultado) {
+                    const r = data.resultado;
+                    info.innerHTML = `<strong>Código:</strong> ${r.codigo}<br>
+                    <strong>Tipo:</strong> ${r.tipo}<br>
+                    <strong>Estado:</strong> <span style="color:var(--ember)">${r.estado}</span><br>
+                    <strong>Creado:</strong> ${r.fecha_creacion}<br>
+                    <strong>Actualizado:</strong> ${r.fecha_actualizacion}<br>
+                    <strong>Notas:</strong> ${r.notas || '—'}`;
+                } else {
+                    info.textContent = data.mensaje || `Código "${code}" — En proceso. Para consultas: +591 73443086.`;
+                }
+            } catch (err) {
+                info.textContent = `Código "${code}" recibido. Para estado actualizado escríbenos al +591 73443086.`;
+            }
+        }
+
+        // ── Lightbox ──────────────────────────────────────────────────
+        const lightbox = document.getElementById('lightbox');
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                if (img) { document.getElementById('lightboxImg').src = img.src; lightbox.classList.add('open'); }
+            });
+        });
+        document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+        // ── Toast ─────────────────────────────────────────────────────
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3500);
+        }
+
+        // ── Scroll Reveal ─────────────────────────────────────────────
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
