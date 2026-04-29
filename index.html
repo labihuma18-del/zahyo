@@ -336,9 +336,8 @@
         .hero-bg {
             position: absolute;
             inset: 0;
-            /* El primer linear-gradient añade un filtro oscuro cálido para que tu texto blanco sea legible.
-               El url() es donde colocarás tu imagen */
-            background-image: linear-gradient(to bottom, rgba(26, 18, 8, 0.7), rgba(18, 14, 7, 0.85)), url('img/inicio.jpg');
+         
+            background-image: linear-gradient(to bottom, rgba(26, 18, 8, 0.1), rgba(18, 14, 7, 0.8)), url('img/inicio.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -745,7 +744,10 @@
            ACADEMY
         ============================================================ */
         .academy {
-            background: var(--dark2);
+            background-image: linear-gradient(to bottom, rgba(26, 18, 8, 0.1), rgba(18, 14, 7, 0.8)), url('img/fondo3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat
         }
 
         .courses-grid {
