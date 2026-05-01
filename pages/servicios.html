@@ -109,13 +109,14 @@
 
             .photo-ph .ph-label {
                 font-family: var(--ff-mono);
-                font-size: .44rem;
+                font-size: 0.7rem;
                 letter-spacing: .18em;
                 color: rgba(196,113,58,.3);
                 text-align: center;
                 line-height: 1.7;
             }
 
+        /* ══ NAV UNIFICADO ══ */
         nav {
             position: fixed;
             top: 0;
@@ -152,21 +153,37 @@
 
             .nav-links a {
                 font-family: var(--ff-mono);
-                font-size: .6rem;
+                font-size: 0.75rem;
                 letter-spacing: .2em;
                 text-transform: uppercase;
                 color: var(--warm-dim);
                 text-decoration: none;
                 transition: color .3s;
+                position: relative;
             }
+
+                .nav-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -3px;
+                    left: 0;
+                    width: 0;
+                    height: 1px;
+                    background: var(--accent);
+                    transition: width .35s;
+                }
 
                 .nav-links a:hover, .nav-links a.active {
                     color: var(--accent);
                 }
 
+                    .nav-links a:hover::after, .nav-links a.active::after {
+                        width: 100%;
+                    }
+
         .btn-nav {
             font-family: var(--ff-mono);
-            font-size: .6rem;
+            font-size: 0.75rem;
             letter-spacing: .18em;
             text-transform: uppercase;
             color: var(--accent);
@@ -236,7 +253,7 @@
             top: 2rem;
             right: clamp(1.5rem,5vw,4rem);
             font-family: var(--ff-mono);
-            font-size: .6rem;
+            font-size: 0.75rem;
             letter-spacing: .2em;
             color: var(--warm-dim);
             background: none;
@@ -291,7 +308,7 @@
 
         .sec-label {
             font-family: var(--ff-mono);
-            font-size: .58rem;
+            font-size: 0.75rem;
             letter-spacing: .28em;
             text-transform: uppercase;
             color: var(--accent);
@@ -396,7 +413,7 @@
         }
 
         .svc-desc {
-            font-size: .82rem;
+            font-size: 0.85rem;
             color: var(--warm-dim);
             line-height: 1.7;
             margin-bottom: 1rem;
@@ -410,7 +427,7 @@
 
         .svc-tag {
             font-family: var(--ff-mono);
-            font-size: .45rem;
+            font-size: 0.7rem;
             letter-spacing: .18em;
             text-transform: uppercase;
             border: 1px solid rgba(196,113,58,.2);
@@ -459,7 +476,7 @@
             .show-label span {
                 display: block;
                 font-family: var(--ff-mono);
-                font-size: .48rem;
+                font-size: 0.7rem;
                 letter-spacing: .2em;
                 text-transform: uppercase;
                 color: var(--warm-dim);
@@ -517,7 +534,7 @@
         }
 
         .step-desc {
-            font-size: .8rem;
+            font-size: 0.85rem;
             color: var(--warm-dim);
             line-height: 1.7;
         }
@@ -586,10 +603,9 @@
                 margin-bottom: 2rem;
             }
 
-        /* ── ESTILOS TOKEN STATUS ── */
         .token-status {
             font-family: var(--ff-mono);
-            font-size: .55rem;
+            font-size: 0.75rem;
             letter-spacing: .12em;
             padding: .6rem .85rem;
             margin-bottom: 1.25rem;
@@ -646,7 +662,7 @@
             .fg label {
                 display: block;
                 font-family: var(--ff-mono);
-                font-size: .52rem;
+                font-size: 0.75rem;
                 letter-spacing: .18em;
                 text-transform: uppercase;
                 color: var(--warm-dim);
@@ -660,7 +676,7 @@
                 padding: .8rem 1rem;
                 color: var(--cream);
                 font-family: var(--ff-body);
-                font-size: .9rem;
+                font-size: 0.9rem;
                 outline: none;
                 transition: border-color .3s;
             }
@@ -695,7 +711,7 @@
             justify-content: center;
             gap: .75rem;
             font-family: var(--ff-mono);
-            font-size: .6rem;
+            font-size: 0.75rem;
             letter-spacing: .2em;
             text-transform: uppercase;
             background: var(--accent);
@@ -715,53 +731,86 @@
                 pointer-events: none;
             }
 
-        /* FOOTER */
+        /* ══ FOOTER UNIFICADO ══ */
         footer {
             background: var(--ink2);
             border-top: 1px solid var(--glass-b);
-            padding: 3rem clamp(1.5rem,5vw,4rem) 2rem;
+            padding: 4rem clamp(1.5rem,5vw,4rem) 2rem;
         }
 
-        .footer-nav {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
         }
 
-            .footer-nav a {
-                font-family: var(--ff-mono);
-                font-size: .55rem;
-                letter-spacing: .18em;
-                text-transform: uppercase;
-                color: var(--warm-dim);
-                text-decoration: none;
-                transition: color .3s;
+        .footer-logo {
+            font-family: var(--ff-big);
+            font-size: 2.2rem;
+            letter-spacing: .14em;
+            margin-bottom: .75rem;
+        }
+
+            .footer-logo span {
+                color: var(--accent);
             }
 
-                .footer-nav a:hover {
-                    color: var(--accent);
-                }
+        .footer-tagline {
+            font-family: var(--ff-display);
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--warm-dim);
+            line-height: 1.8;
+            max-width: 30ch;
+        }
+
+        .foot-col h6 {
+            font-family: var(--ff-mono);
+            font-size: 0.75rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .foot-col ul {
+            list-style: none;
+        }
+
+        .foot-col li {
+            margin-bottom: .6rem;
+        }
+
+        .foot-col a {
+            font-size: .85rem;
+            color: var(--warm-dim);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+            .foot-col a:hover {
+                color: var(--cream);
+            }
 
         .footer-bottom {
+            border-top: 1px solid rgba(196,113,58,.07);
+            padding-top: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
-            border-top: 1px solid rgba(196,113,58,.07);
-            padding-top: 1.5rem;
         }
 
             .footer-bottom p {
-                font-size: .72rem;
+                font-size: .8rem;
                 color: var(--warm-dim);
             }
 
             .footer-bottom span {
                 font-family: var(--ff-mono);
-                font-size: .52rem;
+                font-size: 0.7rem;
                 letter-spacing: .2em;
                 color: var(--warm-dim);
             }
@@ -776,7 +825,7 @@
             border-left: 3px solid var(--accent);
             padding: .85rem 2rem;
             font-family: var(--ff-mono);
-            font-size: .7rem;
+            font-size: 0.75rem;
             letter-spacing: .1em;
             color: var(--cream);
             z-index: 5000;
@@ -844,6 +893,11 @@
             .quote-wrap {
                 grid-template-columns: 1fr;
             }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
         }
 
         @media(max-width:600px) {
@@ -864,6 +918,7 @@
 <body>
     <div class="cursor" id="cur"></div>
     <div class="cursor-ring" id="curRing"></div>
+
     <div class="mob-overlay" id="mobNav">
         <button class="mob-close" id="mobClose">✕ Cerrar</button>
         <a href="../index.html">Inicio</a>
@@ -873,6 +928,8 @@
         <a href="tienda.html">Tienda</a>
         <a href="../index.html#contacto">Contacto</a>
     </div>
+
+    <!-- NAV UNIFICADO -->
     <nav>
         <a href="../index.html" class="nav-logo">ZAH<span>Y</span>O</a>
         <ul class="nav-links">
@@ -960,28 +1017,22 @@
                 <h2>Cuéntanos<br>tu <em>proyecto</em></h2>
                 <p>Completa el formulario y nos pondremos en contacto en menos de 24 horas para coordinar los detalles de tu proyecto.</p>
                 <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--glass-b);background:var(--glass);">
-                    <div style="font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Contacto directo</div>
+                    <div style="font-family:var(--ff-mono);font-size:0.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Contacto directo</div>
                     <div style="display:flex;flex-direction:column;gap:.75rem;">
-                        <a href="https://wa.me/59173443086" target="_blank" style="font-size:.85rem;color:var(--warm-dim);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">📱 +591 73443086 (Principal)</a>
-                        <a href="https://wa.me/59173450072" target="_blank" style="font-size:.85rem;color:var(--warm-dim);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">👤 Arq. Franz: +591 73450072</a>
-                        <a href="https://wa.me/59175769551" target="_blank" style="font-size:.85rem;color:var(--warm-dim);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">👤 Arq. Laura: +591 75769551</a>
-                        <a href="mailto:axis.estudiodesign@gmail.com" style="font-size:.85rem;color:var(--warm-dim);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">✉️ axis.estudiodesign@gmail.com</a>
+                        <a href="https://wa.me/59173443086" target="_blank" style="font-size:.9rem;color:var(--warm-dim);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">📱 +591 73443086</a>
+                        <a href="mailto:zahyo.arquitectos@gmail.com" style="font-size:.9rem;color:var(--warm-dim);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">✉️ zahyo.arquitectos@gmail.com</a>
+                        <a href="https://www.instagram.com/zahyo.arq/" target="_blank" rel="noopener noreferrer" style="font-size:.9rem;color:var(--warm-dim);text-decoration:none;transition:color .3s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">📸 @zahyo.arq</a>
                     </div>
                 </div>
             </div>
             <div class="form-card">
                 <h3>Solicitar Cotización</h3>
-
-                <!-- ── INDICADOR DE TOKEN ── -->
                 <div class="token-status loading" id="tokenStatus">
                     <div class="ts-dot pulse"></div>
                     <span id="tokenMsg">Conectando con el servidor...</span>
                 </div>
-
                 <form id="quoteForm">
-                    <!-- HONEYPOT ANTI-BOTS -->
                     <input type="text" name="honeypot" id="honeypot" style="display:none;" tabindex="-1" autocomplete="off">
-
                     <div class="form-row">
                         <div class="fg"><label>Nombre *</label><input type="text" id="q-nombre" placeholder="Tu nombre" required></div>
                         <div class="fg"><label>Teléfono</label><input type="tel" id="q-tel" placeholder="+591 7XXXXXXX"></div>
@@ -1008,15 +1059,32 @@
         </div>
     </section>
 
+    <!-- FOOTER UNIFICADO -->
     <footer>
-        <ul class="footer-nav">
-            <li><a href="../index.html">Inicio</a></li>
-            <li><a href="servicios.html">Servicios</a></li>
-            <li><a href="academia.html">Academia</a></li>
-            <li><a href="apoyo.html">Apoyo Académico</a></li>
-            <li><a href="tienda.html">Tienda</a></li>
-            <li><a href="../index.html#contacto">Contacto</a></li>
-        </ul>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">ZAH<span>Y</span>O</div>
+                <p class="footer-tagline">La coordenada donde convergen dos direcciones. Diseñamos el mundo que nos rodea llevando las ideas a su máximo potencial.</p>
+            </div>
+            <div class="foot-col">
+                <h6>Módulos</h6>
+                <ul>
+                    <li><a href="servicios.html">Estudio Profesional</a></li>
+                    <li><a href="academia.html">Zahyo Academy</a></li>
+                    <li><a href="apoyo.html">Apoyo Académico</a></li>
+                    <li><a href="tienda.html">Zahyo Shop</a></li>
+                    <li><a href="../index.html#nosotros">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="foot-col">
+                <h6>Contacto</h6>
+                <ul>
+                    <li><a href="mailto:zahyo.arquitectos@gmail.com">zahyo.arquitectos@gmail.com</a></li>
+                    <li><a href="https://wa.me/59173443086">+591 73443086</a></li>
+                    <li><a href="https://www.instagram.com/zahyo.arq/" target="_blank" rel="noopener noreferrer">Instagram: @zahyo.arq</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="footer-bottom">
             <p>© 2026 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
             <span>SUCRE · BOLIVIA</span>
@@ -1027,108 +1095,59 @@
     <script>
         const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyeop2BzZ1KNKHynUhbVSJXukVqturyv-sQjscHNdWgShgC4mRKQFzr4Ym42zFQ2wtz/exec';
         const WA = '59173443086';
-
         let tokenSeguridad = '';
         let tokenIntentos = 0;
         const TOKEN_MAX_REINTENTOS = 3;
-
         const tsEl = document.getElementById('tokenStatus');
         const tsMsg = document.getElementById('tokenMsg');
 
-        // ── PETICIÓN DEL TOKEN DE SEGURIDAD ──
         async function pedirToken() {
             tsEl.className = 'token-status loading';
             tsMsg.textContent = 'Conectando con el servidor...';
             tsEl.querySelector('.ts-dot').classList.add('pulse');
-
             try {
                 const resp = await fetch(SHEETS_URL + '?action=token&t=' + Date.now());
                 if (!resp.ok) throw new Error('HTTP ' + resp.status);
                 const data = await resp.json();
-
                 if (data.ok && data.data && data.data.token) {
                     tokenSeguridad = data.data.token;
                     tsEl.className = 'token-status ready';
                     tsMsg.textContent = '✓ Conectado — puedes enviar el formulario';
                     tsEl.querySelector('.ts-dot').classList.remove('pulse');
-                } else {
-                    throw new Error('Token inválido en respuesta');
-                }
+                } else { throw new Error('Token inválido en respuesta'); }
             } catch (err) {
                 tokenIntentos++;
-                if (tokenIntentos < TOKEN_MAX_REINTENTOS) {
-                    tsMsg.textContent = 'Reconectando... (intento ' + tokenIntentos + ')';
-                    setTimeout(pedirToken, 3000);
-                } else {
-                    tsEl.className = 'token-status error';
-                    tsMsg.textContent = '⚠ Sin conexión — se enviará por WhatsApp';
-                    tsEl.querySelector('.ts-dot').classList.remove('pulse');
-                }
+                if (tokenIntentos < TOKEN_MAX_REINTENTOS) { tsMsg.textContent = 'Reconectando... (intento ' + tokenIntentos + ')'; setTimeout(pedirToken, 3000); }
+                else { tsEl.className = 'token-status error'; tsMsg.textContent = '⚠ Sin conexión — se enviará por WhatsApp'; tsEl.querySelector('.ts-dot').classList.remove('pulse'); }
             }
         }
         window.addEventListener('load', pedirToken);
 
-        // ── EFECTOS VISUALES ──
         const cur = document.getElementById('cur'), curRing = document.getElementById('curRing');
         document.addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; setTimeout(() => { curRing.style.left = e.clientX + 'px'; curRing.style.top = e.clientY + 'px'; }, 60); });
-
         const ham = document.getElementById('ham'), mob = document.getElementById('mobNav'), mc = document.getElementById('mobClose');
         ham.addEventListener('click', () => mob.classList.toggle('open'));
         mc.addEventListener('click', () => mob.classList.remove('open'));
-
         const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: .07 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-        // ── MANEJO DEL FORMULARIO ──
         document.getElementById('quoteForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const btn = document.getElementById('btnQuote');
             const honeypot = document.getElementById('honeypot').value;
-
-            btn.textContent = 'Enviando...';
-            btn.disabled = true;
-
-            const payload = {
-                tipo: 'contacto',
-                token: tokenSeguridad,
-                honeypot: honeypot,
-                form: {
-                    nombre: document.getElementById('q-nombre').value,
-                    telefono: document.getElementById('q-tel').value,
-                    email: document.getElementById('q-email').value,
-                    servicio: document.getElementById('q-servicio').value || 'No especificado',
-                    mensaje: document.getElementById('q-mensaje').value
-                }
-            };
-
+            btn.textContent = 'Enviando...'; btn.disabled = true;
+            const payload = { tipo: 'contacto', token: tokenSeguridad, honeypot: honeypot, form: { nombre: document.getElementById('q-nombre').value, telefono: document.getElementById('q-tel').value, email: document.getElementById('q-email').value, servicio: document.getElementById('q-servicio').value || 'No especificado', mensaje: document.getElementById('q-mensaje').value } };
             try {
                 if (!tokenSeguridad) throw new Error('Sin conexión segura (Token faltante)');
-
-                const response = await fetch(SHEETS_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(payload)
-                });
-
+                const response = await fetch(SHEETS_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
                 const result = await response.json();
-
-                if (result.ok) {
-                    showToast('✓ Solicitud enviada. ¡Te contactaremos pronto!');
-                    this.reset();
-                    // Refrescar el token por seguridad
-                    tokenSeguridad = '';
-                    setTimeout(pedirToken, 500);
-                } else {
-                    throw new Error(result.error || 'Error en el servidor');
-                }
+                if (result.ok) { showToast('✓ Solicitud enviada. ¡Te contactaremos pronto!'); this.reset(); tokenSeguridad = ''; setTimeout(pedirToken, 500); }
+                else { throw new Error(result.error || 'Error en el servidor'); }
             } catch (err) {
-                // Fallback a WhatsApp
                 const msg = encodeURIComponent(`Hola ZAHYO!\nNombre: ${payload.form.nombre}\nServicio: ${payload.form.servicio}\n\n${payload.form.mensaje}`);
                 window.open(`https://wa.me/${WA}?text=${msg}`, '_blank');
             }
-
-            btn.textContent = 'Enviar solicitud →';
-            btn.disabled = false;
+            btn.textContent = 'Enviar solicitud →'; btn.disabled = false;
         });
 
         function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }

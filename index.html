@@ -9,13 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@200;300;400;500&family=Bebas+Neue&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* ── Paleta ZAHYO — cobre/terracota ── */
             --ink: #0A0806;
             --ink2: #110E09;
             --ink3: #1A1510;
             --copper: #7A3A15;
             --copper-lt: #D4895A;
-            --accent: #C4713A; /* acento principal */
+            --accent: #C4713A;
             --accent-dim: rgba(196,113,58,0.12);
             --accent-glow: rgba(196,113,58,0.06);
             --warm: #C8A882;
@@ -25,7 +24,6 @@
             --glass: rgba(255,255,255,0.03);
             --glass-b: rgba(196,113,58,0.18);
             --frosted: rgba(10,8,6,0.55);
-            /* tipografía */
             --ff-display: 'Cormorant Garamond', serif;
             --ff-big: 'Bebas Neue', sans-serif;
             --ff-body: 'DM Sans', sans-serif;
@@ -48,7 +46,6 @@
             font-family: var(--ff-body);
             font-weight: 300;
             overflow-x: hidden;
-            cursor: none;
         }
 
         ::selection {
@@ -56,32 +53,42 @@
             color: var(--ink);
         }
 
-        /* ── CURSOR ── */
-        .cursor {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%,-50%);
-            transition: width .2s, height .2s;
+        @media (pointer: fine) {
+            body, a, button, .btn-primary, .btn-ghost, .btn-wa, .mod-card {
+                cursor: none !important;
+            }
+
+            .cursor {
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background: var(--accent);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%,-50%);
+                transition: width .2s, height .2s;
+            }
+
+            .cursor-ring {
+                position: fixed;
+                width: 36px;
+                height: 36px;
+                border: 1px solid rgba(196,113,58,.5);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%,-50%);
+                transition: all .12s ease;
+            }
         }
 
-        .cursor-ring {
-            position: fixed;
-            width: 36px;
-            height: 36px;
-            border: 1px solid rgba(196,113,58,.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%,-50%);
-            transition: all .12s ease;
+        @media (hover: none) and (pointer: coarse) {
+            .cursor, .cursor-ring {
+                display: none !important;
+            }
         }
 
-        /* ── SCROLLBAR ── */
         ::-webkit-scrollbar {
             width: 2px
         }
@@ -94,9 +101,6 @@
             background: var(--copper)
         }
 
-        /* ── PLACEHOLDER DE FOTO ──
-           El usuario crea la carpeta img/ y agrega las imágenes con los nombres indicados.
-           JS carga cada imagen y oculta automáticamente el placeholder. ── */
         .photo-ph {
             position: absolute;
             inset: 0;
@@ -116,14 +120,14 @@
 
             .photo-ph .ph-label {
                 font-family: var(--ff-mono);
-                font-size: .48rem;
+                font-size: 0.7rem;
                 letter-spacing: .18em;
                 color: rgba(196,113,58,.35);
                 text-align: center;
                 line-height: 1.6;
             }
 
-        /* ── NAV ── */
+        /* ══ NAV UNIFICADO ══ */
         nav {
             position: fixed;
             top: 0;
@@ -135,14 +139,11 @@
             justify-content: space-between;
             padding: 0 clamp(1.5rem,5vw,4rem);
             height: 72px;
-            transition: all .5s ease;
+            background: var(--frosted);
+            backdrop-filter: blur(32px);
+            border-bottom: 1px solid var(--glass-b);
+            transition: background .3s;
         }
-
-            nav.scrolled {
-                background: var(--frosted);
-                backdrop-filter: blur(32px);
-                border-bottom: 1px solid var(--glass-b);
-            }
 
         .nav-logo {
             font-family: var(--ff-big);
@@ -164,7 +165,7 @@
 
             .nav-links a {
                 font-family: var(--ff-mono);
-                font-size: .6rem;
+                font-size: 0.75rem;
                 letter-spacing: .2em;
                 text-transform: uppercase;
                 color: var(--warm-dim);
@@ -194,7 +195,7 @@
 
         .btn-nav {
             font-family: var(--ff-mono);
-            font-size: .6rem;
+            font-size: 0.75rem;
             letter-spacing: .18em;
             text-transform: uppercase;
             color: var(--accent);
@@ -215,7 +216,6 @@
             gap: 5px;
             background: none;
             border: none;
-            cursor: none;
             padding: 4px;
         }
 
@@ -227,7 +227,55 @@
                 transition: all .3s;
             }
 
-        /* ── HERO ── */
+        /* MOBILE NAV */
+        .mob-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10,8,6,.97);
+            backdrop-filter: blur(32px);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .4s;
+        }
+
+            .mob-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .mob-overlay a {
+                font-family: var(--ff-big);
+                font-size: 3rem;
+                letter-spacing: .1em;
+                color: var(--cream);
+                text-decoration: none;
+                transition: color .3s;
+            }
+
+                .mob-overlay a:hover {
+                    color: var(--accent);
+                }
+
+        .mob-close {
+            position: absolute;
+            top: 2rem;
+            right: clamp(1.5rem,5vw,4rem);
+            font-family: var(--ff-mono);
+            font-size: 0.75rem;
+            letter-spacing: .2em;
+            color: var(--warm-dim);
+            background: none;
+            border: none;
+            text-transform: uppercase;
+        }
+
+        /* HERO */
         .hero {
             height: 100dvh;
             position: relative;
@@ -276,7 +324,6 @@
             line-height: 1;
         }
 
-        /* Hero content */
         .hero-content {
             position: absolute;
             z-index: 6;
@@ -287,7 +334,7 @@
 
         .hero-badge {
             font-family: var(--ff-mono);
-            font-size: .58rem;
+            font-size: 0.75rem;
             letter-spacing: .28em;
             text-transform: uppercase;
             color: var(--accent);
@@ -346,14 +393,13 @@
 
         .btn-primary {
             font-family: var(--ff-mono);
-            font-size: .6rem;
+            font-size: 0.75rem;
             letter-spacing: .18em;
             text-transform: uppercase;
             background: var(--accent);
             color: var(--ink);
             padding: .85rem 2.2rem;
             border: none;
-            cursor: none;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -368,7 +414,7 @@
 
         .btn-ghost {
             font-family: var(--ff-mono);
-            font-size: .6rem;
+            font-size: 0.75rem;
             letter-spacing: .18em;
             text-transform: uppercase;
             background: rgba(255,255,255,.06);
@@ -376,7 +422,6 @@
             color: var(--cream-dim);
             border: 1px solid rgba(240,232,216,.15);
             padding: .85rem 2.2rem;
-            cursor: none;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -389,7 +434,6 @@
                 color: var(--accent);
             }
 
-        /* Scroll indicator */
         .hero-scroll {
             position: absolute;
             z-index: 6;
@@ -401,7 +445,7 @@
             align-items: center;
             gap: .75rem;
             font-family: var(--ff-mono);
-            font-size: .48rem;
+            font-size: 0.7rem;
             letter-spacing: .3em;
             text-transform: uppercase;
             color: rgba(240,232,216,.3);
@@ -413,10 +457,10 @@
             width: 1px;
             height: 48px;
             background: linear-gradient(var(--accent),transparent);
-            animation: pulse 2.5s ease infinite;
+            animation: pulseAnim 2.5s ease infinite;
         }
 
-        /* ── MÓDULOS 4 columnas ── */
+        /* MÓDULOS */
         .modules {
             display: grid;
             grid-template-columns: repeat(4,1fr);
@@ -433,7 +477,6 @@
             padding: clamp(1.5rem,2.5vw,2.5rem);
             text-decoration: none;
             color: var(--cream);
-            cursor: none;
         }
 
         .mod-bg {
@@ -493,7 +536,7 @@
 
         .mod-num {
             font-family: var(--ff-mono);
-            font-size: .52rem;
+            font-size: 0.75rem;
             letter-spacing: .3em;
             color: var(--accent);
             margin-bottom: .75rem;
@@ -531,7 +574,7 @@
             left: 1.5rem;
             z-index: 2;
             font-family: var(--ff-mono);
-            font-size: .46rem;
+            font-size: 0.7rem;
             letter-spacing: .2em;
             text-transform: uppercase;
             border: 1px solid rgba(196,113,58,.25);
@@ -565,7 +608,7 @@
             border-left: 1px solid rgba(196,113,58,.1);
         }
 
-        /* ── MARQUEE ── */
+        /* MARQUEE */
         .marquee-strip {
             background: var(--ink2);
             border-top: 1px solid var(--glass-b);
@@ -583,7 +626,7 @@
 
         .marquee-item {
             font-family: var(--ff-mono);
-            font-size: .55rem;
+            font-size: 0.75rem;
             letter-spacing: .25em;
             text-transform: uppercase;
             color: var(--warm-dim);
@@ -600,7 +643,7 @@
                 background: var(--accent);
             }
 
-        /* ── ABOUT ── */
+        /* ABOUT */
         .about {
             padding: clamp(6rem,10vw,11rem) clamp(1.5rem,5vw,4rem);
             display: grid;
@@ -626,7 +669,7 @@
 
         .sec-label {
             font-family: var(--ff-mono);
-            font-size: .58rem;
+            font-size: 0.75rem;
             letter-spacing: .28em;
             text-transform: uppercase;
             color: var(--accent);
@@ -714,7 +757,7 @@
             bottom: 1.25rem;
             right: 1.25rem;
             font-family: var(--ff-mono);
-            font-size: .48rem;
+            font-size: 0.7rem;
             letter-spacing: .2em;
             text-transform: uppercase;
             color: var(--accent);
@@ -730,7 +773,7 @@
                 background: var(--accent);
             }
 
-        /* ── CONTACT STRIP ── */
+        /* CONTACT STRIP */
         .contact-strip {
             padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
             background: var(--ink2);
@@ -794,7 +837,7 @@
 
         .c-item h5 {
             font-family: var(--ff-mono);
-            font-size: .5rem;
+            font-size: 0.75rem;
             letter-spacing: .2em;
             text-transform: uppercase;
             color: var(--accent);
@@ -802,7 +845,7 @@
         }
 
         .c-item a, .c-item p {
-            font-size: .85rem;
+            font-size: .9rem;
             color: var(--warm-dim);
             text-decoration: none;
             transition: color .3s;
@@ -828,7 +871,7 @@
             }
 
             .contact-cta-box p {
-                font-size: .85rem;
+                font-size: .9rem;
                 color: var(--warm-dim);
                 margin-bottom: 1.5rem;
                 line-height: 1.7;
@@ -839,7 +882,7 @@
             align-items: center;
             gap: .75rem;
             font-family: var(--ff-mono);
-            font-size: .6rem;
+            font-size: 0.75rem;
             letter-spacing: .2em;
             text-transform: uppercase;
             background: #25D366;
@@ -847,7 +890,6 @@
             padding: .9rem 2rem;
             text-decoration: none;
             transition: all .3s;
-            cursor: none;
         }
 
             .btn-wa:hover {
@@ -855,7 +897,7 @@
                 transform: translateY(-2px);
             }
 
-        /* ── FOOTER ── */
+        /* ══ FOOTER UNIFICADO ══ */
         footer {
             background: var(--ink);
             border-top: 1px solid var(--glass-b);
@@ -882,7 +924,7 @@
 
         .footer-tagline {
             font-family: var(--ff-display);
-            font-size: .95rem;
+            font-size: 1rem;
             font-style: italic;
             color: var(--warm-dim);
             line-height: 1.8;
@@ -891,7 +933,7 @@
 
         .foot-col h6 {
             font-family: var(--ff-mono);
-            font-size: .52rem;
+            font-size: 0.75rem;
             letter-spacing: .25em;
             text-transform: uppercase;
             color: var(--accent);
@@ -907,7 +949,7 @@
         }
 
         .foot-col a {
-            font-size: .82rem;
+            font-size: .85rem;
             color: var(--warm-dim);
             text-decoration: none;
             transition: color .3s;
@@ -928,67 +970,18 @@
         }
 
             .footer-bottom p {
-                font-size: .72rem;
+                font-size: .8rem;
                 color: var(--warm-dim);
             }
 
             .footer-bottom span {
                 font-family: var(--ff-mono);
-                font-size: .52rem;
+                font-size: 0.7rem;
                 letter-spacing: .2em;
                 color: var(--warm-dim);
             }
 
-        /* ── MOBILE NAV ── */
-        .mob-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(10,8,6,.97);
-            backdrop-filter: blur(32px);
-            z-index: 900;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity .4s;
-        }
-
-            .mob-overlay.open {
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            .mob-overlay a {
-                font-family: var(--ff-big);
-                font-size: 3rem;
-                letter-spacing: .1em;
-                color: var(--cream);
-                text-decoration: none;
-                transition: color .3s;
-            }
-
-                .mob-overlay a:hover {
-                    color: var(--accent);
-                }
-
-        .mob-close {
-            position: absolute;
-            top: 2rem;
-            right: clamp(1.5rem,5vw,4rem);
-            font-family: var(--ff-mono);
-            font-size: .6rem;
-            letter-spacing: .2em;
-            color: var(--warm-dim);
-            background: none;
-            border: none;
-            cursor: none;
-            text-transform: uppercase;
-        }
-
-        /* ── REVEAL / ANIMATIONS ── */
+        /* REVEAL / ANIMATIONS */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -1012,17 +1005,7 @@
             }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-
-        @keyframes pulse {
+        @keyframes pulseAnim {
             0%,100% {
                 transform: scaleY(1);
                 opacity: 1
@@ -1044,7 +1027,6 @@
             }
         }
 
-        /* ── RESPONSIVE ── */
         @media(max-width:1200px) {
             .modules {
                 grid-template-columns: repeat(2,1fr);
@@ -1063,12 +1045,17 @@
 
                 .mod-card:nth-child(2) {
                     border-left: 1px solid rgba(196,113,58,.1);
+                    border-top: none;
+                }
+
+                .mod-card:nth-child(3) {
+                    border-top: 1px solid rgba(196,113,58,.1);
                 }
         }
 
         @media(max-width:900px) {
-            .nav-links, .nav-cta-wrap {
-                display: none;
+            .nav-links, .btn-nav {
+                display: none !important;
             }
 
             .hamburger {
@@ -1104,6 +1091,7 @@
 
                 .mod-card:nth-child(2) {
                     border-left: none;
+                    border-top: 1px solid rgba(196,113,58,.1);
                 }
 
             .hero-title {
@@ -1113,7 +1101,6 @@
     </style>
 </head>
 <body>
-
     <div class="cursor" id="cur"></div>
     <div class="cursor-ring" id="curRing"></div>
 
@@ -1128,7 +1115,7 @@
         <a href="#contacto">Contacto</a>
     </div>
 
-    <!-- NAV -->
+    <!-- NAV UNIFICADO -->
     <nav id="navbar">
         <a href="index.html" class="nav-logo">ZAH<span>Y</span>O</a>
         <ul class="nav-links">
@@ -1139,15 +1126,12 @@
             <li><a href="pages/tienda.html">Tienda</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
-        <div class="nav-cta-wrap" style="display:flex;align-items:center;gap:1rem;">
-            <a href="pages/servicios.html#cotizar" class="btn-nav">Cotizar Proyecto</a>
-        </div>
+        <a href="pages/servicios.html#cotizar" class="btn-nav">Cotizar Proyecto</a>
         <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
     </nav>
 
-    <!-- ═══════════════ HERO ═══════════════ -->
+    <!-- HERO -->
     <section class="hero" id="inicio">
-        <!-- Agrega img/hero-main.jpg a tu carpeta img/ -->
         <div class="hero-bg" data-img="img/hero-main.jpg">
             <div class="photo-ph">
                 <div class="ph-icon">📷</div>
@@ -1157,13 +1141,9 @@
         <div class="hero-grid"></div>
         <div class="hero-vignette"></div>
         <div class="hero-bg-word">ZAHYO</div>
-
         <div class="hero-content">
             <div class="hero-badge">Est. 2024 · Estudio de Arquitectura · Sucre, Bolivia</div>
-            <h1 class="hero-title">
-                Donde las<br>ideas se
-                <em>construyen</em>
-            </h1>
+            <h1 class="hero-title">Donde las<br>ideas se<em>construyen</em></h1>
             <p class="hero-sub">La coordenada donde convergen dos direcciones. Date el lujo de vivir tu espacio.</p>
             <div class="hero-actions">
                 <a href="#modulos" class="btn-primary">Explorar estudio ↓</a>
@@ -1176,68 +1156,51 @@
         </div>
     </section>
 
-    <!-- ═══════════════ MÓDULOS (4) ═══════════════ -->
+    <!-- MÓDULOS -->
     <section id="modulos" class="modules">
-
-        <!-- 01 SERVICIOS -->
         <a href="pages/servicios.html" class="mod-card reveal">
             <div class="mod-bg" data-img="img/module-servicios.jpg">
                 <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/module-servicios.jpg<br>Interior de oficina / planos sobre mesa<br>1200×900px</div></div>
             </div>
-            <div class="mod-glass"></div>
-            <div class="mod-overlay"></div>
-            <div class="mod-tag">01 · Profesional</div>
-            <div class="mod-arrow">↗</div>
+            <div class="mod-glass"></div><div class="mod-overlay"></div>
+            <div class="mod-tag">01 · Profesional</div><div class="mod-arrow">↗</div>
             <div class="mod-num">SERVICIOS</div>
             <h2 class="mod-title">Estudio<br>Profesional</h2>
             <p class="mod-sub">Planos · Renders · Maquetas · Trámites</p>
         </a>
-
-        <!-- 02 ACADEMIA -->
         <a href="pages/academia.html" class="mod-card reveal">
             <div class="mod-bg" data-img="img/module-academia.jpg">
                 <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/module-academia.jpg<br>Taller / clase de arquitectura<br>1200×900px</div></div>
             </div>
-            <div class="mod-glass"></div>
-            <div class="mod-overlay"></div>
-            <div class="mod-tag">02 · Academia</div>
-            <div class="mod-arrow">↗</div>
+            <div class="mod-glass"></div><div class="mod-overlay"></div>
+            <div class="mod-tag">02 · Academia</div><div class="mod-arrow">↗</div>
             <div class="mod-num">ACADEMIA</div>
             <h2 class="mod-title">Zahyo<br>Academy</h2>
             <p class="mod-sub">Cursos · Talleres · Certificaciones</p>
         </a>
-
-        <!-- 03 APOYO ACADÉMICO -->
         <a href="pages/apoyo.html" class="mod-card reveal">
             <div class="mod-bg" data-img="img/module-apoyo.jpg">
                 <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/module-apoyo.jpg<br>Estudiante trabajando / planos en taller<br>1200×900px</div></div>
             </div>
-            <div class="mod-glass"></div>
-            <div class="mod-overlay"></div>
-            <div class="mod-tag">03 · Apoyo</div>
-            <div class="mod-arrow">↗</div>
+            <div class="mod-glass"></div><div class="mod-overlay"></div>
+            <div class="mod-tag">03 · Apoyo</div><div class="mod-arrow">↗</div>
             <div class="mod-num">APOYO</div>
             <h2 class="mod-title">Apoyo<br>Académico</h2>
             <p class="mod-sub">¿Necesitas ayuda con tu proyecto?</p>
         </a>
-
-        <!-- 04 TIENDA -->
         <a href="pages/tienda.html" class="mod-card reveal">
             <div class="mod-bg" data-img="img/module-tienda.jpg">
                 <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/module-tienda.jpg<br>Maquetas físicas / recursos digitales<br>1200×900px</div></div>
             </div>
-            <div class="mod-glass"></div>
-            <div class="mod-overlay"></div>
-            <div class="mod-tag">04 · Tienda</div>
-            <div class="mod-arrow">↗</div>
+            <div class="mod-glass"></div><div class="mod-overlay"></div>
+            <div class="mod-tag">04 · Tienda</div><div class="mod-arrow">↗</div>
             <div class="mod-num">TIENDA</div>
             <h2 class="mod-title">Zahyo<br>Shop</h2>
             <p class="mod-sub">Recursos digitales · Maquetas a escala</p>
         </a>
-
     </section>
 
-    <!-- ═══════════════ MARQUEE ═══════════════ -->
+    <!-- MARQUEE -->
     <div class="marquee-strip">
         <div class="marquee-track">
             <div class="marquee-item"><span class="dot"></span>Diseño Arquitectónico</div>
@@ -1249,29 +1212,26 @@
             <div class="marquee-item"><span class="dot"></span>Recursos Digitales</div>
             <div class="marquee-item"><span class="dot"></span>Trámites & Avalúos</div>
             <div class="marquee-item"><span class="dot"></span>Sucre · Bolivia</div>
-            <!-- duplicado -->
-            <div class="marquee-item"><span class="dot"></span>Diseño Arquitectónico</div>
-            <div class="marquee-item"><span class="dot"></span>Planos Técnicos</div>
-            <div class="marquee-item"><span class="dot"></span>Visualización 3D</div>
-            <div class="marquee-item"><span class="dot"></span>Maquetería</div>
-            <div class="marquee-item"><span class="dot"></span>Zahyo Academy</div>
-            <div class="marquee-item"><span class="dot"></span>Apoyo Académico</div>
-            <div class="marquee-item"><span class="dot"></span>Recursos Digitales</div>
-            <div class="marquee-item"><span class="dot"></span>Trámites & Avalúos</div>
-            <div class="marquee-item"><span class="dot"></span>Sucre · Bolivia</div>
+            <div aria-hidden="true" style="display:contents;">
+                <div class="marquee-item"><span class="dot"></span>Diseño Arquitectónico</div>
+                <div class="marquee-item"><span class="dot"></span>Planos Técnicos</div>
+                <div class="marquee-item"><span class="dot"></span>Visualización 3D</div>
+                <div class="marquee-item"><span class="dot"></span>Maquetería</div>
+                <div class="marquee-item"><span class="dot"></span>Zahyo Academy</div>
+                <div class="marquee-item"><span class="dot"></span>Apoyo Académico</div>
+                <div class="marquee-item"><span class="dot"></span>Recursos Digitales</div>
+                <div class="marquee-item"><span class="dot"></span>Trámites & Avalúos</div>
+                <div class="marquee-item"><span class="dot"></span>Sucre · Bolivia</div>
+            </div>
         </div>
     </div>
 
-    <!-- ═══════════════ ABOUT ═══════════════ -->
+    <!-- ABOUT -->
     <section id="nosotros" class="about">
         <div class="reveal">
             <div class="sec-label">Quiénes somos</div>
-            <h2 class="about-heading">
-                Arquitectura que<br>nace del <em>compromiso</em><br>y la innovación
-            </h2>
-            <p class="about-body">
-                Diseñar, proyectar e imaginar el mundo que nos rodea llevando las ideas a su máximo potencial, promoviendo la arquitectura innovadora y una visión diferente para todas las personas que decidan confiar en nosotros.
-            </p>
+            <h2 class="about-heading">Arquitectura que<br>nace del <em>compromiso</em><br>y la innovación</h2>
+            <p class="about-body">Diseñar, proyectar e imaginar el mundo que nos rodea llevando las ideas a su máximo potencial, promoviendo la arquitectura innovadora y una visión diferente para todas las personas que decidan confiar en nosotros.</p>
             <div class="about-cta">
                 <a href="pages/servicios.html" class="btn-ghost">Conocer nuestros servicios →</a>
             </div>
@@ -1289,7 +1249,7 @@
         </div>
     </section>
 
-    <!-- ═══════════════ CONTACT ═══════════════ -->
+    <!-- CONTACT -->
     <section id="contacto" class="contact-strip">
         <div class="contact-inner reveal">
             <div>
@@ -1302,11 +1262,15 @@
                     </div>
                     <div class="c-item">
                         <div class="c-icon">✉️</div>
-                        <div><h5>Correo</h5><a href="mailto:axis.estudiodesign@gmail.com">axis.estudiodesign@gmail.com</a></div>
+                        <div><h5>Correo</h5><a href="mailto:zahyo.arquitectos@gmail.com">zahyo.arquitectos@gmail.com</a></div>
                     </div>
                     <div class="c-item">
                         <div class="c-icon">📱</div>
                         <div><h5>WhatsApp</h5><a href="https://wa.me/59173443086" target="_blank">+591 73443086</a></div>
+                    </div>
+                    <div class="c-item">
+                        <div class="c-icon">📸</div>
+                        <div><h5>Instagram</h5><a href="https://www.instagram.com/zahyo.arq/" target="_blank" rel="noopener noreferrer">@zahyo.arq</a></div>
                     </div>
                 </div>
             </div>
@@ -1324,7 +1288,7 @@
         </div>
     </section>
 
-    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <!-- FOOTER UNIFICADO -->
     <footer>
         <div class="footer-grid">
             <div>
@@ -1344,56 +1308,41 @@
             <div class="foot-col">
                 <h6>Contacto</h6>
                 <ul>
-                    <li><a href="mailto:axis.estudiodesign@gmail.com">axis.estudiodesign@gmail.com</a></li>
+                    <li><a href="mailto:zahyo.arquitectos@gmail.com">zahyo.arquitectos@gmail.com</a></li>
                     <li><a href="https://wa.me/59173443086">+591 73443086</a></li>
-                    <li><a href="https://wa.me/59173450072">Arq. Franz: +591 73450072</a></li>
-                    <li><a href="https://wa.me/59175769551">Arq. Laura: +591 75769551</a></li>
+                    <li><a href="https://www.instagram.com/zahyo.arq/" target="_blank" rel="noopener noreferrer">Instagram: @zahyo.arq</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
+            <p>© 2026 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
             <span>SUCRE · BOLIVIA</span>
         </div>
     </footer>
 
     <script>
-        // Cursor
         const cur = document.getElementById('cur'), curRing = document.getElementById('curRing');
-        document.addEventListener('mousemove', e => {
-            cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
-            setTimeout(() => { curRing.style.left = e.clientX + 'px'; curRing.style.top = e.clientY + 'px'; }, 60);
-        });
-
-        // Nav scroll
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-        });
-
-        // Hamburger
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', e => {
+                cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+                setTimeout(() => { curRing.style.left = e.clientX + 'px'; curRing.style.top = e.clientY + 'px'; }, 60);
+            });
+        }
         const ham = document.getElementById('ham'), mob = document.getElementById('mobNav'), mc = document.getElementById('mobClose');
-        ham.addEventListener('click', () => mob.classList.toggle('open'));
-        mc.addEventListener('click', () => mob.classList.remove('open'));
-
-        // Reveal
+        const mobLinks = document.querySelectorAll('.mob-overlay a');
+        function closeMobNav() { mob.classList.remove('open'); }
+        ham.addEventListener('click', () => mob.classList.add('open'));
+        mc.addEventListener('click', closeMobNav);
+        mobLinks.forEach(link => link.addEventListener('click', closeMobNav));
         const obs = new IntersectionObserver(entries => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
         }, { threshold: .08 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-        // ── Cargador de imágenes ──────────────────────────────────────
-        // El usuario agrega sus fotos en la carpeta img/ con los nombres indicados.
-        // Este script las carga automáticamente y oculta el placeholder de texto.
         (function loadImages() {
             document.querySelectorAll('[data-img]').forEach(el => {
-                const src = el.dataset.img;
-                if (!src) return;
+                const src = el.dataset.img; if (!src) return;
                 const img = new Image();
-                img.onload = () => {
-                    el.style.backgroundImage = `url('${src}')`;
-                    const ph = el.querySelector('.photo-ph');
-                    if (ph) ph.style.display = 'none';
-                };
+                img.onload = () => { el.style.backgroundImage = `url('${src}')`; const ph = el.querySelector('.photo-ph'); if (ph) ph.style.display = 'none'; };
                 img.src = src;
             });
         })();

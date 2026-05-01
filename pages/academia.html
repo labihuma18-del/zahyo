@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@200;300;400;500&family=Bebas+Neue&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Variables base */
             --ink: #0A0806;
             --ink2: #110E09;
             --ink3: #1A1510;
@@ -24,6 +25,9 @@
             --glass: rgba(255,255,255,0.03);
             --glass-b: rgba(212,175,55,0.18);
             --frosted: rgba(10,8,6,0.55);
+            /* TEMA ACADEMIA (Mapeamos accent al oro) */
+            --accent: #D4AF37;
+            /* tipografía */
             --ff-display: 'Cormorant Garamond',serif;
             --ff-big: 'Bebas Neue',sans-serif;
             --ff-body: 'DM Sans',sans-serif;
@@ -50,32 +54,45 @@
         }
 
         ::selection {
-            background: var(--gold);
+            background: var(--accent);
             color: var(--ink);
         }
 
-        .cursor {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--gold);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%,-50%);
-            transition: width .2s,height .2s;
+        /* ── CURSOR ── */
+        @media (pointer: fine) {
+            body, a, button, .btn-primary, .btn-ghost, .btn-wa, .mod-card, .course-card, .course-featured {
+                cursor: none !important;
+            }
+
+            .cursor {
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background: var(--accent);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%,-50%);
+                transition: width .2s,height .2s;
+            }
+
+            .cursor-ring {
+                position: fixed;
+                width: 36px;
+                height: 36px;
+                border: 1px solid rgba(212,175,55,.5);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%,-50%);
+                transition: all .12s ease;
+            }
         }
 
-        .cursor-ring {
-            position: fixed;
-            width: 36px;
-            height: 36px;
-            border: 1px solid rgba(212,175,55,.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%,-50%);
-            transition: all .12s ease;
+        @media (hover: none) and (pointer: coarse) {
+            .cursor, .cursor-ring {
+                display: none !important;
+            }
         }
 
         ::-webkit-scrollbar {
@@ -109,13 +126,14 @@
 
             .photo-ph .ph-label {
                 font-family: var(--ff-mono);
-                font-size: .48rem;
+                font-size: .65rem;
                 letter-spacing: .18em;
                 color: rgba(212,175,55,.3);
                 text-align: center;
                 line-height: 1.7;
             }
 
+        /* ═══════════════ NAV (Idéntico a apoyo.html) ═══════════════ */
         nav {
             position: fixed;
             top: 0;
@@ -141,7 +159,7 @@
         }
 
             .nav-logo span {
-                color: var(--gold);
+                color: var(--accent);
             }
 
         .nav-links {
@@ -158,26 +176,43 @@
                 color: var(--warm-dim);
                 text-decoration: none;
                 transition: color .3s;
+                position: relative;
             }
 
-                .nav-links a:hover, .nav-links a.active {
-                    color: var(--gold);
+                .nav-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -3px;
+                    left: 0;
+                    width: 0;
+                    height: 1px;
+                    background: var(--accent);
+                    transition: width .35s;
                 }
+
+                .nav-links a:hover, .nav-links a.active {
+                    color: var(--cream);
+                }
+
+                    .nav-links a:hover::after, .nav-links a.active::after {
+                        width: 100%;
+                    }
 
         .btn-nav {
             font-family: var(--ff-mono);
             font-size: .6rem;
             letter-spacing: .18em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--accent);
             border: 1px solid rgba(212,175,55,.4);
             padding: .5rem 1.4rem;
             text-decoration: none;
             transition: all .3s;
+            cursor: none;
         }
 
             .btn-nav:hover {
-                background: var(--gold);
+                background: var(--accent);
                 color: var(--ink);
             }
 
@@ -187,8 +222,8 @@
             gap: 5px;
             background: none;
             border: none;
-            cursor: none;
             padding: 4px;
+            cursor: none;
         }
 
             .hamburger span {
@@ -196,8 +231,10 @@
                 width: 26px;
                 height: 1px;
                 background: var(--cream);
+                transition: all .3s;
             }
 
+        /* ── MOBILE NAV ── */
         .mob-overlay {
             position: fixed;
             inset: 0;
@@ -225,10 +262,11 @@
                 letter-spacing: .1em;
                 color: var(--cream);
                 text-decoration: none;
+                transition: color .3s;
             }
 
                 .mob-overlay a:hover {
-                    color: var(--gold);
+                    color: var(--accent);
                 }
 
         .mob-close {
@@ -241,9 +279,10 @@
             color: var(--warm-dim);
             background: none;
             border: none;
-            cursor: none;
             text-transform: uppercase;
+            cursor: none;
         }
+        /* ═════════════════════════════════════════════ */
 
         /* PAGE HERO */
         .page-hero {
@@ -291,10 +330,10 @@
 
         .sec-label {
             font-family: var(--ff-mono);
-            font-size: .58rem;
+            font-size: .7rem;
             letter-spacing: .28em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--accent);
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -305,7 +344,7 @@
                 content: '';
                 width: 36px;
                 height: 1px;
-                background: var(--gold);
+                background: var(--accent);
             }
 
         .page-hero h1 {
@@ -319,13 +358,13 @@
                 font-family: var(--ff-display);
                 font-style: italic;
                 font-size: .55em;
-                color: var(--gold);
+                color: var(--accent);
                 display: block;
             }
 
         .page-hero-sub {
             font-family: var(--ff-display);
-            font-size: clamp(.95rem,1.8vw,1.2rem);
+            font-size: clamp(1.1rem,2vw,1.3rem);
             font-style: italic;
             color: var(--warm-dim);
             margin-top: 1.25rem;
@@ -352,13 +391,7 @@
             display: grid;
             grid-template-columns: 1fr 1.2fr;
             transition: transform .4s,box-shadow .4s;
-            cursor: none;
         }
-
-            .course-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 24px 48px rgba(0,0,0,.4);
-            }
 
         .course-img {
             position: relative;
@@ -381,10 +414,10 @@
 
         .course-tag {
             font-family: var(--ff-mono);
-            font-size: .48rem;
+            font-size: .65rem;
             letter-spacing: .2em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--accent);
             margin-bottom: .75rem;
             display: flex;
             align-items: center;
@@ -395,19 +428,19 @@
                 content: '';
                 width: 16px;
                 height: 1px;
-                background: var(--gold);
+                background: var(--accent);
             }
 
         .course-name {
             font-family: var(--ff-display);
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 400;
             color: var(--cream);
             margin-bottom: .5rem;
         }
 
         .course-desc {
-            font-size: .8rem;
+            font-size: .95rem;
             color: var(--warm-dim);
             line-height: 1.7;
             margin-bottom: 1rem;
@@ -422,7 +455,7 @@
 
             .course-meta span {
                 font-family: var(--ff-mono);
-                font-size: .52rem;
+                font-size: .7rem;
                 letter-spacing: .15em;
                 color: var(--warm-dim);
                 display: flex;
@@ -431,24 +464,24 @@
             }
 
             .course-meta .m-icon {
-                color: var(--gold);
+                color: var(--accent);
             }
 
         .badge-soon {
             display: inline-flex;
             align-items: center;
             font-family: var(--ff-mono);
-            font-size: .55rem;
+            font-size: .7rem;
             letter-spacing: .18em;
             text-transform: uppercase;
             background: rgba(212,175,55,.1);
             border: 1px solid rgba(212,175,55,.3);
-            color: var(--gold);
+            color: var(--accent);
             padding: .5rem 1rem;
             margin-top: .5rem;
         }
 
-        /* FEATURED COURSE — full width */
+        /* FEATURED COURSE */
         .course-featured {
             border: 1px solid var(--glass-b);
             background: var(--ink2);
@@ -458,12 +491,7 @@
             position: relative;
             overflow: hidden;
             transition: transform .4s;
-            cursor: none;
         }
-
-            .course-featured:hover {
-                transform: translateY(-3px);
-            }
 
         .cf-img {
             position: relative;
@@ -486,12 +514,12 @@
             left: 1.5rem;
             z-index: 2;
             font-family: var(--ff-mono);
-            font-size: .48rem;
+            font-size: .65rem;
             letter-spacing: .2em;
             text-transform: uppercase;
-            background: var(--gold);
+            background: var(--accent);
             color: var(--ink);
-            padding: .3rem .8rem;
+            padding: .4rem .9rem;
         }
 
         .cf-body {
@@ -504,10 +532,10 @@
 
         .cf-tag {
             font-family: var(--ff-mono);
-            font-size: .48rem;
+            font-size: .65rem;
             letter-spacing: .2em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--accent);
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
@@ -518,12 +546,12 @@
                 content: '';
                 width: 16px;
                 height: 1px;
-                background: var(--gold);
+                background: var(--accent);
             }
 
         .cf-name {
             font-family: var(--ff-display);
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 300;
             color: var(--cream);
             margin-bottom: .75rem;
@@ -531,7 +559,7 @@
         }
 
         .cf-desc {
-            font-size: .82rem;
+            font-size: 1rem;
             color: var(--warm-dim);
             line-height: 1.8;
             margin-bottom: 1.5rem;
@@ -556,13 +584,13 @@
         .stat-n {
             font-family: var(--ff-big);
             font-size: 3.5rem;
-            color: var(--gold);
+            color: var(--accent);
             line-height: 1;
         }
 
         .stat-l {
             font-family: var(--ff-mono);
-            font-size: .52rem;
+            font-size: .7rem;
             letter-spacing: .2em;
             text-transform: uppercase;
             color: var(--warm-dim);
@@ -586,7 +614,7 @@
 
             .footer-nav a {
                 font-family: var(--ff-mono);
-                font-size: .55rem;
+                font-size: .75rem;
                 letter-spacing: .18em;
                 text-transform: uppercase;
                 color: var(--warm-dim);
@@ -595,7 +623,7 @@
             }
 
                 .footer-nav a:hover {
-                    color: var(--gold);
+                    color: var(--accent);
                 }
 
         .footer-bottom {
@@ -609,13 +637,13 @@
         }
 
             .footer-bottom p {
-                font-size: .72rem;
+                font-size: .85rem;
                 color: var(--warm-dim);
             }
 
             .footer-bottom span {
                 font-family: var(--ff-mono);
-                font-size: .52rem;
+                font-size: .7rem;
                 letter-spacing: .2em;
                 color: var(--warm-dim);
             }
@@ -643,29 +671,32 @@
             }
         }
 
+        @media (pointer: fine) {
+            .course-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 24px 48px rgba(0,0,0,.4);
+            }
+
+            .course-featured:hover {
+                transform: translateY(-3px);
+            }
+        }
+
         @media(max-width:900px) {
             .nav-links, .btn-nav {
-                display: none;
+                display: none !important;
             }
 
             .hamburger {
                 display: flex;
             }
 
-            .courses-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .course-card {
+            .courses-grid, .course-card, .course-featured {
                 grid-template-columns: 1fr;
             }
 
             .course-img {
                 min-height: 200px;
-            }
-
-            .course-featured {
-                grid-template-columns: 1fr;
             }
 
             .cf-img {
@@ -674,158 +705,161 @@
         }
     </style>
 </head>
-<body>
+<body class="theme-academia">
+
     <div class="cursor" id="cur"></div>
     <div class="cursor-ring" id="curRing"></div>
 
+    <!-- MOBILE NAV -->
     <div class="mob-overlay" id="mobNav">
         <button class="mob-close" id="mobClose">✕ Cerrar</button>
         <a href="../index.html">Inicio</a>
         <a href="servicios.html">Servicios</a>
         <a href="academia.html">Academia</a>
+        <a href="apoyo.html">Apoyo Académico</a>
         <a href="tienda.html">Tienda</a>
         <a href="../index.html#contacto">Contacto</a>
     </div>
 
+    <!-- NAV (Idéntico a apoyo.html) -->
     <nav>
         <a href="../index.html" class="nav-logo">ZAH<span>Y</span>O</a>
         <ul class="nav-links">
             <li><a href="../index.html">Inicio</a></li>
             <li><a href="servicios.html">Servicios</a></li>
             <li><a href="academia.html" class="active">Academia</a></li>
+            <li><a href="apoyo.html">Apoyo Académico</a></li>
             <li><a href="tienda.html">Tienda</a></li>
             <li><a href="../index.html#contacto">Contacto</a></li>
         </ul>
+        <a href="servicios.html#cotizar" class="btn-nav">Cotizar Proyecto</a>
         <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
     </nav>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <div class="page-hero-bg">
-            <div class="photo-ph">
-                <div class="ph-icon">📷</div>
-                <div class="ph-label">img/hero-academia.jpg<br>Taller de arquitectura / estudiantes trabajando / maqueta en proceso<br>1920×1080px</div>
-            </div>
-        </div>
-        <div class="page-hero-vignette"></div>
-        <div class="page-hero-label">ACM</div>
-        <div class="page-hero-content">
-            <div class="sec-label" style="animation:fadeUp .9s .3s ease both;opacity:0">Módulo 02 / Academia</div>
-            <h1 style="animation:fadeUp .9s .4s ease both;opacity:0">
-                Zahyo
-                <em>Academy</em>
-            </h1>
-            <p class="page-hero-sub" style="animation:fadeUp .9s .5s ease both;opacity:0">Próximamente. Estamos preparando una nueva experiencia de aprendizaje. Cursos, talleres y asesoramiento para estudiantes y profesionales.</p>
-        </div>
-    </section>
-
-    <!-- STATS -->
-    <div class="stats-bar reveal">
-        <div class="stat-item"><div class="stat-n">10+</div><div class="stat-l">Cursos<br>en desarrollo</div></div>
-        <div class="stat-item"><div class="stat-n">200+</div><div class="stat-l">Estudiantes<br>formados</div></div>
-        <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Modalidades<br>de estudio</div></div>
-        <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Respaldo<br>profesional</div></div>
-    </div>
-
-    <!-- COURSES -->
-    <section class="courses-section">
-        <div class="sec-label reveal">Oferta académica</div>
-        <h2 class="reveal" style="font-family:var(--ff-display);font-size:clamp(2rem,3.5vw,3.5rem);font-weight:300;line-height:1.1;margin-top:.5rem;">Nuestros <em style="font-style:italic;color:var(--gold);">cursos</em></h2>
-
-        <!-- Featured -->
-        <div class="course-featured reveal" style="margin-top:3rem;">
-            <div class="cf-img">
-                <div class="cf-badge">⭐ Muy pronto</div>
-                <!-- REPLACE: background-image: url('../img/curso-revit.jpg') -->
-                <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-revit.jpg<br>Pantalla de Revit / modelado BIM<br>900×600px</div></div>
-            </div>
-            <div class="cf-body">
-                <div class="cf-tag">Curso Completo</div>
-                <h3 class="cf-name">Revit Architecture<br>desde Cero a Profesional</h3>
-                <p class="cf-desc">Domina Revit y el flujo de trabajo BIM: desde la creación de familias hasta la documentación técnica completa. Incluye proyecto real de práctica.</p>
-                <div class="course-meta">
-                    <span><span class="m-icon">📅</span> 8 semanas · 2 sesiones por semana</span>
-                    <span><span class="m-icon">🕐</span> 2 horas por sesión</span>
-                    <span><span class="m-icon">📍</span> Presencial + Virtual</span>
-                    <span><span class="m-icon">📜</span> Certificado de finalización</span>
+    <main>
+        <!-- HERO -->
+        <section class="page-hero">
+            <div class="page-hero-bg" data-img="img/hero-academia.jpg">
+                <div class="photo-ph">
+                    <div class="ph-icon">📷</div>
+                    <div class="ph-label">img/hero-academia.jpg<br>Taller de arquitectura / estudiantes trabajando / maqueta en proceso<br>1920×1080px</div>
                 </div>
-                <div class="badge-soon">⏳ Próximamente</div>
             </div>
+            <div class="page-hero-vignette"></div>
+            <div class="page-hero-label">ACM</div>
+            <div class="page-hero-content">
+                <div class="sec-label" style="animation:fadeUp .9s .3s ease both;opacity:0">Módulo 02 / Academia</div>
+                <h1 style="animation:fadeUp .9s .4s ease both;opacity:0">
+                    Zahyo
+                    <em>Academy</em>
+                </h1>
+                <p class="page-hero-sub" style="animation:fadeUp .9s .5s ease both;opacity:0">Próximamente. Estamos preparando una nueva experiencia de aprendizaje. Cursos, talleres y asesoramiento para estudiantes y profesionales.</p>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <div class="stats-bar reveal">
+            <div class="stat-item"><div class="stat-n">10+</div><div class="stat-l">Cursos<br>en desarrollo</div></div>
+            <div class="stat-item"><div class="stat-n">200+</div><div class="stat-l">Estudiantes<br>formados</div></div>
+            <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Modalidades<br>de estudio</div></div>
+            <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Respaldo<br>profesional</div></div>
         </div>
 
-        <div class="courses-grid reveal">
-            <!-- Course 1 -->
-            <div class="course-card">
-                <div class="course-img">
-                    <!-- REPLACE: background-image: url('../img/curso-sketchup.jpg') -->
-                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-sketchup.jpg<br>Modelo SketchUp<br>600×400px</div></div>
+        <!-- COURSES -->
+        <section class="courses-section">
+            <div class="sec-label reveal">Oferta académica</div>
+            <h2 class="reveal" style="font-family:var(--ff-display);font-size:clamp(2rem,3.5vw,3.5rem);font-weight:300;line-height:1.1;margin-top:.5rem;">Nuestros <em>cursos</em></h2>
+
+            <!-- Featured -->
+            <div class="course-featured reveal" style="margin-top:3rem;">
+                <div class="cf-img" data-img="img/curso-revit.jpg">
+                    <div class="cf-badge">⭐ Muy pronto</div>
+                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-revit.jpg<br>Pantalla de Revit / modelado BIM<br>900×600px</div></div>
                 </div>
-                <div class="course-body">
-                    <div class="course-tag">Modelado 3D</div>
-                    <div class="course-name">SketchUp Pro + V-Ray</div>
-                    <div class="course-desc">Crea modelos 3D profesionales y renders fotorrealistas con SketchUp y el motor de renderizado V-Ray.</div>
+                <div class="cf-body">
+                    <div class="cf-tag">Curso Completo</div>
+                    <h3 class="cf-name">Revit Architecture<br>desde Cero a Profesional</h3>
+                    <p class="cf-desc">Domina Revit y el flujo de trabajo BIM: desde la creación de familias hasta la documentación técnica completa. Incluye proyecto real de práctica.</p>
                     <div class="course-meta">
-                        <span><span class="m-icon">📅</span> 4 semanas</span>
-                        <span><span class="m-icon">📍</span> Presencial / Virtual</span>
+                        <span><span class="m-icon">📅</span> 8 semanas · 2 sesiones por semana</span>
+                        <span><span class="m-icon">🕐</span> 2 horas por sesión</span>
+                        <span><span class="m-icon">📍</span> Presencial + Virtual</span>
+                        <span><span class="m-icon">📜</span> Certificado de finalización</span>
                     </div>
                     <div class="badge-soon">⏳ Próximamente</div>
                 </div>
             </div>
-            <!-- Course 2 -->
-            <div class="course-card">
-                <div class="course-img">
-                    <!-- REPLACE: background-image: url('../img/curso-renders.jpg') -->
-                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-renders.jpg<br>Renders arquitectónicos<br>600×400px</div></div>
-                </div>
-                <div class="course-body">
-                    <div class="course-tag">Visualización</div>
-                    <div class="course-name">Renders Fotorrealistas</div>
-                    <div class="course-desc">Postproducción en Photoshop, composición de escenas, iluminación artificial y natural para renders de impacto.</div>
-                    <div class="course-meta">
-                        <span><span class="m-icon">📅</span> 3 semanas</span>
-                        <span><span class="m-icon">📍</span> Virtual (Zoom)</span>
-                    </div>
-                    <div class="badge-soon">⏳ Próximamente</div>
-                </div>
-            </div>
-            <!-- Course 3 -->
-            <div class="course-card">
-                <div class="course-img">
-                    <!-- REPLACE: background-image: url('../img/curso-maqueteria.jpg') -->
-                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-maqueteria.jpg<br>Construcción de maqueta<br>600×400px</div></div>
-                </div>
-                <div class="course-body">
-                    <div class="course-tag">Taller Presencial</div>
-                    <div class="course-name">Maquetería Arquitectónica</div>
-                    <div class="course-desc">Técnicas y materiales para construir maquetas profesionales a escala. Desde maquetas de estudio hasta presentación.</div>
-                    <div class="course-meta">
-                        <span><span class="m-icon">📅</span> 5 sesiones</span>
-                        <span><span class="m-icon">📍</span> Solo Presencial · Sucre</span>
-                    </div>
-                    <div class="badge-soon">⏳ Próximamente</div>
-                </div>
-            </div>
-            <!-- Course 4 -->
-            <div class="course-card">
-                <div class="course-img">
-                    <!-- REPLACE: background-image: url('../img/curso-laminas.jpg') -->
-                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-laminas.jpg<br>Láminas de presentación<br>600×400px</div></div>
-                </div>
-                <div class="course-body">
-                    <div class="course-tag">Diseño</div>
-                    <div class="course-name">Láminas de Presentación</div>
-                    <div class="course-desc">Diseño editorial para arquitectura: composición, tipografía, diagramas y presentaciones que enamoran al jurado.</div>
-                    <div class="course-meta">
-                        <span><span class="m-icon">📅</span> 3 semanas</span>
-                        <span><span class="m-icon">📍</span> Virtual / Presencial</span>
-                    </div>
-                    <div class="badge-soon">⏳ Próximamente</div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <footer>
+            <div class="courses-grid reveal">
+                <!-- Course 1 -->
+                <div class="course-card">
+                    <div class="course-img" data-img="img/curso-sketchup.jpg">
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-sketchup.jpg<br>Modelo SketchUp<br>600×400px</div></div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-tag">Modelado 3D</div>
+                        <div class="course-name">SketchUp Pro + V-Ray</div>
+                        <div class="course-desc">Crea modelos 3D profesionales y renders fotorrealistas con SketchUp y el motor de renderizado V-Ray.</div>
+                        <div class="course-meta">
+                            <span><span class="m-icon">📅</span> 4 semanas</span>
+                            <span><span class="m-icon">📍</span> Presencial / Virtual</span>
+                        </div>
+                        <div class="badge-soon">⏳ Próximamente</div>
+                    </div>
+                </div>
+                <!-- Course 2 -->
+                <div class="course-card">
+                    <div class="course-img" data-img="img/curso-renders.jpg">
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-renders.jpg<br>Renders arquitectónicos<br>600×400px</div></div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-tag">Visualización</div>
+                        <div class="course-name">Renders Fotorrealistas</div>
+                        <div class="course-desc">Postproducción en Photoshop, composición de escenas, iluminación artificial y natural para renders de impacto.</div>
+                        <div class="course-meta">
+                            <span><span class="m-icon">📅</span> 3 semanas</span>
+                            <span><span class="m-icon">📍</span> Virtual (Zoom)</span>
+                        </div>
+                        <div class="badge-soon">⏳ Próximamente</div>
+                    </div>
+                </div>
+                <!-- Course 3 -->
+                <div class="course-card">
+                    <div class="course-img" data-img="img/curso-maqueteria.jpg">
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-maqueteria.jpg<br>Construcción de maqueta<br>600×400px</div></div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-tag">Taller Presencial</div>
+                        <div class="course-name">Maquetería Arquitectónica</div>
+                        <div class="course-desc">Técnicas y materiales para construir maquetas profesionales a escala. Desde maquetas de estudio hasta presentación.</div>
+                        <div class="course-meta">
+                            <span><span class="m-icon">📅</span> 5 sesiones</span>
+                            <span><span class="m-icon">📍</span> Solo Presencial · Sucre</span>
+                        </div>
+                        <div class="badge-soon">⏳ Próximamente</div>
+                    </div>
+                </div>
+                <!-- Course 4 -->
+                <div class="course-card">
+                    <div class="course-img" data-img="img/curso-laminas.jpg">
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-laminas.jpg<br>Láminas de presentación<br>600×400px</div></div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-tag">Diseño</div>
+                        <div class="course-name">Láminas de Presentación</div>
+                        <div class="course-desc">Diseño editorial para arquitectura: composición, tipografía, diagramas y presentaciones que enamoran al jurado.</div>
+                        <div class="course-meta">
+                            <span><span class="m-icon">📅</span> 3 semanas</span>
+                            <span><span class="m-icon">📍</span> Virtual / Presencial</span>
+                        </div>
+                        <div class="badge-soon">⏳ Próximamente</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="margin-top: 2rem;">
         <ul class="footer-nav">
             <li><a href="../index.html">Inicio</a></li>
             <li><a href="servicios.html">Servicios</a></li>
@@ -842,18 +876,22 @@
 
     <script>
         const cur = document.getElementById('cur'), curRing = document.getElementById('curRing');
-        document.addEventListener('mousemove', e => {
-            cur.style.left = e.clientX + 'px';
-            cur.style.top = e.clientY + 'px';
-            setTimeout(() => {
-                curRing.style.left = e.clientX + 'px';
-                curRing.style.top = e.clientY + 'px';
-            }, 60);
-        });
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', e => {
+                cur.style.left = e.clientX + 'px';
+                cur.style.top = e.clientY + 'px';
+                setTimeout(() => {
+                    curRing.style.left = e.clientX + 'px';
+                    curRing.style.top = e.clientY + 'px';
+                }, 60);
+            });
+        }
 
         const ham = document.getElementById('ham'), mob = document.getElementById('mobNav'), mc = document.getElementById('mobClose');
-        ham.addEventListener('click', () => mob.classList.toggle('open'));
-        mc.addEventListener('click', () => mob.classList.remove('open'));
+        const mobLinks = document.querySelectorAll('.mob-overlay a');
+        if (ham) ham.addEventListener('click', () => mob.classList.add('open'));
+        if (mc) mc.addEventListener('click', () => mob.classList.remove('open'));
+        mobLinks.forEach(link => link.addEventListener('click', () => mob.classList.remove('open')));
 
         const obs = new IntersectionObserver(entries => {
             entries.forEach(e => {
@@ -861,6 +899,25 @@
             });
         }, { threshold: .07 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        /* --- SCRIPT PARA CARGAR LAS IMÁGENES --- */
+        (function loadImages() {
+            document.querySelectorAll('[data-img]').forEach(el => {
+                const src = el.dataset.img;
+                if (!src) return;
+                const img = new Image();
+                img.onload = () => {
+                    el.style.backgroundImage = `url('${src}')`;
+                    const ph = el.querySelector('.photo-ph');
+                    if (ph) ph.style.display = 'none';
+                };
+                img.onerror = () => {
+                    console.warn(`No se pudo cargar la imagen: ${src}`);
+                    el.style.backgroundColor = 'var(--ink2)';
+                };
+                img.src = src;
+            });
+        })();
     </script>
 </body>
 </html>

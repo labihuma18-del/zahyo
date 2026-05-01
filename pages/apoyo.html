@@ -28,9 +28,10 @@
             --ff-big: 'Bebas Neue', sans-serif;
             --ff-body: 'DM Sans', sans-serif;
             --ff-mono: 'Inconsolata', monospace;
-            --fs-body: 0.95rem;
-            --fs-small: 0.82rem;
-            --fs-label: 0.62rem;
+            /* Tamaños de fuente aumentados para mayor legibilidad */
+            --fs-body: 1rem;
+            --fs-small: 0.9rem;
+            --fs-label: 0.75rem;
         }
 
         *, *::before, *::after {
@@ -60,40 +61,52 @@
         }
 
         /* CURSOR */
-        .cursor {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%,-50%);
-            transition: width .2s, height .2s;
+        @media (pointer: fine) {
+            body, a, button, input, textarea, select, .btn-primary, .btn-ghost, .btn-wa, .mod-card, .check-item, .check-cat-label, .file-drop {
+                cursor: none !important;
+            }
+
+            .cursor {
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background: var(--accent);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%,-50%);
+                transition: width .2s, height .2s;
+            }
+
+            .cursor-ring {
+                position: fixed;
+                width: 36px;
+                height: 36px;
+                border: 1px solid rgba(196,113,58,.5);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%,-50%);
+                transition: all .12s ease;
+            }
         }
 
-        .cursor-ring {
-            position: fixed;
-            width: 36px;
-            height: 36px;
-            border: 1px solid rgba(196,113,58,.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%,-50%);
-            transition: all .12s ease;
+        @media (hover: none) and (pointer: coarse) {
+            .cursor, .cursor-ring {
+                display: none !important;
+            }
         }
 
         ::-webkit-scrollbar {
-            width: 2px
+            width: 2px;
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--ink2)
+            background: var(--ink2);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--copper)
+            background: var(--copper);
         }
 
         /* PHOTO PLACEHOLDER */
@@ -116,7 +129,7 @@
 
             .photo-ph .ph-label {
                 font-family: var(--ff-mono);
-                font-size: .5rem;
+                font-size: var(--fs-label);
                 letter-spacing: .18em;
                 color: rgba(196,113,58,.4);
                 text-align: center;
@@ -198,7 +211,6 @@
             padding: .5rem 1.4rem;
             text-decoration: none;
             transition: all .3s;
-            cursor: none;
         }
 
             .btn-nav:hover {
@@ -212,7 +224,6 @@
             gap: 5px;
             background: none;
             border: none;
-            cursor: none;
             padding: 4px;
         }
 
@@ -221,6 +232,7 @@
                 width: 26px;
                 height: 1px;
                 background: var(--cream);
+                transition: all .3s;
             }
 
         .mob-overlay {
@@ -267,7 +279,6 @@
             color: var(--warm);
             background: none;
             border: none;
-            cursor: none;
             text-transform: uppercase;
         }
 
@@ -313,8 +324,8 @@
         .page-hero-grid {
             position: absolute;
             inset: 0;
-            background-image: repeating-linear-gradient(90deg,transparent 0,transparent 79px,rgba(196,113,58,.02) 79px,rgba(196,113,58,.02) 80px),repeating-linear-gradient(0deg,transparent 0,transparent 119px,rgba(196,113,58,.015) 119px,rgba(196,113,58,.015) 120px);
             z-index: 1;
+            background-image: repeating-linear-gradient(90deg,transparent 0,transparent 79px,rgba(196,113,58,.02) 79px,rgba(196,113,58,.02) 80px), repeating-linear-gradient(0deg,transparent 0,transparent 119px,rgba(196,113,58,.015) 119px,rgba(196,113,58,.015) 120px);
         }
 
         .page-hero-content {
@@ -324,7 +335,6 @@
             width: 100%;
         }
 
-        /* SEC LABEL */
         .sec-label {
             font-family: var(--ff-mono);
             font-size: var(--fs-label);
@@ -363,7 +373,7 @@
 
         .page-hero-sub {
             font-family: var(--ff-display);
-            font-size: clamp(1rem,1.8vw,1.3rem);
+            font-size: clamp(1.1rem,1.8vw,1.4rem);
             font-style: italic;
             color: var(--warm);
             margin-top: 1.25rem;
@@ -435,7 +445,7 @@
             font-style: italic;
             color: var(--warm);
             line-height: 1.9;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             border-left: 1px solid rgba(196,113,58,.3);
             padding-left: 1.5rem;
         }
@@ -472,7 +482,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            cursor: none;
             border-bottom: 1px solid rgba(196,113,58,.1);
         }
 
@@ -497,7 +506,7 @@
             letter-spacing: .18em;
             color: var(--warm);
             border: 1px solid rgba(196,113,58,.3);
-            padding: .2rem .6rem;
+            padding: .3rem .7rem;
         }
 
         .carousel {
@@ -525,10 +534,6 @@
                 z-index: 1;
             }
 
-            .carousel-slide .ph-label {
-                font-size: .42rem;
-            }
-
         .carousel-slide-img {
             position: absolute;
             inset: 0;
@@ -551,7 +556,7 @@
             left: 1rem;
             z-index: 3;
             font-family: var(--ff-mono);
-            font-size: .48rem;
+            font-size: var(--fs-label);
             letter-spacing: .15em;
             text-transform: uppercase;
             color: rgba(245,238,224,.6);
@@ -567,11 +572,10 @@
             background: rgba(10,8,6,.6);
             backdrop-filter: blur(6px);
             color: var(--accent);
-            font-size: .85rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: none;
             z-index: 10;
             transition: all .3s;
         }
@@ -600,12 +604,11 @@
         }
 
         .carousel-dot {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: rgba(196,113,58,.35);
             transition: background .3s;
-            cursor: none;
         }
 
             .carousel-dot.active {
@@ -620,7 +623,7 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: .55rem;
+            gap: .6rem;
         }
 
             .service-list li {
@@ -635,7 +638,7 @@
                 .service-list li::before {
                     content: '·';
                     color: var(--accent);
-                    margin-top: .05em;
+                    font-weight: bold;
                     flex-shrink: 0;
                 }
 
@@ -677,7 +680,7 @@
             font-style: italic;
             color: var(--warm);
             line-height: 1.8;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             border-left: 1px solid rgba(196,113,58,.3);
             padding-left: 1.25rem;
         }
@@ -703,7 +706,7 @@
                 color: var(--warm);
                 text-decoration: none;
                 display: block;
-                margin-bottom: .5rem;
+                margin-bottom: .6rem;
                 transition: color .3s;
             }
 
@@ -719,7 +722,7 @@
 
             .form-card h3 {
                 font-family: var(--ff-display);
-                font-size: 1.6rem;
+                font-size: 1.8rem;
                 font-weight: 300;
                 margin-bottom: .5rem;
             }
@@ -746,13 +749,13 @@
         }
 
         .step-num {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: var(--accent);
             color: var(--ink);
             font-family: var(--ff-mono);
-            font-size: .7rem;
+            font-size: .85rem;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -762,7 +765,7 @@
 
         .step-title {
             font-family: var(--ff-big);
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             letter-spacing: .06em;
             color: var(--cream);
         }
@@ -788,8 +791,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            cursor: none;
-            padding: .65rem .85rem;
+            padding: .8rem 1rem;
             border: 1px solid rgba(196,113,58,.2);
             background: rgba(196,113,58,.05);
             margin-bottom: .4rem;
@@ -802,7 +804,7 @@
             }
 
             .check-cat-label .toggle-arrow {
-                font-size: .9rem;
+                font-size: 1rem;
                 transition: transform .3s;
                 color: var(--accent);
             }
@@ -815,7 +817,7 @@
             display: none;
             padding: .5rem 0;
             grid-template-columns: 1fr 1fr;
-            gap: .35rem;
+            gap: .5rem;
         }
 
             .check-cat-items.open {
@@ -825,27 +827,26 @@
         .check-item {
             display: flex;
             align-items: flex-start;
-            gap: .5rem;
-            cursor: none;
+            gap: .6rem;
         }
 
             .check-item input[type="checkbox"] {
                 accent-color: var(--accent);
-                margin-top: 3px;
+                margin-top: 4px;
                 flex-shrink: 0;
-                cursor: none;
+                width: 16px;
+                height: 16px;
             }
 
             .check-item label {
                 font-size: var(--fs-body);
                 color: var(--warm);
                 line-height: 1.45;
-                cursor: none;
             }
 
         /* FORM FIELDS */
         .fg {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.4rem;
         }
 
             .fg label {
@@ -855,14 +856,14 @@
                 letter-spacing: .18em;
                 text-transform: uppercase;
                 color: var(--warm);
-                margin-bottom: .5rem;
+                margin-bottom: .6rem;
             }
 
             .fg input, .fg textarea, .fg select {
                 width: 100%;
                 background: rgba(196,113,58,.05);
                 border: 1px solid rgba(196,113,58,.2);
-                padding: .8rem 1rem;
+                padding: 1rem 1.2rem;
                 color: var(--cream);
                 font-family: var(--ff-body);
                 font-size: var(--fs-body);
@@ -885,23 +886,22 @@
                 }
 
             .fg textarea {
-                min-height: 100px;
+                min-height: 120px;
                 resize: vertical;
             }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 1.25rem;
         }
 
         /* FILE UPLOAD */
         .file-drop {
             border: 1px dashed rgba(196,113,58,.35);
-            padding: 2rem;
+            padding: 2.5rem 1rem;
             text-align: center;
             transition: border-color .3s, background .3s;
-            cursor: none;
             position: relative;
         }
 
@@ -914,15 +914,14 @@
                 position: absolute;
                 inset: 0;
                 opacity: 0;
-                cursor: none;
                 width: 100%;
                 height: 100%;
             }
 
         .file-drop-icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
             opacity: .35;
-            margin-bottom: .5rem;
+            margin-bottom: .75rem;
         }
 
         .file-drop-text {
@@ -931,7 +930,7 @@
             letter-spacing: .18em;
             text-transform: uppercase;
             color: var(--warm);
-            margin-bottom: .3rem;
+            margin-bottom: .4rem;
         }
 
         .file-drop-hint {
@@ -940,7 +939,7 @@
         }
 
         .upload-progress {
-            margin-top: .75rem;
+            margin-top: 1rem;
             display: none;
         }
 
@@ -949,7 +948,7 @@
             }
 
         .upload-progress-bar {
-            height: 3px;
+            height: 4px;
             background: rgba(196,113,58,.15);
             border-radius: 2px;
             overflow: hidden;
@@ -964,15 +963,15 @@
 
         .upload-progress-text {
             font-family: var(--ff-mono);
-            font-size: .5rem;
+            font-size: var(--fs-label);
             letter-spacing: .1em;
             color: var(--warm-dim);
-            margin-top: .35rem;
+            margin-top: .5rem;
             text-align: center;
         }
 
         .file-selected {
-            margin-top: .75rem;
+            margin-top: 1rem;
             font-family: var(--ff-mono);
             font-size: var(--fs-label);
             letter-spacing: .1em;
@@ -988,7 +987,7 @@
             }
 
         .file-error {
-            margin-top: .5rem;
+            margin-top: .75rem;
             font-size: var(--fs-small);
             color: #F87171;
             display: none;
@@ -1011,11 +1010,10 @@
             text-transform: uppercase;
             background: var(--accent);
             color: var(--ink);
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
             border: none;
-            cursor: none;
             transition: all .3s;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             font-weight: 600;
         }
 
@@ -1041,11 +1039,10 @@
             text-transform: uppercase;
             background: #25D366;
             color: #fff;
-            padding: .95rem;
+            padding: 1.1rem;
             border: none;
-            cursor: none;
             transition: all .3s;
-            margin-top: .75rem;
+            margin-top: 1rem;
         }
 
             .btn-wa-submit:hover {
@@ -1056,7 +1053,7 @@
         .form-success {
             display: none;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
         }
 
             .form-success.visible {
@@ -1064,26 +1061,26 @@
             }
 
             .form-success .check {
-                font-size: 3rem;
-                margin-bottom: 1rem;
+                font-size: 3.5rem;
+                margin-bottom: 1.5rem;
             }
 
             .form-success h3 {
                 font-family: var(--ff-display);
-                font-size: 2rem;
+                font-size: 2.2rem;
                 font-weight: 300;
-                margin-bottom: .75rem;
+                margin-bottom: 1rem;
             }
 
         .tracking-code-box {
             display: inline-block;
             font-family: var(--ff-mono);
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             letter-spacing: .15em;
             color: var(--accent);
             border: 1px solid var(--accent);
-            padding: .6rem 2rem;
-            margin: 1rem 0;
+            padding: .8rem 2.5rem;
+            margin: 1.5rem 0;
             background: var(--accent-dim);
         }
 
@@ -1098,11 +1095,11 @@
             font-family: var(--ff-mono);
             font-size: var(--fs-label);
             letter-spacing: .12em;
-            padding: .5rem .85rem;
-            margin-bottom: 1.25rem;
+            padding: .6rem 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: .6rem;
+            gap: .75rem;
         }
 
             .token-status.loading {
@@ -1124,8 +1121,8 @@
             }
 
         .ts-dot {
-            width: 7px;
-            height: 7px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: currentColor;
             flex-shrink: 0;
@@ -1159,9 +1156,9 @@
 
             .tracking-inner h2 {
                 font-family: var(--ff-display);
-                font-size: clamp(2rem,3.5vw,3rem);
+                font-size: clamp(2.2rem,3.5vw,3.2rem);
                 font-weight: 300;
-                margin-bottom: .75rem;
+                margin-bottom: 1rem;
             }
 
                 .tracking-inner h2 em {
@@ -1173,20 +1170,20 @@
                 font-family: var(--ff-display);
                 font-style: italic;
                 color: var(--warm);
-                font-size: 1.05rem;
-                margin-bottom: 2rem;
+                font-size: 1.15rem;
+                margin-bottom: 2.5rem;
             }
 
         .tracking-form {
             display: flex;
-            gap: .75rem;
+            gap: 1rem;
         }
 
             .tracking-form input {
                 flex: 1;
                 background: rgba(196,113,58,.05);
                 border: 1px solid rgba(196,113,58,.25);
-                padding: .9rem 1.25rem;
+                padding: 1.1rem 1.5rem;
                 color: var(--cream);
                 font-family: var(--ff-mono);
                 font-size: var(--fs-body);
@@ -1210,9 +1207,8 @@
             text-transform: uppercase;
             background: var(--accent);
             color: var(--ink);
-            padding: .9rem 1.75rem;
+            padding: 1.1rem 2rem;
             border: none;
-            cursor: none;
             white-space: nowrap;
             transition: all .3s;
             font-weight: 600;
@@ -1223,7 +1219,7 @@
             }
 
         .tracking-result {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             text-align: left;
             display: none;
         }
@@ -1236,7 +1232,7 @@
         .track-card {
             border: 1px solid var(--glass-b);
             background: var(--glass);
-            padding: 1.75rem;
+            padding: 2rem;
         }
 
         .track-header {
@@ -1245,7 +1241,7 @@
             align-items: flex-start;
             flex-wrap: wrap;
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             padding-bottom: 1.5rem;
             border-bottom: 1px solid rgba(196,113,58,.1);
         }
@@ -1259,7 +1255,7 @@
 
             .track-code span {
                 color: var(--accent);
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
 
         .track-status {
@@ -1267,7 +1263,7 @@
             font-size: var(--fs-label);
             letter-spacing: .18em;
             text-transform: uppercase;
-            padding: .35rem .9rem;
+            padding: .5rem 1rem;
             border: 1px solid;
         }
 
@@ -1298,16 +1294,16 @@
         .track-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .track-field label {
             font-family: var(--ff-mono);
-            font-size: .52rem;
+            font-size: var(--fs-label);
             letter-spacing: .18em;
             text-transform: uppercase;
             color: var(--warm-dim);
-            margin-bottom: .3rem;
+            margin-bottom: .4rem;
             display: block;
         }
 
@@ -1317,20 +1313,20 @@
         }
 
         .track-notes {
-            margin-top: 1rem;
-            padding: 1rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
             background: var(--accent-dim);
-            border-left: 2px solid var(--accent);
+            border-left: 3px solid var(--accent);
         }
 
             .track-notes label {
                 font-family: var(--ff-mono);
-                font-size: .52rem;
+                font-size: var(--fs-label);
                 letter-spacing: .18em;
                 text-transform: uppercase;
                 color: var(--accent);
                 display: block;
-                margin-bottom: .3rem;
+                margin-bottom: .5rem;
             }
 
             .track-notes p {
@@ -1344,8 +1340,8 @@
             color: var(--warm);
             font-family: var(--ff-display);
             font-style: italic;
-            font-size: 1.05rem;
-            padding: 1.5rem;
+            font-size: 1.2rem;
+            padding: 2rem;
             text-align: center;
             border: 1px solid rgba(196,113,58,.2);
         }
@@ -1354,17 +1350,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: .75rem;
-            padding: 2rem;
+            gap: 1rem;
+            padding: 3rem;
             color: var(--warm);
             font-family: var(--ff-display);
             font-style: italic;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .track-spinner {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border: 2px solid rgba(196,113,58,.2);
             border-top-color: var(--accent);
             border-radius: 50%;
@@ -1388,7 +1384,7 @@
             display: flex;
             gap: 2rem;
             list-style: none;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
         }
 
@@ -1437,9 +1433,9 @@
             background: var(--ink2);
             border: 1px solid var(--glass-b);
             border-left: 3px solid var(--accent);
-            padding: .9rem 2rem;
+            padding: 1rem 2.5rem;
             font-family: var(--ff-mono);
-            font-size: .75rem;
+            font-size: var(--fs-label);
             letter-spacing: .1em;
             color: var(--cream);
             z-index: 5000;
@@ -1555,404 +1551,407 @@
         <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
     </nav>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <div class="page-hero-bg" data-img="../img/hero-apoyo.jpg">
-            <div class="photo-ph">
-                <div class="ph-icon">📷</div>
-                <div class="ph-label">img/hero-apoyo.jpg<br>Estudiante trabajando / planos en taller<br>1920×1080px, oscuro/arquitectónico</div>
-            </div>
-        </div>
-        <div class="page-hero-grid"></div>
-        <div class="page-hero-vignette"></div>
-        <div class="page-hero-label">APOYO</div>
-        <div class="page-hero-content">
-            <div class="sec-label" style="animation:fadeUp .9s .3s ease both;opacity:0;">Módulo 03 / Apoyo Académico</div>
-            <h1>Apoyo<br><em>Académico</em></h1>
-            <p class="page-hero-sub">¿Necesitas ayuda con tu proyecto? Te acompañamos desde los planos hasta la presentación final. Cotiza sin compromiso.</p>
-        </div>
-    </section>
-
-    <!-- STATS -->
-    <div class="stats-bar reveal">
-        <div class="stat-item"><div class="stat-n">6</div><div class="stat-l">Áreas de<br>servicio</div></div>
-        <div class="stat-item"><div class="stat-n">50+</div><div class="stat-l">Tipos de<br>trabajo</div></div>
-        <div class="stat-item"><div class="stat-n">24h</div><div class="stat-l">Respuesta<br>de cotización</div></div>
-        <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Respaldo<br>profesional</div></div>
-    </div>
-
-    <!-- SERVICES -->
-    <section class="services-section" id="servicios">
-        <div class="services-intro reveal">
-            <div class="services-intro-text">
-                <div class="sec-label">Qué ofrecemos</div>
-                <h2>Todo lo que<br>necesitas para tu <em>proyecto</em></h2>
-                <p>Desde planos técnicos hasta maquetas y asesoramiento directo con arquitectos. Selecciona las áreas que necesitas y te enviamos una cotización personalizada en menos de 24 horas.</p>
-            </div>
-            <div class="services-intro-img" data-img="../img/apoyo-servicios.jpg">
+    <!-- WRAPPER SEMÁNTICO -->
+    <main>
+        <!-- HERO -->
+        <section class="page-hero">
+            <div class="page-hero-bg" data-img="../img/hero-apoyo.jpg">
                 <div class="photo-ph">
                     <div class="ph-icon">📷</div>
-                    <div class="ph-label">img/apoyo-servicios.jpg<br>Planos sobre mesa / trabajo de taller<br>800×600px</div>
+                    <div class="ph-label">img/hero-apoyo.jpg<br>Estudiante trabajando / planos en taller<br>1920×1080px, oscuro/arquitectónico</div>
                 </div>
             </div>
+            <div class="page-hero-grid"></div>
+            <div class="page-hero-vignette"></div>
+            <div class="page-hero-label">APOYO</div>
+            <div class="page-hero-content">
+                <div class="sec-label" style="animation:fadeUp .9s .3s ease both;opacity:0;">Módulo 03 / Apoyo Académico</div>
+                <h1>Apoyo<br><em>Académico</em></h1>
+                <p class="page-hero-sub">¿Necesitas ayuda con tu proyecto? Te acompañamos desde los planos hasta la presentación final. Cotiza sin compromiso.</p>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <div class="stats-bar reveal">
+            <div class="stat-item"><div class="stat-n">6</div><div class="stat-l">Áreas de<br>servicio</div></div>
+            <div class="stat-item"><div class="stat-n">50+</div><div class="stat-l">Tipos de<br>trabajo</div></div>
+            <div class="stat-item"><div class="stat-n">24h</div><div class="stat-l">Respuesta<br>de cotización</div></div>
+            <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Respaldo<br>profesional</div></div>
         </div>
 
-        <div class="services-grid reveal">
-            <!-- 01 PLANOS -->
-            <div class="service-cat">
-                <div class="service-cat-header">
-                    <div><div class="service-cat-num">01 · Planos Técnicos</div><div class="service-cat-name">Documentación</div></div>
-                    <div class="service-cat-count">12 servicios</div>
+        <!-- SERVICES -->
+        <section class="services-section" id="servicios">
+            <div class="services-intro reveal">
+                <div class="services-intro-text">
+                    <div class="sec-label">Qué ofrecemos</div>
+                    <h2>Todo lo que<br>necesitas para tu <em>proyecto</em></h2>
+                    <p>Desde planos técnicos hasta maquetas y asesoramiento directo con arquitectos. Selecciona las áreas que necesitas y te enviamos una cotización personalizada en menos de 24 horas.</p>
                 </div>
-                <div class="service-cat-body">
-                    <div class="carousel" data-carousel>
-                        <div class="carousel-slides">
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.08),rgba(10,8,6,.85));"></div><div class="photo-ph"><div class="ph-icon">📐</div><div class="ph-label">Plantas arquitectónicas</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Plantas arquitectónicas</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(160deg,rgba(122,58,21,.1),rgba(10,8,6,.85));"></div><div class="photo-ph"><div class="ph-icon">📐</div><div class="ph-label">Elevaciones y fachadas</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Elevaciones y fachadas</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(140deg,rgba(196,113,58,.06),rgba(10,8,6,.85));"></div><div class="photo-ph"><div class="ph-icon">📐</div><div class="ph-label">Secciones / cortes</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Secciones / Cortes</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(120deg,rgba(196,113,58,.09),rgba(10,8,6,.85));"></div><div class="photo-ph"><div class="ph-icon">📐</div><div class="ph-label">Detalles constructivos</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Detalles constructivos</div></div>
-                        </div>
-                        <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
-                        <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
-                        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
-                    </div>
-                    <div class="service-list-wrap"><ul class="service-list"><li>Plantas arquitectónicas</li><li>Elevaciones y fachadas</li><li>Secciones / cortes</li><li>Planimetría de conjunto</li><li>Planos estructurales y urbanos</li><li>Detalles constructivos</li><li>Instalaciones sanitarias y eléctricas</li><li>Cortes de borde y fugados</li><li>Detalle de plafonería</li></ul></div>
-                </div>
-            </div>
-
-            <!-- 02 VISUALIZACIÓN -->
-            <div class="service-cat">
-                <div class="service-cat-header">
-                    <div><div class="service-cat-num">02 · Visualización</div><div class="service-cat-name">Arquitectónica</div></div>
-                    <div class="service-cat-count">10 servicios</div>
-                </div>
-                <div class="service-cat-body">
-                    <div class="carousel" data-carousel>
-                        <div class="carousel-slides">
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.11),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🎨</div><div class="ph-label">Perspectivas exteriores</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Perspectivas exteriores</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(155deg,rgba(122,58,21,.12),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🎨</div><div class="ph-label">Perspectivas interiores</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Perspectivas interiores</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(145deg,rgba(196,113,58,.09),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🎨</div><div class="ph-label">Láminas descriptivas</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Láminas descriptivas</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(130deg,rgba(196,113,58,.07),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🎨</div><div class="ph-label">Axonometrías</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Axonometrías</div></div>
-                        </div>
-                        <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
-                        <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
-                        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
-                    </div>
-                    <div class="service-list-wrap"><ul class="service-list"><li>Perspectivas interiores y exteriores</li><li>Axonometrías y vistas 360°</li><li>Recorridos virtuales</li><li>Postproducción Photoshop</li><li>Láminas descriptivas y urbanas</li><li>Láminas Arquisur</li><li>Presentaciones y diapositivas</li></ul></div>
-                </div>
-            </div>
-
-            <!-- 03 3D -->
-            <div class="service-cat">
-                <div class="service-cat-header">
-                    <div><div class="service-cat-num">03 · Modelado 3D</div><div class="service-cat-name">Digital</div></div>
-                    <div class="service-cat-count">7 servicios</div>
-                </div>
-                <div class="service-cat-body">
-                    <div class="carousel" data-carousel>
-                        <div class="carousel-slides">
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.1),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🧊</div><div class="ph-label">Modelado general</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Modelado general</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(150deg,rgba(122,58,21,.1),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🧊</div><div class="ph-label">Formas irregulares</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Formas irregulares / orgánicas</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(140deg,rgba(196,113,58,.08),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🧊</div><div class="ph-label">Archivos impresión 3D</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Archivos para impresión 3D</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(125deg,rgba(196,113,58,.07),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🧊</div><div class="ph-label">Mobiliario personalizado</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Mobiliario personalizado</div></div>
-                        </div>
-                        <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
-                        <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
-                        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
-                    </div>
-                    <div class="service-list-wrap"><ul class="service-list"><li>Modelado general (Revit, SketchUp)</li><li>Formas irregulares y orgánicas</li><li>Archivos para impresión 3D</li><li>Ambientación / pre-visualización</li><li>Diseño y modelado de mobiliario</li><li>Familias personalizadas en Revit</li></ul></div>
-                </div>
-            </div>
-
-            <!-- 04 DOCUMENTACIÓN -->
-            <div class="service-cat">
-                <div class="service-cat-header">
-                    <div><div class="service-cat-num">04 · Documentación</div><div class="service-cat-name">Técnica</div></div>
-                    <div class="service-cat-count">6 servicios</div>
-                </div>
-                <div class="service-cat-body">
-                    <div class="carousel" data-carousel>
-                        <div class="carousel-slides">
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.09),rgba(10,8,6,.83));"></div><div class="photo-ph"><div class="ph-icon">📊</div><div class="ph-label">Cómputos métricos</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Cómputos métricos</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(155deg,rgba(122,58,21,.09),rgba(10,8,6,.83));"></div><div class="photo-ph"><div class="ph-icon">📊</div><div class="ph-label">Presupuesto de obra</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Presupuesto de obra</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(145deg,rgba(196,113,58,.07),rgba(10,8,6,.83));"></div><div class="photo-ph"><div class="ph-icon">📊</div><div class="ph-label">Diagrama de barras</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Tabla de tiempos / Gantt</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(130deg,rgba(196,113,58,.1),rgba(10,8,6,.83));"></div><div class="photo-ph"><div class="ph-icon">📊</div><div class="ph-label">Documentos teóricos</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Documentos teóricos</div></div>
-                        </div>
-                        <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
-                        <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
-                        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
-                    </div>
-                    <div class="service-list-wrap"><ul class="service-list"><li>Cómputos métricos</li><li>Precios unitarios</li><li>Presupuesto de obra</li><li>Cómputo de materiales</li><li>Tabla de tiempos y diagrama de barras</li><li>Documentos teóricos</li></ul></div>
-                </div>
-            </div>
-
-            <!-- 05 MAQUETERÍA -->
-            <div class="service-cat">
-                <div class="service-cat-header">
-                    <div><div class="service-cat-num">05 · Maquetería</div><div class="service-cat-name">Física</div></div>
-                    <div class="service-cat-count">5 servicios</div>
-                </div>
-                <div class="service-cat-body">
-                    <div class="carousel" data-carousel>
-                        <div class="carousel-slides">
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.1),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🏗️</div><div class="ph-label">Maqueta a detalle</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Maqueta a detalle</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(150deg,rgba(122,58,21,.11),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🏗️</div><div class="ph-label">Maqueta urbana</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Maqueta urbana</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(140deg,rgba(196,113,58,.08),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🏗️</div><div class="ph-label">Maqueta estructural</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Maqueta estructural</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(125deg,rgba(196,113,58,.09),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🏗️</div><div class="ph-label">Ambientación</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Ambientación y elementos</div></div>
-                        </div>
-                        <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
-                        <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
-                        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
-                    </div>
-                    <div class="service-list-wrap"><ul class="service-list"><li>Maqueta a detalle (desmontable, con interiores)</li><li>Maquetas urbanas</li><li>Maquetas estructurales</li><li>Maquetas de detalles constructivos</li><li>Ambientación (elementos para maquetería)</li></ul></div>
-                </div>
-            </div>
-
-            <!-- 06 ASESORAMIENTO -->
-            <div class="service-cat">
-                <div class="service-cat-header">
-                    <div><div class="service-cat-num">06 · Asesoramiento</div><div class="service-cat-name">Personalizado</div></div>
-                    <div class="service-cat-count">5 servicios</div>
-                </div>
-                <div class="service-cat-body">
-                    <div class="carousel" data-carousel>
-                        <div class="carousel-slides">
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.1),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🎓</div><div class="ph-label">Talleres I – VIII</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Talleres I – VIII</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(150deg,rgba(122,58,21,.1),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🎓</div><div class="ph-label">Construcciones</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Construcciones</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(140deg,rgba(196,113,58,.08),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🎓</div><div class="ph-label">Estructuras</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Estructuras</div></div>
-                            <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(130deg,rgba(196,113,58,.09),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🎓</div><div class="ph-label">Instalaciones</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Instalaciones</div></div>
-                        </div>
-                        <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
-                        <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
-                        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
-                    </div>
-                    <div class="service-list-wrap"><ul class="service-list"><li>Asesoramiento en talleres (I, II, IV–VIII)</li><li>Construcciones</li><li>Estructuras</li><li>Instalaciones</li><li>Topografía</li></ul></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- QUOTE FORM -->
-    <section class="form-section" id="cotizar">
-        <div class="form-wrap reveal">
-            <div class="form-info">
-                <div class="sec-label">Cotización</div>
-                <h2>Cuéntanos tu<br><em>proyecto</em></h2>
-                <p>Selecciona las áreas en las que necesitas apoyo, adjunta tu proyecto si tienes avance, y te responderemos con una cotización en menos de 24 horas.</p>
-                <div class="form-info-contact">
-                    <h6>Consultas directas</h6>
-                    <a href="https://wa.me/59173443086" target="_blank">📱 +591 73443086</a>
-                    <a href="https://wa.me/59175769551" target="_blank">📱 Arq. Laura: +591 75769551</a>
-                    <a href="https://wa.me/59173450072" target="_blank">📱 Arq. Franz: +591 73450072</a>
-                    <a href="mailto:axis.estudiodesign@gmail.com">✉️ axis.estudiodesign@gmail.com</a>
-                </div>
-            </div>
-
-            <div class="form-card">
-                <h3>Formulario de cotización</h3>
-                <p>Elige qué necesitas, dinos quién eres, describe tu proyecto y listo. Te respondemos en menos de 24 horas con una propuesta personalizada.</p>
-
-                <!-- ── INDICADOR DE TOKEN ── -->
-                <div class="token-status loading" id="tokenStatus">
-                    <div class="ts-dot pulse"></div>
-                    <span id="tokenMsg">Conectando con el servidor...</span>
-                </div>
-
-                <form id="apoyoForm" novalidate>
-                    <!-- HONEYPOT -->
-                    <div style="position:absolute;left:-9999px;opacity:0;">
-                        <label for="honeypot">No llenes esto</label>
-                        <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off">
-                    </div>
-
-                    <!-- PASO 1: ÁREAS -->
-                    <div class="step-block">
-                        <div class="step-header">
-                            <div class="step-num">1</div>
-                            <div>
-                                <div class="step-title">¿Qué necesitas?</div>
-                                <div class="step-desc">Abre las categorías que te interesan y marca los servicios específicos.</div>
-                            </div>
-                        </div>
-
-                        <div class="check-cat">
-                            <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">01</span> &nbsp;Planos Técnicos</span><span class="toggle-arrow">+</span></div>
-                            <div class="check-cat-items">
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Plantas"><span>Plantas</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Elevaciones"><span>Elevaciones</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Secciones/Cortes"><span>Secciones / Cortes</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Planimetría"><span>Planimetría</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Estructurales"><span>Estructurales</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Urbanos"><span>Urbanos</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Detalles constructivos"><span>Detalles constructivos</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Inst. sanitarias"><span>Inst. sanitarias</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Inst. eléctricas"><span>Inst. eléctricas</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Cortes de borde"><span>Cortes de borde</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Cortes fugados"><span>Cortes fugados</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Planos · Plafonería"><span>Detalle plafonería</span></label>
-                            </div>
-                        </div>
-
-                        <div class="check-cat">
-                            <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">02</span> &nbsp;Visualización Arquitectónica</span><span class="toggle-arrow">+</span></div>
-                            <div class="check-cat-items">
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas interiores"><span>Perspectivas interiores</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas exteriores"><span>Perspectivas exteriores</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Axonometrías"><span>Axonometrías</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas 360°"><span>Perspectivas 360°</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Recorridos virtuales"><span>Recorridos virtuales</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Postproducción"><span>Postproducción Photoshop</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas descriptivas"><span>Láminas descriptivas</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas urbanas"><span>Láminas urbanas</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas Arquisur"><span>Láminas Arquisur</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Viz · Presentaciones"><span>Presentaciones</span></label>
-                            </div>
-                        </div>
-
-                        <div class="check-cat">
-                            <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">03</span> &nbsp;Modelado 3D</span><span class="toggle-arrow">+</span></div>
-                            <div class="check-cat-items">
-                                <label class="check-item"><input type="checkbox" name="area" value="3D · Modelado general"><span>Modelado general</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="3D · Formas irregulares"><span>Formas irregulares</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="3D · Detalle constructivo"><span>Detalle constructivo</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="3D · Impresión 3D"><span>Archivos impresión 3D</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="3D · Ambientación"><span>Ambientación</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="3D · Mobiliario"><span>Mobiliario personalizado</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="3D · Familias Revit"><span>Familias Revit</span></label>
-                            </div>
-                        </div>
-
-                        <div class="check-cat">
-                            <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">04</span> &nbsp;Documentación Técnica</span><span class="toggle-arrow">+</span></div>
-                            <div class="check-cat-items">
-                                <label class="check-item"><input type="checkbox" name="area" value="Doc · Cómputos métricos"><span>Cómputos métricos</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Doc · Precios unitarios"><span>Precios unitarios</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Doc · Presupuesto"><span>Presupuesto de obra</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Doc · Cómputo materiales"><span>Cómputo de materiales</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Doc · Diagrama barras"><span>Tabla de tiempos / barras</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Doc · Documentos teóricos"><span>Documentos teóricos</span></label>
-                            </div>
-                        </div>
-
-                        <div class="check-cat">
-                            <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">05</span> &nbsp;Maquetería</span><span class="toggle-arrow">+</span></div>
-                            <div class="check-cat-items">
-                                <label class="check-item"><input type="checkbox" name="area" value="Maqueta · A detalle"><span>Maqueta a detalle</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Urbana"><span>Maqueta urbana</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Estructural"><span>Maqueta estructural</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Detalles"><span>Detalles constructivos</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Ambientación"><span>Ambientación</span></label>
-                            </div>
-                        </div>
-
-                        <div class="check-cat">
-                            <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">06</span> &nbsp;Asesoramiento</span><span class="toggle-arrow">+</span></div>
-                            <div class="check-cat-items">
-                                <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Talleres"><span>Talleres (I, II, IV–VIII)</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Construcciones"><span>Construcciones</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Estructuras"><span>Estructuras</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Instalaciones"><span>Instalaciones</span></label>
-                                <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Topografía"><span>Topografía</span></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PASO 2: DATOS -->
-                    <div class="step-block">
-                        <div class="step-header">
-                            <div class="step-num">2</div>
-                            <div>
-                                <div class="step-title">¿Quién eres?</div>
-                                <div class="step-desc">Solo necesitamos tu nombre, carnet y un número para contactarte. El correo es opcional.</div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="fg"><label>Nombre completo *</label><input type="text" id="a-nombre" placeholder="Tu nombre completo" required></div>
-                            <div class="fg"><label>CI / Carnet *</label><input type="text" id="a-ci" placeholder="Número de CI" required></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="fg"><label>WhatsApp *</label><input type="tel" id="a-tel" placeholder="+591 7XXXXXXX" required></div>
-                            <div class="fg"><label>Correo electrónico</label><input type="email" id="a-email" placeholder="tu@correo.com"></div>
-                        </div>
-                    </div>
-
-                    <!-- PASO 3: DESCRIPCIÓN -->
-                    <div class="step-block">
-                        <div class="step-header">
-                            <div class="step-num">3</div>
-                            <div>
-                                <div class="step-title">Cuéntanos tu proyecto</div>
-                                <div class="step-desc">Describe qué necesitas: tipo de edificación, escala, urgencia, materiales. Más detalles = cotización más precisa.</div>
-                            </div>
-                        </div>
-                        <div class="fg">
-                            <label>Descripción y requerimientos *</label>
-                            <textarea id="a-desc" placeholder="Ej: Necesito planos de una vivienda unifamiliar de 2 pisos, escala 1:100, urgente para la próxima semana..." style="min-height:130px;" required></textarea>
-                        </div>
-                    </div>
-
-                    <!-- PASO 4: ARCHIVO -->
-                    <div class="step-block">
-                        <div class="step-header">
-                            <div class="step-num">4</div>
-                            <div>
-                                <div class="step-title">Adjunta tu avance</div>
-                                <div class="step-desc">Si ya tienes algo empezado, adjúntalo aquí. Máximo 5MB. Si es más grande, compártelo por WhatsApp después.</div>
-                            </div>
-                        </div>
-                        <div class="fg">
-                            <div class="file-drop" id="fileDrop">
-                                <input type="file" id="a-archivo" accept=".pdf,.jpg,.jpeg,.png,.zip" onchange="handleFile(this)">
-                                <div class="file-drop-icon">📎</div>
-                                <div class="file-drop-text">Arrastra tu archivo aquí o haz clic</div>
-                                <div class="file-drop-hint">PDF, JPG, PNG, ZIP · Máximo 5MB · Opcional</div>
-                            </div>
-                            <div class="upload-progress" id="uploadProgress">
-                                <div class="upload-progress-bar"><div class="upload-progress-fill" id="uploadFill"></div></div>
-                                <div class="upload-progress-text" id="uploadText">Procesando archivo...</div>
-                            </div>
-                            <div class="file-selected" id="fileSelected">✓ <span id="fileName"></span></div>
-                            <div class="file-error" id="fileError"></div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-submit" id="btnApoyo">
-                        <span id="btnApoyoText">Solicitar cotización →</span>
-                    </button>
-                    <button type="button" class="btn-wa-submit" id="btnApoyoWA">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-                        Enviar por WhatsApp
-                    </button>
-                </form>
-
-                <!-- SUCCESS STATE -->
-                <div class="form-success" id="formSuccess">
-                    <div class="check">✅</div>
-                    <h3>¡Solicitud enviada!</h3>
-                    <p>Tu código de seguimiento es:</p>
-                    <div class="tracking-code-box" id="successCode">APY---------</div>
-                    <p>Guarda este código. Te contactaremos en menos de 24h con tu cotización personalizada.</p>
-                    <div style="margin-top:1.5rem;">
-                        <button onclick="resetForm()" class="btn-submit" style="width:auto;padding:.7rem 1.5rem;cursor:none;">Nueva solicitud</button>
+                <div class="services-intro-img" data-img="../img/apoyo-servicios.jpg">
+                    <div class="photo-ph">
+                        <div class="ph-icon">📷</div>
+                        <div class="ph-label">img/apoyo-servicios.jpg<br>Planos sobre mesa / trabajo de taller<br>800×600px</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- TRACKING -->
-    <section class="tracking-section reveal" id="seguimiento">
-        <div class="tracking-inner">
-            <div class="sec-label" style="justify-content:center;">Seguimiento</div>
-            <h2>Seguir mi <em>solicitud</em></h2>
-            <p>Ingresa el código APY que recibiste al enviar tu solicitud de cotización.</p>
-            <div class="tracking-form">
-                <input type="text" id="trackCode" placeholder="APY-20250501-XXXX" maxlength="25">
-                <button class="btn-track" id="btnTrack">Consultar →</button>
+            <div class="services-grid reveal">
+                <!-- 01 PLANOS -->
+                <div class="service-cat">
+                    <div class="service-cat-header">
+                        <div><div class="service-cat-num">01 · Planos Técnicos</div><div class="service-cat-name">Documentación</div></div>
+                        <div class="service-cat-count">12 servicios</div>
+                    </div>
+                    <div class="service-cat-body">
+                        <div class="carousel" data-carousel>
+                            <div class="carousel-slides">
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.08),rgba(10,8,6,.85));"></div><div class="photo-ph"><div class="ph-icon">📐</div><div class="ph-label">Plantas arquitectónicas</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Plantas arquitectónicas</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(160deg,rgba(122,58,21,.1),rgba(10,8,6,.85));"></div><div class="photo-ph"><div class="ph-icon">📐</div><div class="ph-label">Elevaciones y fachadas</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Elevaciones y fachadas</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(140deg,rgba(196,113,58,.06),rgba(10,8,6,.85));"></div><div class="photo-ph"><div class="ph-icon">📐</div><div class="ph-label">Secciones / cortes</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Secciones / Cortes</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(120deg,rgba(196,113,58,.09),rgba(10,8,6,.85));"></div><div class="photo-ph"><div class="ph-icon">📐</div><div class="ph-label">Detalles constructivos</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Detalles constructivos</div></div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
+                            <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
+                            <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
+                        </div>
+                        <div class="service-list-wrap"><ul class="service-list"><li>Plantas arquitectónicas</li><li>Elevaciones y fachadas</li><li>Secciones / cortes</li><li>Planimetría de conjunto</li><li>Planos estructurales y urbanos</li><li>Detalles constructivos</li><li>Instalaciones sanitarias y eléctricas</li><li>Cortes de borde y fugados</li><li>Detalle de plafonería</li></ul></div>
+                    </div>
+                </div>
+
+                <!-- 02 VISUALIZACIÓN -->
+                <div class="service-cat">
+                    <div class="service-cat-header">
+                        <div><div class="service-cat-num">02 · Visualización</div><div class="service-cat-name">Arquitectónica</div></div>
+                        <div class="service-cat-count">10 servicios</div>
+                    </div>
+                    <div class="service-cat-body">
+                        <div class="carousel" data-carousel>
+                            <div class="carousel-slides">
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.11),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🎨</div><div class="ph-label">Perspectivas exteriores</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Perspectivas exteriores</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(155deg,rgba(122,58,21,.12),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🎨</div><div class="ph-label">Perspectivas interiores</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Perspectivas interiores</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(145deg,rgba(196,113,58,.09),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🎨</div><div class="ph-label">Láminas descriptivas</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Láminas descriptivas</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(130deg,rgba(196,113,58,.07),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🎨</div><div class="ph-label">Axonometrías</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Axonometrías</div></div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
+                            <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
+                            <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
+                        </div>
+                        <div class="service-list-wrap"><ul class="service-list"><li>Perspectivas interiores y exteriores</li><li>Axonometrías y vistas 360°</li><li>Recorridos virtuales</li><li>Postproducción Photoshop</li><li>Láminas descriptivas y urbanas</li><li>Láminas Arquisur</li><li>Presentaciones y diapositivas</li></ul></div>
+                    </div>
+                </div>
+
+                <!-- 03 3D -->
+                <div class="service-cat">
+                    <div class="service-cat-header">
+                        <div><div class="service-cat-num">03 · Modelado 3D</div><div class="service-cat-name">Digital</div></div>
+                        <div class="service-cat-count">7 servicios</div>
+                    </div>
+                    <div class="service-cat-body">
+                        <div class="carousel" data-carousel>
+                            <div class="carousel-slides">
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.1),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🧊</div><div class="ph-label">Modelado general</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Modelado general</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(150deg,rgba(122,58,21,.1),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🧊</div><div class="ph-label">Formas irregulares</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Formas irregulares / orgánicas</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(140deg,rgba(196,113,58,.08),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🧊</div><div class="ph-label">Archivos impresión 3D</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Archivos para impresión 3D</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(125deg,rgba(196,113,58,.07),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🧊</div><div class="ph-label">Mobiliario personalizado</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Mobiliario personalizado</div></div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
+                            <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
+                            <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
+                        </div>
+                        <div class="service-list-wrap"><ul class="service-list"><li>Modelado general (Revit, SketchUp)</li><li>Formas irregulares y orgánicas</li><li>Archivos para impresión 3D</li><li>Ambientación / pre-visualización</li><li>Diseño y modelado de mobiliario</li><li>Familias personalizadas en Revit</li></ul></div>
+                    </div>
+                </div>
+
+                <!-- 04 DOCUMENTACIÓN -->
+                <div class="service-cat">
+                    <div class="service-cat-header">
+                        <div><div class="service-cat-num">04 · Documentación</div><div class="service-cat-name">Técnica</div></div>
+                        <div class="service-cat-count">6 servicios</div>
+                    </div>
+                    <div class="service-cat-body">
+                        <div class="carousel" data-carousel>
+                            <div class="carousel-slides">
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.09),rgba(10,8,6,.83));"></div><div class="photo-ph"><div class="ph-icon">📊</div><div class="ph-label">Cómputos métricos</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Cómputos métricos</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(155deg,rgba(122,58,21,.09),rgba(10,8,6,.83));"></div><div class="photo-ph"><div class="ph-icon">📊</div><div class="ph-label">Presupuesto de obra</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Presupuesto de obra</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(145deg,rgba(196,113,58,.07),rgba(10,8,6,.83));"></div><div class="photo-ph"><div class="ph-icon">📊</div><div class="ph-label">Diagrama de barras</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Tabla de tiempos / Gantt</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(130deg,rgba(196,113,58,.1),rgba(10,8,6,.83));"></div><div class="photo-ph"><div class="ph-icon">📊</div><div class="ph-label">Documentos teóricos</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Documentos teóricos</div></div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
+                            <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
+                            <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
+                        </div>
+                        <div class="service-list-wrap"><ul class="service-list"><li>Cómputos métricos</li><li>Precios unitarios</li><li>Presupuesto de obra</li><li>Cómputo de materiales</li><li>Tabla de tiempos y diagrama de barras</li><li>Documentos teóricos</li></ul></div>
+                    </div>
+                </div>
+
+                <!-- 05 MAQUETERÍA -->
+                <div class="service-cat">
+                    <div class="service-cat-header">
+                        <div><div class="service-cat-num">05 · Maquetería</div><div class="service-cat-name">Física</div></div>
+                        <div class="service-cat-count">5 servicios</div>
+                    </div>
+                    <div class="service-cat-body">
+                        <div class="carousel" data-carousel>
+                            <div class="carousel-slides">
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.1),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🏗️</div><div class="ph-label">Maqueta a detalle</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Maqueta a detalle</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(150deg,rgba(122,58,21,.11),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🏗️</div><div class="ph-label">Maqueta urbana</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Maqueta urbana</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(140deg,rgba(196,113,58,.08),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🏗️</div><div class="ph-label">Maqueta estructural</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Maqueta estructural</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(125deg,rgba(196,113,58,.09),rgba(10,8,6,.8));"></div><div class="photo-ph"><div class="ph-icon">🏗️</div><div class="ph-label">Ambientación</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Ambientación y elementos</div></div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
+                            <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
+                            <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
+                        </div>
+                        <div class="service-list-wrap"><ul class="service-list"><li>Maqueta a detalle (desmontable, con interiores)</li><li>Maquetas urbanas</li><li>Maquetas estructurales</li><li>Maquetas de detalles constructivos</li><li>Ambientación (elementos para maquetería)</li></ul></div>
+                    </div>
+                </div>
+
+                <!-- 06 ASESORAMIENTO -->
+                <div class="service-cat">
+                    <div class="service-cat-header">
+                        <div><div class="service-cat-num">06 · Asesoramiento</div><div class="service-cat-name">Personalizado</div></div>
+                        <div class="service-cat-count">5 servicios</div>
+                    </div>
+                    <div class="service-cat-body">
+                        <div class="carousel" data-carousel>
+                            <div class="carousel-slides">
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(135deg,rgba(196,113,58,.1),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🎓</div><div class="ph-label">Talleres I – VIII</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Talleres I – VIII</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(150deg,rgba(122,58,21,.1),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🎓</div><div class="ph-label">Construcciones</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Construcciones</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(140deg,rgba(196,113,58,.08),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🎓</div><div class="ph-label">Estructuras</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Estructuras</div></div>
+                                <div class="carousel-slide"><div class="carousel-slide-img" style="background:linear-gradient(130deg,rgba(196,113,58,.09),rgba(10,8,6,.82));"></div><div class="photo-ph"><div class="ph-icon">🎓</div><div class="ph-label">Instalaciones</div></div><div class="carousel-slide-overlay"></div><div class="carousel-slide-label">Instalaciones</div></div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="carouselMove(this,-1)">‹</button>
+                            <button class="carousel-btn next" onclick="carouselMove(this,1)">›</button>
+                            <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div><div class="carousel-dot"></div><div class="carousel-dot"></div></div>
+                        </div>
+                        <div class="service-list-wrap"><ul class="service-list"><li>Asesoramiento en talleres (I, II, IV–VIII)</li><li>Construcciones</li><li>Estructuras</li><li>Instalaciones</li><li>Topografía</li></ul></div>
+                    </div>
+                </div>
             </div>
-            <div class="tracking-result" id="trackingResult"></div>
-        </div>
-    </section>
+        </section>
+
+        <!-- QUOTE FORM -->
+        <section class="form-section" id="cotizar">
+            <div class="form-wrap reveal">
+                <div class="form-info">
+                    <div class="sec-label">Cotización</div>
+                    <h2>Cuéntanos tu<br><em>proyecto</em></h2>
+                    <p>Selecciona las áreas en las que necesitas apoyo, adjunta tu proyecto si tienes avance, y te responderemos con una cotización en menos de 24 horas.</p>
+                    <div class="form-info-contact">
+                        <h6>Consultas directas</h6>
+                        <a href="https://wa.me/59173443086" target="_blank" rel="noopener noreferrer">📱 +591 73443086</a>
+                        <a href="https://wa.me/59175769551" target="_blank" rel="noopener noreferrer">📱 Arq. Laura: +591 75769551</a>
+                        <a href="https://wa.me/59173450072" target="_blank" rel="noopener noreferrer">📱 Arq. Franz: +591 73450072</a>
+                        <a href="mailto:axis.estudiodesign@gmail.com">✉️ axis.estudiodesign@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>Formulario de cotización</h3>
+                    <p>Elige qué necesitas, dinos quién eres, describe tu proyecto y listo. Te respondemos en menos de 24 horas con una propuesta personalizada.</p>
+
+                    <!-- INDICADOR DE TOKEN -->
+                    <div class="token-status loading" id="tokenStatus">
+                        <div class="ts-dot pulse"></div>
+                        <span id="tokenMsg">Conectando con el servidor...</span>
+                    </div>
+
+                    <form id="apoyoForm" novalidate>
+                        <!-- HONEYPOT -->
+                        <div style="position:absolute;left:-9999px;opacity:0;">
+                            <label for="honeypot">No llenes esto</label>
+                            <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <!-- PASO 1: ÁREAS -->
+                        <div class="step-block">
+                            <div class="step-header">
+                                <div class="step-num">1</div>
+                                <div>
+                                    <div class="step-title">¿Qué necesitas?</div>
+                                    <div class="step-desc">Abre las categorías que te interesan y marca los servicios específicos.</div>
+                                </div>
+                            </div>
+
+                            <div class="check-cat">
+                                <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">01</span> Planos Técnicos</span><span class="toggle-arrow">+</span></div>
+                                <div class="check-cat-items">
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Plantas"><span>Plantas</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Elevaciones"><span>Elevaciones</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Secciones/Cortes"><span>Secciones / Cortes</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Planimetría"><span>Planimetría</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Estructurales"><span>Estructurales</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Urbanos"><span>Urbanos</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Detalles constructivos"><span>Detalles constructivos</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Inst. sanitarias"><span>Inst. sanitarias</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Inst. eléctricas"><span>Inst. eléctricas</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Cortes de borde"><span>Cortes de borde</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Cortes fugados"><span>Cortes fugados</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Planos · Plafonería"><span>Detalle plafonería</span></label>
+                                </div>
+                            </div>
+
+                            <div class="check-cat">
+                                <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">02</span> Visualización Arquitectónica</span><span class="toggle-arrow">+</span></div>
+                                <div class="check-cat-items">
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas interiores"><span>Perspectivas interiores</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas exteriores"><span>Perspectivas exteriores</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Axonometrías"><span>Axonometrías</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas 360°"><span>Perspectivas 360°</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Recorridos virtuales"><span>Recorridos virtuales</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Postproducción"><span>Postproducción Photoshop</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas descriptivas"><span>Láminas descriptivas</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas urbanas"><span>Láminas urbanas</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas Arquisur"><span>Láminas Arquisur</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Viz · Presentaciones"><span>Presentaciones</span></label>
+                                </div>
+                            </div>
+
+                            <div class="check-cat">
+                                <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">03</span> Modelado 3D</span><span class="toggle-arrow">+</span></div>
+                                <div class="check-cat-items">
+                                    <label class="check-item"><input type="checkbox" name="area" value="3D · Modelado general"><span>Modelado general</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="3D · Formas irregulares"><span>Formas irregulares</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="3D · Detalle constructivo"><span>Detalle constructivo</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="3D · Impresión 3D"><span>Archivos impresión 3D</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="3D · Ambientación"><span>Ambientación</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="3D · Mobiliario"><span>Mobiliario personalizado</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="3D · Familias Revit"><span>Familias Revit</span></label>
+                                </div>
+                            </div>
+
+                            <div class="check-cat">
+                                <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">04</span> Documentación Técnica</span><span class="toggle-arrow">+</span></div>
+                                <div class="check-cat-items">
+                                    <label class="check-item"><input type="checkbox" name="area" value="Doc · Cómputos métricos"><span>Cómputos métricos</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Doc · Precios unitarios"><span>Precios unitarios</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Doc · Presupuesto"><span>Presupuesto de obra</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Doc · Cómputo materiales"><span>Cómputo de materiales</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Doc · Diagrama barras"><span>Tabla de tiempos / barras</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Doc · Documentos teóricos"><span>Documentos teóricos</span></label>
+                                </div>
+                            </div>
+
+                            <div class="check-cat">
+                                <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">05</span> Maquetería</span><span class="toggle-arrow">+</span></div>
+                                <div class="check-cat-items">
+                                    <label class="check-item"><input type="checkbox" name="area" value="Maqueta · A detalle"><span>Maqueta a detalle</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Urbana"><span>Maqueta urbana</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Estructural"><span>Maqueta estructural</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Detalles"><span>Detalles constructivos</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Ambientación"><span>Ambientación</span></label>
+                                </div>
+                            </div>
+
+                            <div class="check-cat">
+                                <div class="check-cat-label" onclick="toggleCat(this)"><span><span style="color:var(--accent);">06</span> Asesoramiento</span><span class="toggle-arrow">+</span></div>
+                                <div class="check-cat-items">
+                                    <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Talleres"><span>Talleres (I, II, IV–VIII)</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Construcciones"><span>Construcciones</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Estructuras"><span>Estructuras</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Instalaciones"><span>Instalaciones</span></label>
+                                    <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Topografía"><span>Topografía</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PASO 2: DATOS -->
+                        <div class="step-block">
+                            <div class="step-header">
+                                <div class="step-num">2</div>
+                                <div>
+                                    <div class="step-title">¿Quién eres?</div>
+                                    <div class="step-desc">Solo necesitamos tu nombre, carnet y un número para contactarte. El correo es opcional.</div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="fg"><label>Nombre completo *</label><input type="text" id="a-nombre" placeholder="Tu nombre completo" required></div>
+                                <div class="fg"><label>CI / Carnet *</label><input type="text" id="a-ci" placeholder="Número de CI" required></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="fg"><label>WhatsApp *</label><input type="tel" id="a-tel" placeholder="+591 7XXXXXXX" required></div>
+                                <div class="fg"><label>Correo electrónico</label><input type="email" id="a-email" placeholder="tu@correo.com"></div>
+                            </div>
+                        </div>
+
+                        <!-- PASO 3: DESCRIPCIÓN -->
+                        <div class="step-block">
+                            <div class="step-header">
+                                <div class="step-num">3</div>
+                                <div>
+                                    <div class="step-title">Cuéntanos tu proyecto</div>
+                                    <div class="step-desc">Describe qué necesitas: tipo de edificación, escala, urgencia, materiales. Más detalles = cotización más precisa.</div>
+                                </div>
+                            </div>
+                            <div class="fg">
+                                <label>Descripción y requerimientos *</label>
+                                <textarea id="a-desc" placeholder="Ej: Necesito planos de una vivienda unifamiliar de 2 pisos, escala 1:100, urgente para la próxima semana..." style="min-height:130px;" required></textarea>
+                            </div>
+                        </div>
+
+                        <!-- PASO 4: ARCHIVO -->
+                        <div class="step-block">
+                            <div class="step-header">
+                                <div class="step-num">4</div>
+                                <div>
+                                    <div class="step-title">Adjunta tu avance</div>
+                                    <div class="step-desc">Si ya tienes algo empezado, adjúntalo aquí. Máximo 5MB. Si es más grande, compártelo por WhatsApp después.</div>
+                                </div>
+                            </div>
+                            <div class="fg">
+                                <div class="file-drop" id="fileDrop">
+                                    <input type="file" id="a-archivo" accept=".pdf,.jpg,.jpeg,.png,.zip" onchange="handleFile(this)">
+                                    <div class="file-drop-icon">📎</div>
+                                    <div class="file-drop-text">Arrastra tu archivo aquí o haz clic</div>
+                                    <div class="file-drop-hint">PDF, JPG, PNG, ZIP · Máximo 5MB · Opcional</div>
+                                </div>
+                                <div class="upload-progress" id="uploadProgress">
+                                    <div class="upload-progress-bar"><div class="upload-progress-fill" id="uploadFill"></div></div>
+                                    <div class="upload-progress-text" id="uploadText">Procesando archivo...</div>
+                                </div>
+                                <div class="file-selected" id="fileSelected">✓ <span id="fileName"></span></div>
+                                <div class="file-error" id="fileError"></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="btnApoyo">
+                            <span id="btnApoyoText">Solicitar cotización →</span>
+                        </button>
+                        <button type="button" class="btn-wa-submit" id="btnApoyoWA">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+                            Enviar por WhatsApp
+                        </button>
+                    </form>
+
+                    <!-- SUCCESS STATE -->
+                    <div class="form-success" id="formSuccess">
+                        <div class="check">✅</div>
+                        <h3>¡Solicitud enviada!</h3>
+                        <p>Tu código de seguimiento es:</p>
+                        <div class="tracking-code-box" id="successCode">APY---------</div>
+                        <p>Guarda este código. Te contactaremos en menos de 24h con tu cotización personalizada.</p>
+                        <div style="margin-top:1.5rem;">
+                            <button onclick="resetForm()" class="btn-submit" style="width:auto;padding:.7rem 1.5rem;cursor:none;margin:auto;">Nueva solicitud</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRACKING -->
+        <section class="tracking-section reveal" id="seguimiento">
+            <div class="tracking-inner">
+                <div class="sec-label" style="justify-content:center;">Seguimiento</div>
+                <h2>Seguir mi <em>solicitud</em></h2>
+                <p>Ingresa el código APY que recibiste al enviar tu solicitud de cotización.</p>
+                <div class="tracking-form">
+                    <input type="text" id="trackCode" placeholder="APY-20250501-XXXX" maxlength="25">
+                    <button class="btn-track" id="btnTrack">Consultar →</button>
+                </div>
+                <div class="tracking-result" id="trackingResult"></div>
+            </div>
+        </section>
+    </main>
 
     <!-- FOOTER -->
     <footer>
@@ -1973,36 +1972,43 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // ── CONFIG ────────────────────────────────────────────────────────
+        // CONFIG
         const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyeop2BzZ1KNKHynUhbVSJXukVqturyv-sQjscHNdWgShgC4mRKQFzr4Ym42zFQ2wtz/exec';
         const WA_NUMBER = '59173443086';
         const MAX_FILE_BYTES = 5 * 1024 * 1024;
 
-        // ── CURSOR ────────────────────────────────────────────────────────
+        // CURSOR
         const cur = document.getElementById('cur');
         const curRing = document.getElementById('curRing');
-        document.addEventListener('mousemove', e => {
-            cur.style.left = e.clientX + 'px';
-            cur.style.top = e.clientY + 'px';
-            setTimeout(() => {
-                curRing.style.left = e.clientX + 'px';
-                curRing.style.top = e.clientY + 'px';
-            }, 60);
-        });
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', e => {
+                cur.style.left = e.clientX + 'px';
+                cur.style.top = e.clientY + 'px';
+                setTimeout(() => {
+                    curRing.style.left = e.clientX + 'px';
+                    curRing.style.top = e.clientY + 'px';
+                }, 60);
+            });
+        }
 
-        // ── NAV ───────────────────────────────────────────────────────────
+        // NAV
         const ham = document.getElementById('ham');
         const mob = document.getElementById('mobNav');
         ham.addEventListener('click', () => mob.classList.toggle('open'));
         document.getElementById('mobClose').addEventListener('click', () => mob.classList.remove('open'));
 
-        // ── REVEAL ────────────────────────────────────────────────────────
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // REVEAL
         const obs = new IntersectionObserver(entries => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
         }, { threshold: .07 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-        // ── IMAGE LOADER ──────────────────────────────────────────────────
+        // IMAGE LOADER
         document.querySelectorAll('[data-img]').forEach(el => {
             const src = el.dataset.img; if (!src) return;
             const img = new Image();
@@ -2014,7 +2020,7 @@
             img.src = src;
         });
 
-        // ── CAROUSEL ──────────────────────────────────────────────────────
+        // CAROUSEL
         function carouselMove(btn, dir) {
             const carousel = btn.closest('[data-carousel]');
             const slides = carousel.querySelector('.carousel-slides');
@@ -2040,14 +2046,14 @@
             });
         });
 
-        // ── CATEGORY TOGGLE ───────────────────────────────────────────────
+        // CATEGORY TOGGLE
         function toggleCat(header) {
             const items = header.nextElementSibling;
             items.classList.toggle('open');
             header.classList.toggle('open', items.classList.contains('open'));
         }
 
-        // ── FILE HANDLING ─────────────────────────────────────────────────
+        // FILE HANDLING
         let selectedFile = null;
         let selectedFileData = null;
 
@@ -2124,7 +2130,7 @@
             }
         });
 
-        // ── TOKEN — GET al cargar la página ──────────────────────────────
+        // TOKEN — GET
         let tokenSeguridad = '';
         let tokenIntentos = 0;
         const TOKEN_MAX_REINTENTOS = 3;
@@ -2162,21 +2168,18 @@
                 }
             }
         }
-
         window.addEventListener('load', pedirToken);
 
-        // ── APY CODE ──────────────────────────────────────────────────────
+        // APY CODE
         function generateApyCode() {
             const d = new Date().toISOString().slice(0, 10).replace(/-/g, '');
             const r = Math.random().toString(36).substring(2, 6).toUpperCase();
             return 'APY-' + d + '-' + r;
         }
 
-        // ── FORM SUBMIT ───────────────────────────────────────────────────
+        // FORM SUBMIT
         document.getElementById('apoyoForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-
-            // Validaciones del lado cliente
             const areas = [...document.querySelectorAll('input[name="area"]:checked')].map(c => c.value);
             const nombre = document.getElementById('a-nombre').value.trim();
             const ci = document.getElementById('a-ci').value.trim();
@@ -2190,7 +2193,6 @@
             if (!tel) { showToast('⚠ Completa tu WhatsApp (Paso 2).'); return; }
             if (!desc) { showToast('⚠ Describe tu proyecto (Paso 3).'); return; }
 
-            // Si no hay token, redirigir a WhatsApp directamente
             if (!tokenSeguridad) {
                 showToast('⚠ Sin conexión al servidor. Enviando por WhatsApp...');
                 setTimeout(() => apoyoViaWhatsApp(nombre, tel, areas, desc, generateApyCode()), 1000);
@@ -2219,15 +2221,12 @@
                     areas: areas.join(' | '),
                     descripcion: desc,
                     archivoBase64: selectedFileData || '',
-                    archivoNombre: selectedFile
-                        ? selectedFile.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9._\-\s]/g, '_')
-                        : '',
+                    archivoNombre: selectedFile ? selectedFile.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9._\-\s]/g, '_') : ''
                 }
             };
 
             try {
                 const controller = new AbortController();
-                // Aumentado a 120,000ms (120 segundos) para permitir subida de archivos pesados
                 const timeoutId = setTimeout(() => controller.abort(), 120000);
 
                 const resp = await fetch(SHEETS_URL, {
@@ -2240,18 +2239,11 @@
 
                 const raw = await resp.text();
                 let result;
-                try {
-                    result = JSON.parse(raw);
-                } catch (_) {
-                    throw new Error('Respuesta inesperada del servidor.');
-                }
+                try { result = JSON.parse(raw); } catch (_) { throw new Error('Respuesta inesperada del servidor.'); }
 
                 if (result.ok) {
-                    const codigoConfirmado = (result.data && result.data.codigo)
-                        ? result.data.codigo
-                        : codigoLocal;
+                    const codigoConfirmado = (result.data && result.data.codigo) ? result.data.codigo : codigoLocal;
                     showSuccess(codigoConfirmado);
-
                     tokenSeguridad = '';
                     setTimeout(pedirToken, 500);
                 } else {
@@ -2262,9 +2254,7 @@
 
             } catch (err) {
                 console.error('Error de envío:', err);
-                const msg = err.name === 'AbortError'
-                    ? '⏱ Tiempo de espera agotado. Enviando por WhatsApp...'
-                    : '⚠ Error de red. Redirigiendo a WhatsApp...';
+                const msg = err.name === 'AbortError' ? '⏱ Tiempo de espera agotado. Enviando por WhatsApp...' : '⚠ Error de red. Redirigiendo a WhatsApp...';
                 showToast(msg);
                 setTimeout(() => apoyoViaWhatsApp(nombre, tel, areas, desc, codigoLocal), 1200);
             } finally {
@@ -2273,7 +2263,7 @@
             }
         });
 
-        // ── WHATSAPP BUTTON ───────────────────────────────────────────────
+        // WHATSAPP BUTTON
         document.getElementById('btnApoyoWA').addEventListener('click', () => {
             const nombre = document.getElementById('a-nombre').value.trim() || 'Estudiante';
             const tel = document.getElementById('a-tel').value.trim() || '';
@@ -2284,10 +2274,8 @@
 
         function apoyoViaWhatsApp(nombre, tel, areas, desc, codigo) {
             const lista = areas.length ? areas.join('\n• ') : '(sin especificar)';
-            const msg = encodeURIComponent(
-                `¡Hola ZAHYO! Necesito apoyo académico.\n\nCódigo: ${codigo}\nNombre: ${nombre}\nTel: ${tel}\n\nÁreas:\n• ${lista}\n\nDescripción:\n${desc.substring(0, 400)}`
-            );
-            window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+            const msg = encodeURIComponent(`¡Hola ZAHYO! Necesito apoyo académico.\n\nCódigo: ${codigo}\nNombre: ${nombre}\nTel: ${tel}\n\nÁreas:\n• ${lista}\n\nDescripción:\n${desc.substring(0, 400)}`);
+            window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank', 'noopener,noreferrer');
         }
 
         function showSuccess(codigo) {
@@ -2308,7 +2296,7 @@
             pedirToken();
         }
 
-        // ── TRACKING ──────────────────────────────────────────────────────
+        // TRACKING
         document.getElementById('btnTrack').addEventListener('click', trackOrder);
         document.getElementById('trackCode').addEventListener('keydown', e => { if (e.key === 'Enter') trackOrder(); });
 
@@ -2328,19 +2316,15 @@
                 clearTimeout(tid);
 
                 const raw = await resp.text();
-                if (!raw.trim().startsWith('{')) {
-                    throw new Error('Respuesta inesperada del servidor. Verifica que el script esté desplegado.');
-                }
+                if (!raw.trim().startsWith('{')) throw new Error('Respuesta inesperada del servidor. Verifica que el script esté desplegado.');
                 const data = JSON.parse(raw);
 
                 if (data.ok && data.data && data.data.resultado) {
                     const r = data.data.resultado;
                     const statusClass = {
-                        'Nuevo': 'status-recibido',
-                        'Recibido': 'status-recibido',
-                        'En proceso': 'status-en-proceso',
-                        'Listo': 'status-listo',
-                        'Entregado': 'status-entregado',
+                        'Nuevo': 'status-recibido', 'Recibido': 'status-recibido',
+                        'En proceso': 'status-en-proceso', 'Listo': 'status-listo',
+                        'Entregado': 'status-entregado'
                     }[r.estado] || 'status-recibido';
 
                     resultDiv.innerHTML = `
@@ -2362,23 +2346,21 @@
                             <div class="track-error">
                                 No se encontró el código <strong>${code}</strong>.<br>
                                 Verifica que esté correcto o consulta directamente.<br><br>
-                                <a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20quiero%20consultar%20mi%20solicitud%20${encodeURIComponent(code)}" target="_blank" style="color:var(--accent);text-decoration:none;">Consultar por WhatsApp →</a>
+                                <a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20quiero%20consultar%20mi%20solicitud%20${encodeURIComponent(code)}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;">Consultar por WhatsApp →</a>
                             </div>`;
                 }
             } catch (err) {
                 console.error('Tracking error:', err);
-                const msg = err.name === 'AbortError'
-                    ? 'Tiempo de espera agotado. Intenta de nuevo.'
-                    : err.message;
+                const msg = err.name === 'AbortError' ? 'Tiempo de espera agotado. Intenta de nuevo.' : err.message;
                 resultDiv.innerHTML = `
                         <div class="track-error">
                             ${msg}<br><br>
-                            <a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20consulto%20mi%20solicitud%3A%20${encodeURIComponent(code)}" target="_blank" style="color:var(--accent);text-decoration:none;">Consultar por WhatsApp →</a>
+                            <a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20consulto%20mi%20solicitud%3A%20${encodeURIComponent(code)}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;">Consultar por WhatsApp →</a>
                         </div>`;
             }
         }
 
-        // ── TOAST ─────────────────────────────────────────────────────────
+        // TOAST
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg;
