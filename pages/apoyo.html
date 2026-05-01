@@ -1845,57 +1845,88 @@
             }
         });
         // ── FORM SUBMIT ──────────────────────────────────────────────────
-        document.getElementById('apoyoForm').addEventListener('submit', async function(e) {
+        document.getElementById('apoyoForm').addEventListener('submit', async function (e) {
             e.preventDefault();
+
+            // 1. Verificamos que el sistema anti-bots esté listo
+            if (!tokenSeguridad) {
+                showToast("⏳ Conectando seguridad, intenta en un segundo...");
+                return;
+            }
+
             const areas = [...document.querySelectorAll('input[name="area"]:checked')].map(c => c.value);
-            const nombre   = document.getElementById('a-nombre').value.trim();
-            const ci       = document.getElementById('a-ci').value.trim();
-            const tel      = document.getElementById('a-tel').value.trim();
-            const email    = document.getElementById('a-email').value.trim();
-            const inst     = document.getElementById('a-inst').value || '';
+            const nombre = document.getElementById('a-nombre').value.trim();
+            const ci = document.getElementById('a-ci').value.trim();
+            const tel = document.getElementById('a-tel').value.trim();
+            const email = document.getElementById('a-email').value.trim();
+            const inst = document.getElementById('a-inst').value || '';
             const semestre = document.getElementById('a-semestre').value || '';
-            const desc     = document.getElementById('a-desc').value.trim();
+            const desc = document.getElementById('a-desc').value.trim();
 
             if (!nombre || !ci || !tel || !desc) { showToast('⚠ Completa los campos obligatorios.'); return; }
             if (areas.length === 0) { showToast('⚠ Selecciona al menos un área de apoyo.'); return; }
 
             const btn = document.getElementById('btnApoyo');
-            btn.textContent = 'Enviando solicitud...'; btn.disabled = true;
+            btn.textContent = 'Enviando solicitud...';
+            btn.disabled = true;
 
             const codigo = generateApyCode();
 
-            const payload = {
-                tipo: 'apoyo',
-                codigo_frontend: codigo,
-                nombre, ci, telefono: tel, email,
-                institucion: inst, semestre,
-                areas,
+            // 2. Empaquetamos los datos bajo el objeto "form" que espera tu Google Script
+            const formDatos = {
+                nombre: nombre,
+                ci: ci,
+                telefono: tel,
+                email: email,
+                institucion: inst,
+                semestre: semestre,
+                areas: areas.join(' | '), // Google Script espera un texto, no un array
                 descripcion: desc,
+                archivoBase64: selectedFileData ? selectedFileData : '',
+                archivoNombre: selectedFile ? selectedFile.name : ''
             };
 
-            // Add file if selected
-            if (selectedFile && selectedFileData) {
-                payload.archivo_base64 = selectedFileData;
-                payload.archivo_nombre = selectedFile.name;
-                payload.archivo_tipo   = selectedFile.type || 'application/octet-stream';
-            }
+            // 3. Capturamos la trampa (si el HTML no la tiene aún, evitamos que dé error)
+            const honeypotInput = document.getElementById('honeypot');
+            const honeypotValue = honeypotInput ? honeypotInput.value : '';
+
+            // 4. Estructura final con las 4 capas de validación
+            const payloadSeguro = {
+                honeypot: honeypotValue,
+                token: tokenSeguridad,
+                tipo: 'apoyo',
+                form: formDatos
+            };
 
             try {
-                await fetch(SHEETS_URL, {
+                // Eliminamos "mode: 'no-cors'" para que la consola nos devuelva los errores en caso de fallar
+                const envio = await fetch(SHEETS_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payloadSeguro)
                 });
-                showSuccess(codigo);
-            } catch (err) {
-                apoyoViaWhatsApp(nombre, tel, areas, desc, codigo);
-            }
 
-            btn.textContent = 'Solicitar cotización →'; btn.disabled = false;
+                const resultado = await envio.json();
+
+                if (resultado.ok) {
+                    showSuccess(codigo);
+                } else {
+                    // Si el archivo es muy pesado o el backend rechaza, nos avisa con un Toast
+                    showToast('⚠ Hubo un problema: ' + resultado.error);
+                }
+            } catch (err) {
+                console.error(err);
+                // Si se cae el internet o falla el servidor, se activa tu excelente respaldo de WhatsApp
+                showToast('⚠ Error de red. Redirigiendo a WhatsApp...');
+                apoyoViaWhatsApp(nombre, tel, areas, desc, codigo);
+            } finally {
+                btn.textContent = 'Solicitar cotización →';
+                btn.disabled = false;
+            }
         });
 
-        document.getElementById('btnApoyoWA').addEventListener('click', function() {
+        // ── FUNCIONES INTACTAS (WHATSAPP, SUCCESS, RESET) ────────────────
+        document.getElementById('btnApoyoWA').addEventListener('click', function () {
             const nombre = document.getElementById('a-nombre').value || 'Estudiante';
             const tel = document.getElementById('a-tel').value || '';
             const areas = [...document.querySelectorAll('input[name="area"]:checked')].map(c => c.value);
@@ -1907,7 +1938,7 @@
         function apoyoViaWhatsApp(nombre, tel, areas, desc, codigo) {
             const lista = areas.length ? areas.join('\n• ') : '(sin especificar)';
             const msg = encodeURIComponent(
-                `¡Hola ZAHYO! Necesito apoyo académico.\n\nCódigo: ${codigo}\nNombre: ${nombre}\nTel: ${tel}\n\nÁreas:\n• ${lista}\n\nDescripción:\n${desc.substring(0,300)}...`
+                `¡Hola ZAHYO! Necesito apoyo académico.\n\nCódigo: ${codigo}\nNombre: ${nombre}\nTel: ${tel}\n\nÁreas:\n• ${lista}\n\nDescripción:\n${desc.substring(0, 300)}...`
             );
             window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
         }
