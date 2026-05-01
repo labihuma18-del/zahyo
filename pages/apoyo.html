@@ -1836,10 +1836,12 @@
         let tokenSeguridad = '';
         window.addEventListener('load', async function () {
             try {
-                const resp = await fetch(SHEETS_URL + '?action=token');
+                // Le agregamos "&t=" + Date.now() para romper la caché del navegador
+                // y obligarlo a pedir una llave fresca cada vez que se carga la página.
+                const resp = await fetch(SHEETS_URL + '?action=token&t=' + Date.now());
                 const data = await resp.json();
                 tokenSeguridad = data.token;
-                console.log("Sistema de seguridad en línea.");
+                console.log("Sistema de seguridad activado con llave nueva.");
             } catch (error) {
                 console.error("No se pudo conectar la seguridad.");
             }
