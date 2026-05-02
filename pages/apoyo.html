@@ -425,6 +425,7 @@
             gap: 5rem;
             align-items: center;
             margin-bottom: 5rem;
+           
         }
 
         .services-intro-text h2 {
@@ -451,11 +452,16 @@
         }
 
         .services-intro-img {
-            position: relative;
-            aspect-ratio: 4/3;
-            background: linear-gradient(160deg,#1a1510,#0d0a06);
-            border: 1px solid var(--glass-b);
-            overflow: hidden;
+                position: relative;
+                aspect-ratio: 4/3;
+                background: linear-gradient(160deg,#1a1510,#0d0a06);
+                background-size: cover; /* <-- Esta línea ajusta la imagen al recuadro */
+                background-position: center; /* <-- Esta línea centra la imagen */
+                border: 1px solid var(--glass-b);
+                overflow: hidden;
+
+        }
+        
         }
 
             .services-intro-img::before {
@@ -463,6 +469,7 @@
                 position: absolute;
                 inset: 0;
                 background: radial-gradient(ellipse at 40% 60%,rgba(196,113,58,.09),transparent 60%);
+                z-index:1;
             }
 
         /* CAROUSEL */
@@ -1587,13 +1594,14 @@
                     <h2>Todo lo que<br>necesitas para tu <em>proyecto</em></h2>
                     <p>Desde planos técnicos hasta maquetas y asesoramiento directo con arquitectos. Selecciona las áreas que necesitas y te enviamos una cotización personalizada en menos de 24 horas.</p>
                 </div>
-                <div class="services-intro-img" data-img="../img/apoyo-servicios.jpg">
+                <div class="services-intro-img" data-img="../img/apoyo-about.jpg">
                     <div class="photo-ph">
                         <div class="ph-icon">📷</div>
-                        <div class="ph-label">img/apoyo-servicios.jpg<br>Planos sobre mesa / trabajo de taller<br>800×600px</div>
+                        <div class="ph-label">../img/apoyo-about.jpg<br>Planos sobre mesa / trabajo de taller<br>800×600px</div>
                     </div>
                 </div>
             </div>
+
 
             <div class="services-grid reveal">
                 <!-- 01 PLANOS -->
